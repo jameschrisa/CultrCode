@@ -25,7 +25,7 @@
 CultrCode™ delivers precision audience intelligence through:
 - **Real-time Micro-Community Discovery**: Identify emerging 500-5K member communities before they scale
 - **Cultural Trend Prediction**: Spot viral trends 2-6 weeks before mainstream adoption
-- **Nano-Influencer Mapping**: Connect with authentic voices in untapped segments
+- **AI-Generated Personas**: Create detailed psychographic profiles from your segmentation data
 - **Behavioral Segmentation**: Pinpoint exact customer personas with 94% accuracy
 - **Mobile-First Analytics**: Access insights anywhere, optimize on-the-go
 
@@ -159,7 +159,7 @@ CultrCode™ delivers precision audience intelligence through:
 2. **Analysis**: AI scans 500M+ cultural data points in real-time
 3. **Discovery**: Identify 3-5 high-potential micro-communities
 4. **Insights**: Behavioral profiles, trend predictions, competitor gaps
-5. **Action**: Nano-influencer contacts, content strategies, launch timing
+5. **Action**: AI-generated personas, content strategies, launch timing
 
 ### Key Features Showcase:
 - **Trending Micro-Communities**: "Climate Optimists" growing 285%/month
