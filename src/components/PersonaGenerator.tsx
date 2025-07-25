@@ -670,36 +670,62 @@ export function PersonaGenerator() {
 
   return (
     <div className="space-y-8">
-      {/* Progress Bar */}
+      {/* Progress Header */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-primary-300">Step {currentStep + 1} of {steps.length}</span>
-          <span className="text-primary-300">{Math.round(((currentStep + 1) / steps.length) * 100)}% Complete</span>
-        </div>
-        
-        <div className="w-full bg-primary-800 rounded-full h-2">
-          <div 
-            className="bg-gradient-to-r from-accent-500 to-accent-400 h-2 rounded-full transition-all duration-500"
-            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-          />
-        </div>
-        
+        {/* Mobile-Optimized Current Step Display */}
         <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-accent-500/20 border-2 border-accent-400 rounded-full flex items-center justify-center">
+              <span className="text-accent-400 font-bold text-sm">{currentStep + 1}</span>
+            </div>
+            <div>
+              <h3 className="text-primary-50 font-semibold text-lg md:text-xl">
+                {steps[currentStep].title}
+              </h3>
+              <p className="text-primary-400 text-sm">
+                {steps[currentStep].description}
+              </p>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-primary-300 text-sm font-medium">
+              {currentStep + 1} of {steps.length}
+            </div>
+            <div className="text-accent-400 text-xs">
+              {Math.round(((currentStep + 1) / steps.length) * 100)}% Complete
+            </div>
+          </div>
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="w-full bg-primary-800 rounded-full h-3">
+          <div 
+            className="bg-gradient-to-r from-accent-500 to-accent-400 h-3 rounded-full transition-all duration-500 relative"
+            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+          >
+            <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-sm" />
+          </div>
+        </div>
+        
+        {/* Desktop Step Overview (Hidden on Mobile) */}
+        <div className="hidden lg:flex items-center justify-between pt-2">
           {steps.map((step, index) => (
             <div 
               key={step.id}
-              className={`flex items-center space-x-2 ${
+              className={`flex flex-col items-center space-y-1 flex-1 ${
                 index <= currentStep ? 'text-accent-400' : 'text-primary-500'
               }`}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                 index < currentStep ? 'bg-accent-400 text-white' :
-                index === currentStep ? 'bg-accent-500/20 border-2 border-accent-400 text-accent-400' :
+                index === currentStep ? 'bg-accent-500/20 border border-accent-400 text-accent-400' :
                 'bg-primary-700 text-primary-400'
               }`}>
                 {index < currentStep ? '✓' : index + 1}
               </div>
-              <span className="text-xs font-medium hidden md:block">{step.title}</span>
+              <span className="text-xs font-medium text-center max-w-[80px] leading-tight">
+                {step.title}
+              </span>
             </div>
           ))}
         </div>

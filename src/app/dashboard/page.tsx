@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, UserCheck, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin } from 'lucide-react'
+import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, UserCheck, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight } from 'lucide-react'
 import { HiSparkles } from 'react-icons/hi'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -391,15 +391,12 @@ function DashboardContent() {
           transition={{ delay: 0.1 }}
           className="mb-12"
         >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-primary-50">New Segments</h2>
-            <Button variant="outline" size="sm">
-              <Target className="w-4 h-4 mr-2" />
-              View All Segments
-            </Button>
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-primary-50 mb-2">Explore Your Audience</h2>
+            <p className="text-primary-400">Discover segments and communities to target for your next launch</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 name: "Digital Nomad Families",
@@ -510,8 +507,119 @@ function DashboardContent() {
               </motion.div>
             ))}
           </div>
+
+            {/* Navigation Cards */}
+            <div className="mt-8">
+              {/* Segments Navigation Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mb-6"
+              >
+                <Card className="glass-card hover:border-accent-500/50 transition-all duration-200 cursor-pointer group"
+                      onClick={() => window.location.href = '/segments'}>
+                  <CardContent className="p-8">
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 bg-accent-500/20 rounded-xl flex items-center justify-center group-hover:bg-accent-500/30 transition-colors">
+                          <Target className="w-8 h-8 text-accent-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-primary-50 mb-2">CultrCode Segments</h3>
+                          <p className="text-primary-300 text-sm">48 precision audience segments</p>
+                        </div>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-primary-500 group-hover:text-accent-400 transition-colors" />
+                    </div>
+                    
+                    <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                      Explore our comprehensive framework of audience segments built specifically for creator brands. 
+                      Discover your ideal customers across 4 tiers of engagement.
+                    </p>
+
+                    <div className="grid grid-cols-4 gap-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-red-400 mb-1">9</div>
+                        <div className="text-xs text-primary-500">Brand Evangelists</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-orange-400 mb-1">15</div>
+                        <div className="text-xs text-primary-500">Early Believers</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-400 mb-1">12</div>
+                        <div className="text-xs text-primary-500">Quality Seekers</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-purple-400 mb-1">12</div>
+                        <div className="text-xs text-primary-500">Micro-Segments</div>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" size="sm" className="w-full group-hover:border-accent-400 group-hover:text-accent-400">
+                      Explore All Segments
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Communities Navigation Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Card className="glass-card hover:border-brand-500/50 transition-all duration-200 cursor-pointer group"
+                      onClick={() => window.location.href = '/communities'}>
+                  <CardContent className="p-8">
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 bg-brand-500/20 rounded-xl flex items-center justify-center group-hover:bg-brand-500/30 transition-colors">
+                          <Users className="w-8 h-8 text-brand-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-primary-50 mb-2">Micro-Communities</h3>
+                          <p className="text-primary-300 text-sm">60+ niche communities</p>
+                        </div>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-primary-500 group-hover:text-brand-400 transition-colors" />
+                    </div>
+                    
+                    <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                      Discover where your audience naturally gathers. Find active communities across 8 major categories 
+                      with detailed engagement and growth metrics.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-400 mb-1">24</div>
+                        <div className="text-xs text-primary-500">Very High Engagement</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-accent-400 mb-1">18</div>
+                        <div className="text-xs text-primary-500">Exploding Growth</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-brand-400 mb-1">8</div>
+                        <div className="text-xs text-primary-500">Major Categories</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-purple-400 mb-1">50M+</div>
+                        <div className="text-xs text-primary-500">Total Members</div>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" size="sm" className="w-full group-hover:border-brand-400 group-hover:text-brand-400">
+                      Explore All Communities
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
         </motion.div>
 
+        
         {/* Emerging Trends */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -534,26 +642,26 @@ function DashboardContent() {
                 virality: "89",
                 growth: "+342%",
                 description: "Mindful walking without music or podcasts, focusing on present-moment awareness",
-                tags: ["Wellness", "Mindfulness", "Outdoor"],
-                status: "Viral",
+                tags: ["Wellness", "Mindfulness", "Urban"],
+                status: "Peak",
                 icon: <Footprints className="w-6 h-6" />
               },
               {
-                name: "Cozy Gaming",
+                name: "Micro-Dosing Productivity",
                 virality: "76",
-                growth: "+198%",
-                description: "Low-stress, atmospheric games focused on relaxation and comfort rather than competition",
-                tags: ["Gaming", "Wellness", "Lifestyle"],
-                status: "Rising",
-                icon: <Gamepad2 className="w-6 h-6" />
+                growth: "+198%", 
+                description: "Breaking work into 15-minute focused bursts for enhanced creativity and output",
+                tags: ["Productivity", "Work", "Focus"],
+                status: "Growing",
+                icon: <Clock className="w-6 h-6" />
               },
               {
-                name: "Micro-Seasons",
-                virality: "84",
+                name: "Regenerative Beauty",
+                virality: "83",
                 growth: "+267%",
-                description: "Capsule wardrobes aligned with subtle seasonal shifts rather than traditional fashion cycles",
-                tags: ["Fashion", "Sustainability", "Mindful"],
-                status: "Trending",
+                description: "Beauty products that actively restore skin barrier and environmental damage",
+                tags: ["Beauty", "Health", "Sustainability"],
+                status: "Emerging",
                 icon: <Leaf className="w-6 h-6" />
               }
             ].map((trend, index) => (
@@ -563,76 +671,71 @@ function DashboardContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.1 }}
               >
-                <Card className="border-0 hover:border-accent-500/30 transition-all group h-full">
+                <Card className="glass-card hover:border-accent-500/50 transition-all duration-200 cursor-pointer">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 bg-accent-500/20 rounded-full flex items-center justify-center text-accent-400">
-                        {trend.icon}
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                          {trend.icon}
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-primary-50 mb-1">{trend.name}</h3>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-sm text-accent-400">{trend.virality} virality</span>
+                            <span className="text-xs text-primary-400">•</span>
+                            <span className="text-sm text-success-400">{trend.growth}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-sm font-bold text-brand-400">{trend.virality} viral score</div>
-                        <div className="text-xs text-success-400">{trend.growth}</div>
-                      </div>
-                    </div>
-                    
-                    <div className="mb-3">
-                      <div className={`inline-flex px-2 py-1 rounded-full text-xs font-bold ${
-                        trend.status === 'Viral' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                        trend.status === 'Rising' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
-                        'bg-success-500/20 text-success-400 border border-success-500/30'
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        trend.status === 'Peak' ? 'bg-red-500/20 text-red-400' :
+                        trend.status === 'Growing' ? 'bg-orange-500/20 text-orange-400' :
+                        'bg-blue-500/20 text-blue-400'
                       }`}>
                         {trend.status}
-                      </div>
+                      </span>
                     </div>
                     
-                    <h3 className="font-bold text-primary-50 text-lg mb-3 group-hover:text-white transition-colors">
-                      {trend.name}
-                    </h3>
-                    
-                    <p className="text-sm text-primary-300 leading-relaxed mb-4 group-hover:text-primary-200 transition-colors">
+                    <p className="text-sm text-primary-300 mb-4 leading-relaxed">
                       {trend.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
                       {trend.tags.map((tag, tagIndex) => (
-                        <span
+                        <span 
                           key={tagIndex}
-                          className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded-md text-xs font-medium"
+                          className="text-xs px-2 py-1 bg-primary-700/50 text-primary-300 rounded"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                    
-                    {canAccessPremium() && (
-                      <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="flex-1 text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
-                          onClick={() => handleViewDetails(trend, 'trend')}
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          View Details
-                        </Button>
-                        <Button 
-                          variant={pinnedItems.trends.has(trend.name) ? "primary" : "outline"} 
-                          size="sm" 
-                          className="flex-1"
-                          onClick={() => handlePin(trend.name, 'trend')}
-                        >
-                          <Pin className={`w-4 h-4 mr-2 ${pinnedItems.trends.has(trend.name) ? 'fill-current' : ''}`} />
-                          {pinnedItems.trends.has(trend.name) ? 'Pinned' : 'Pin Trend'}
-                        </Button>
-                      </div>
-                    )}
-                    
-                    {!canAccessPremium() && (
-                      <Button variant="outline" size="sm" className="w-full">
-                        <Crown className="w-4 h-4 mr-2" />
-                        Unlock with Premium
+
+                    <div className="flex space-x-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => handleViewDetails({
+                          name: trend.name,
+                          description: trend.description,
+                          virality: trend.virality,
+                          growth: trend.growth,
+                          tags: trend.tags,
+                          icon: trend.icon
+                        }, 'trend')}
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View Details
                       </Button>
-                    )}
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handlePin(trend.name, 'trend')}
+                      >
+                        <BookmarkPlus className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -640,131 +743,17 @@ function DashboardContent() {
           </div>
         </motion.div>
 
-        {/* Trending Micro-Communities Feed */}
+        {/* Communities Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="mb-12"
         >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-primary-50">Trending Micro-Communities</h2>
-            <Button variant="outline" size="sm">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              View All Trends
-            </Button>
-          </div>
+          <h2 className="text-2xl font-bold text-primary-50 mb-6">Trending Micro-Communities Feed</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Goblincore Enthusiasts",
-                growth: "+425%",
-                members: "67K",
-                description: "Aesthetic celebrating nature's chaotic beauty, collecting shiny objects, and earthy vibes",
-                tags: ["Aesthetic", "Nature", "Collecting"],
-                status: "Emerging",
-                icon: <FlaskConical className="w-6 h-6" />
-              },
-              {
-                name: "AI Wellness Coaches",
-                growth: "+310%",
-                members: "43K",
-                description: "Tech-savvy wellness practitioners using AI to personalize mental health and fitness",
-                tags: ["Wellness", "AI", "Health"],
-                status: "Rising",
-                icon: <Bot className="w-6 h-6" />
-              },
-              {
-                name: "Climate Optimists",
-                growth: "+285%",
-                members: "52K",
-                description: "Solution-focused environmental advocates promoting positive climate action and innovation",
-                tags: ["Environment", "Innovation", "Optimism"],
-                status: "Trending",
-                icon: <Sprout className="w-6 h-6" />
-              }
-            ].map((community, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
-              >
-                <Card className="border-0 hover:border-accent-500/30 transition-all group h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 bg-accent-500/20 rounded-full flex items-center justify-center text-accent-400">
-                        {community.icon}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm font-bold text-success-400">{community.growth}</div>
-                        <div className="text-xs text-primary-400">{community.members} members</div>
-                      </div>
-                    </div>
-                    
-                    <div className="mb-3">
-                      <div className={`inline-flex px-2 py-1 rounded-full text-xs font-bold ${
-                        community.status === 'Emerging' ? 'bg-accent-500/20 text-accent-400 border border-accent-500/30' :
-                        community.status === 'Rising' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
-                        'bg-success-500/20 text-success-400 border border-success-500/30'
-                      }`}>
-                        {community.status}
-                      </div>
-                    </div>
-                    
-                    <h3 className="font-bold text-primary-50 text-lg mb-3 group-hover:text-white transition-colors">
-                      {community.name}
-                    </h3>
-                    
-                    <p className="text-sm text-primary-300 leading-relaxed mb-4 group-hover:text-primary-200 transition-colors">
-                      {community.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {community.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded-md text-xs font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    {canAccessPremium() && (
-                      <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="flex-1 text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
-                          onClick={() => handleViewDetails(community, 'community')}
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          View Details
-                        </Button>
-                        <Button 
-                          variant={pinnedItems.communities.has(community.name) ? "primary" : "outline"} 
-                          size="sm" 
-                          className="flex-1"
-                          onClick={() => handlePin(community.name, 'community')}
-                        >
-                          <Pin className={`w-4 h-4 mr-2 ${pinnedItems.communities.has(community.name) ? 'fill-current' : ''}`} />
-                          {pinnedItems.communities.has(community.name) ? 'Pinned' : 'Pin'}
-                        </Button>
-                      </div>
-                    )}
-                    
-                    {!canAccessPremium() && (
-                      <Button variant="outline" size="sm" className="w-full">
-                        <Crown className="w-4 h-4 mr-2" />
-                        Unlock with Premium
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="text-center py-8">
+            <p className="text-primary-400">Communities content coming soon...</p>
           </div>
         </motion.div>
 
@@ -777,24 +766,22 @@ function DashboardContent() {
           <h2 className="text-2xl font-bold text-primary-50 mb-6">Saved Reports</h2>
           
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-              <p className="text-primary-300">Loading your reports...</p>
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin w-6 h-6 border-2 border-accent-500 border-t-transparent rounded-full"></div>
             </div>
           ) : savedReports.length === 0 ? (
-            <Card className="border-0">
-              <CardContent className="p-12 text-center">
-                <BookmarkPlus className="w-16 h-16 text-primary-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-primary-50 mb-2">No saved reports yet</h3>
-                <p className="text-primary-300 mb-6">
-                  Start by creating a segment analysis and save your favorite reports for easy access.
-                </p>
-                <Button
-                  variant="primary"
+            <Card className="glass-card">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Activity className="w-8 h-8 text-primary-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-primary-300 mb-2">No Reports Yet</h3>
+                <p className="text-primary-500 mb-4">Start by generating your first audience analysis report</p>
+                <Button 
+                  variant="outline"
                   onClick={() => window.location.href = '/analysis'}
                 >
-                  <Target className="w-4 h-4 mr-2" />
-                  Create First Analysis
+                  Generate Report
                 </Button>
               </CardContent>
             </Card>
@@ -807,44 +794,37 @@ function DashboardContent() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="border-0 hover:border-accent-500/30 transition-all group">
+                  <Card className="glass-card hover:border-accent-500/50 transition-all duration-200">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <div className={`px-3 py-1 rounded-xl text-xs font-bold border ${getReportTypeColor(report.reportType)}`}>
-                              {report.reportType === 'premium' ? 'Premium' : 'Basic'} Report
+                            <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                              report.type === 'premium' 
+                                ? 'bg-accent-500/20 text-accent-400 border-accent-500/30'
+                                : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+                            }`}>
+                              {report.type === 'premium' ? 'Premium' : 'Basic'}
                             </div>
-                            <div className={`text-2xl font-bold ${getMatchScoreColor(report.segmentMatch.matchScore)}`}>
-                              {formatPercentage(report.segmentMatch.matchScore)} match
-                            </div>
+                            <span className="text-xs text-primary-400">
+                              {formatDate(report.createdAt)}
+                            </span>
                           </div>
                           
-                          <h3 className="text-xl font-bold text-primary-50 mb-2 group-hover:text-white transition-colors">
-                            {report.segmentMatch.segment.name}
+                          <h3 className="text-lg font-semibold text-primary-50 mb-2">
+                            Analysis Report
                           </h3>
                           
-                          <p className="text-primary-300 mb-4 leading-relaxed">
-                            {report.description}
-                          </p>
-                          
-                          <div className="flex items-center space-x-6 text-sm text-primary-400">
-                            <div className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-2" />
-                              {formatDate(report.createdAt)}
-                            </div>
-                            <div className="flex items-center">
-                              <Users className="w-4 h-4 mr-2" />
-                              Ages {report.segmentMatch.segment.ageMin}-{report.segmentMatch.segment.ageMax}
-                            </div>
-                            <div className="flex items-center">
-                              <Target className="w-4 h-4 mr-2" />
-                              {report.segmentMatch.segment.tier} Tier
-                            </div>
+                          <div className="flex items-center space-x-4 text-sm text-primary-300 mb-4">
+                            <span>Top Match: <span className="text-success-400 font-medium">92%</span></span>
+                            <span>•</span>
+                            <span>
+                              {Array.isArray(report.data?.segments) ? report.data.segments.length : 0} segments analyzed
+                            </span>
                           </div>
                         </div>
                         
-                        <div className="flex items-center space-x-2 ml-6">
+                        <div className="flex space-x-2">
                           <Button
                             variant="outline"
                             size="sm"
@@ -854,10 +834,10 @@ function DashboardContent() {
                             View
                           </Button>
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
                             onClick={() => deleteReport(report.id)}
-                            className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                            className="text-red-400 border-red-500/30 hover:bg-red-500/10"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -879,8 +859,8 @@ function DashboardContent() {
             transition={{ delay: 0.3 }}
             className="mt-8"
           >
-            <ReportManagement 
-              reports={savedReports} 
+            <ReportManagement
+              reports={savedReports}
               onReportsUpdated={loadSavedReports}
             />
           </motion.div>
@@ -898,24 +878,17 @@ function DashboardContent() {
       {/* Card Details Modal */}
       {selectedCard && (
         <CardDetailsModal
-          isOpen={!!selectedCard}
+          card={selectedCard}
           onClose={() => setSelectedCard(null)}
-          data={selectedCard}
-          onPin={() => handlePin(selectedCard.name, selectedCard.type)}
-          isPinned={
-            selectedCard.type === 'segment' ? pinnedItems.segments.has(selectedCard.name) :
-            selectedCard.type === 'trend' ? pinnedItems.trends.has(selectedCard.name) :
-            pinnedItems.communities.has(selectedCard.name)
-          }
         />
       )}
     </div>
   )
 }
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
-    <ProtectedRoute requireAuth={true}>
+    <ProtectedRoute>
       <DashboardContent />
     </ProtectedRoute>
   )

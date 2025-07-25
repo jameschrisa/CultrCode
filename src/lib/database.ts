@@ -1,4 +1,4 @@
-// LaunchLens Database Connection and Utilities
+// CultrCode Database Connection and Utilities
 // SQLite database integration for micro-communities registry
 
 import sqlite3 from 'sqlite3'

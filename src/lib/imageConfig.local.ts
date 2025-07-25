@@ -1,4 +1,4 @@
-// Example: Local image configuration for LaunchLens
+// Example: Local image configuration for CultrCode
 // Copy this to imageConfig.ts if you want to use local images instead of Unsplash
 
 export const imageConfig = {

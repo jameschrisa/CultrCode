@@ -1,4 +1,4 @@
-// Image configuration for LaunchLens
+// Image configuration for CultrCode
 // Using simple PNG filenames - just drop your images in /public/images/
 
 export const imageConfig = {
