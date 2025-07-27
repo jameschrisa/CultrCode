@@ -33,7 +33,7 @@ export default function GeneratePersonaPage() {
               className="space-y-6"
             >
               {/* Back Navigation */}
-              <Link href="/solutions/personas">
+              <Link href="/personas">
                 <Button variant="outline" size="sm" className="mb-4">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Personas

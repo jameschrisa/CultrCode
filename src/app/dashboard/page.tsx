@@ -510,27 +510,36 @@ function DashboardContent() {
 
             {/* Navigation Cards */}
             <div className="mt-8">
-              {/* Segments Navigation Card */}
+              {/* Segments Navigation Card - Enhanced Macro Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-6"
+                className="mb-8"
               >
-                <Card className="glass-card hover:border-accent-500/50 transition-all duration-200 cursor-pointer group"
+                <Card className="glass-card hover:border-accent-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-accent-500/10 border-2 border-accent-500/20"
                       onClick={() => window.location.href = '/segments'}>
-                  <CardContent className="p-8">
+                  {/* Enhanced gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent-500/8 via-transparent to-accent-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-500/5 to-transparent opacity-50" />
+                  
+                  <CardContent className="p-10 relative z-10">
                     <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-accent-500/20 rounded-xl flex items-center justify-center group-hover:bg-accent-500/30 transition-colors">
-                          <Target className="w-8 h-8 text-accent-400" />
+                      <div className="flex items-center space-x-5">
+                        <div className="w-20 h-20 bg-gradient-to-br from-accent-500/25 to-accent-600/30 rounded-xl flex items-center justify-center group-hover:from-accent-500/35 group-hover:to-accent-600/40 transition-all duration-300 shadow-lg">
+                          <Target className="w-10 h-10 text-accent-300 group-hover:text-accent-200 transition-colors duration-300" />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-primary-50 mb-2">CultrCode Segments</h3>
-                          <p className="text-primary-300 text-sm">48 precision audience segments</p>
+                          <div className="flex items-center space-x-2 mb-1">
+                            <h3 className="text-2xl font-bold text-primary-50 group-hover:text-accent-100 transition-colors duration-300">CultrCode Segments</h3>
+                            <div className="px-2 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full">
+                              <span className="text-xs font-medium text-accent-300">CORE</span>
+                            </div>
+                          </div>
+                          <p className="text-primary-300 text-base font-medium">48 precision audience segments</p>
                         </div>
                       </div>
-                      <ArrowUpRight className="w-5 h-5 text-primary-500 group-hover:text-accent-400 transition-colors" />
+                      <ArrowUpRight className="w-6 h-6 text-primary-500 group-hover:text-accent-300 group-hover:scale-110 transition-all duration-300" />
                     </div>
                     
                     <p className="text-primary-400 text-sm mb-6 leading-relaxed">
@@ -557,33 +566,43 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="sm" className="w-full group-hover:border-accent-400 group-hover:text-accent-400">
-                      Explore All Segments
+                    <Button variant="outline" size="lg" className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold">
+                      Explore All Segments →
                     </Button>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Communities Navigation Card */}
+              {/* Communities Navigation Card - Enhanced Macro Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
+                className="mb-8"
               >
-                <Card className="glass-card hover:border-brand-500/50 transition-all duration-200 cursor-pointer group"
+                <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border-2 border-brand-500/20"
                       onClick={() => window.location.href = '/communities'}>
-                  <CardContent className="p-8">
+                  {/* Enhanced gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-500/8 via-transparent to-brand-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-500/5 to-transparent opacity-50" />
+                  
+                  <CardContent className="p-10 relative z-10">
                     <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-brand-500/20 rounded-xl flex items-center justify-center group-hover:bg-brand-500/30 transition-colors">
-                          <Users className="w-8 h-8 text-brand-400" />
+                      <div className="flex items-center space-x-5">
+                        <div className="w-20 h-20 bg-gradient-to-br from-brand-500/25 to-brand-600/30 rounded-xl flex items-center justify-center group-hover:from-brand-500/35 group-hover:to-brand-600/40 transition-all duration-300 shadow-lg">
+                          <Users className="w-10 h-10 text-brand-300 group-hover:text-brand-200 transition-colors duration-300" />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-primary-50 mb-2">Micro-Communities</h3>
-                          <p className="text-primary-300 text-sm">60+ niche communities</p>
+                          <div className="flex items-center space-x-2 mb-1">
+                            <h3 className="text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300">Micro-Communities</h3>
+                            <div className="px-2 py-1 bg-brand-500/20 border border-brand-500/30 rounded-full">
+                              <span className="text-xs font-medium text-brand-300">PREMIUM</span>
+                            </div>
+                          </div>
+                          <p className="text-primary-300 text-base font-medium">135+ niche communities</p>
                         </div>
                       </div>
-                      <ArrowUpRight className="w-5 h-5 text-primary-500 group-hover:text-brand-400 transition-colors" />
+                      <ArrowUpRight className="w-6 h-6 text-primary-500 group-hover:text-brand-300 group-hover:scale-110 transition-all duration-300" />
                     </div>
                     
                     <p className="text-primary-400 text-sm mb-6 leading-relaxed">
@@ -610,8 +629,8 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="sm" className="w-full group-hover:border-brand-400 group-hover:text-brand-400">
-                      Explore All Communities
+                    <Button variant="outline" size="lg" className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold">
+                      Explore All Communities →
                     </Button>
                   </CardContent>
                 </Card>

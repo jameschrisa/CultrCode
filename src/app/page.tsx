@@ -471,7 +471,12 @@ export default function Home() {
                   </div>
 
                   <div className="text-center">
-                    <Button variant="outline" size="lg" className="px-12">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="px-12"
+                      onClick={() => window.location.href = '/solutions'}
+                    >
                       <HiSparkles className="w-5 h-5 mr-2" />
                       View All Solutions
                     </Button>

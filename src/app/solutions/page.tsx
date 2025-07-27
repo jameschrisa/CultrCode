@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface Solution {
   id: string
@@ -20,6 +21,7 @@ interface Solution {
   benefits: string[]
   tools: string[]
   color: string
+  route: string
   features: {
     name: string
     description: string
@@ -27,7 +29,18 @@ interface Solution {
 }
 
 function SolutionsContent() {
+  const { canAccessPremium } = useAuth()
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null)
+
+  const handleSolutionAction = (solution: Solution) => {
+    if (canAccessPremium()) {
+      // Premium users go directly to the tool
+      window.location.href = solution.route
+    } else {
+      // Non-premium users see the informational modal
+      setSelectedSolution(solution)
+    }
+  }
 
   const solutions: Solution[] = [
     {
@@ -36,6 +49,7 @@ function SolutionsContent() {
       description: 'Discover untapped audience segments and understand exactly who will buy your product before you launch.',
       icon: Target,
       color: 'accent',
+      route: '/segments',
       benefits: [
         'Identify 48+ precision audience segments',
         'Understand psychographic profiles & buying behavior',
@@ -64,8 +78,9 @@ function SolutionsContent() {
       description: 'Find exactly where your ideal customers gather online and how to reach them effectively.',
       icon: Users,
       color: 'brand',
+      route: '/communities',
       benefits: [
-        'Map 60+ micro-communities across 8 categories',
+        'Map 135+ micro-communities across 8 categories',
         'Track engagement levels & growth trends',
         'Identify high-value community opportunities',
         'Increase organic reach by 300%'
@@ -74,7 +89,7 @@ function SolutionsContent() {
       features: [
         {
           name: 'Community Database',
-          description: '60+ mapped micro-communities with size estimates and engagement data'
+          description: '135+ mapped micro-communities with size estimates and engagement data'
         },
         {
           name: 'Growth Trends',
@@ -92,6 +107,7 @@ function SolutionsContent() {
       description: 'Validate product-market fit before building and identify the highest-value market opportunities.',
       icon: BarChart3,
       color: 'success',
+      route: '/dashboard',
       benefits: [
         'Validate ideas with real audience data',
         'Identify market gaps & opportunities',
@@ -120,6 +136,7 @@ function SolutionsContent() {
       description: 'Execute data-driven launches that connect with the right audience at the perfect moment.',
       icon: Rocket,
       color: 'purple',
+      route: '/dashboard',
       benefits: [
         'Optimize launch timing & messaging',
         'Target highest-converting segments first',
@@ -364,10 +381,10 @@ function SolutionsContent() {
                       <Button 
                         variant="outline" 
                         className="w-full"
-                        onClick={() => setSelectedSolution(solution)}
+                        onClick={() => handleSolutionAction(solution)}
                       >
                         <Search className="w-4 h-4 mr-2" />
-                        View Details
+                        {canAccessPremium() ? 'Open Tool' : 'View Details'}
                       </Button>
                     </div>
                   </CardContent>
@@ -431,11 +448,20 @@ function SolutionsContent() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="px-8">
+                <Button 
+                  size="lg" 
+                  className="px-8"
+                  onClick={() => window.location.href = canAccessPremium() ? '/segments' : '/auth/login'}
+                >
                   <Rocket className="w-5 h-5 mr-2" />
-                  Start Free Analysis
+                  {canAccessPremium() ? 'Go to Segments' : 'Start Free Analysis'}
                 </Button>
-                <Button variant="outline" size="lg" className="px-8">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="px-8"
+                  onClick={() => window.location.href = '/dashboard'}
+                >
                   <Globe className="w-5 h-5 mr-2" />
                   View Dashboard
                 </Button>
@@ -519,13 +545,27 @@ function SolutionsContent() {
 
               <div className="mt-8 pt-6 border-t border-primary-700">
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="flex-1">
+                  <Button 
+                    className="flex-1"
+                    onClick={() => {
+                      if (canAccessPremium()) {
+                        window.location.href = selectedSolution.route
+                      } else {
+                        // Redirect to signup/upgrade page
+                        window.location.href = '/auth/login'
+                      }
+                    }}
+                  >
                     <Zap className="w-4 h-4 mr-2" />
-                    Try This Solution
+                    {canAccessPremium() ? 'Open Tool' : 'Get Access'}
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => setSelectedSolution(null)}
+                  >
                     <Heart className="w-4 h-4 mr-2" />
-                    Learn More
+                    Close
                   </Button>
                 </div>
               </div>

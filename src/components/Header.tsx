@@ -76,38 +76,38 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
   
   const solutions = [
     {
-      name: 'Segmentation Analysis',
-      description: 'AI-powered audience segmentation for creator brands',
+      name: 'CultrCode Segments',
+      description: '48 precision audience segments for creator brands',
       icon: <Target className="w-5 h-5" />,
-      href: isAuthenticated && isPremiumUser ? '/advanced-segmentation' : '/solutions/segmentation',
-      badge: isPremiumUser ? 'Enabled' : 'Free'
-    },
-    {
-      name: 'Trend Tracking',
-      description: 'Real-time cultural movement and trend intelligence',
-      icon: <TrendingUp className="w-5 h-5" />,
-      href: '/solutions/trends',
-      badge: isPremiumUser ? 'Enabled' : 'Premium'
+      href: isPremiumUser ? '/segments' : '/solutions',
+      badge: isPremiumUser ? 'Active' : 'Free'
     },
     {
       name: 'Micro-Communities',
-      description: 'Discover 100+ emerging subcultural movements',
-      icon: <HiSparkles className="w-5 h-5" />,
-      href: '/solutions/communities',
-      badge: isPremiumUser ? 'Enabled' : 'Premium'
+      description: 'Discover 135+ niche communities across 8 categories',
+      icon: <Users className="w-5 h-5" />,
+      href: isPremiumUser ? '/communities' : '/solutions',
+      badge: isPremiumUser ? 'Active' : 'Premium'
     },
     {
       name: 'Generated Personas',
       description: 'AI-powered psychographic personas from your audience data',
       icon: <Star className="w-5 h-5" />,
-      href: '/solutions/personas',
-      badge: isPremiumUser ? 'Enabled' : 'Premium'
+      href: isPremiumUser ? '/personas' : '/solutions',
+      badge: isPremiumUser ? 'Active' : 'Premium'
+    },
+    {
+      name: 'Emerging Trends Tracker',
+      description: 'Real-time cultural movement and trend intelligence',
+      icon: <TrendingUp className="w-5 h-5" />,
+      href: isPremiumUser ? '/trends' : '/solutions',
+      badge: isPremiumUser ? 'Active' : 'Premium'
     },
     {
       name: 'Hyperlocal Analysis',
       description: 'Geographic targeting with ZIP code precision',
       icon: <MapPin className="w-5 h-5" />,
-      href: '/solutions/hyperlocal',
+      href: '/solutions',
       badge: 'Coming Soon'
     }
   ]
@@ -167,9 +167,20 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               exit={{ opacity: 0, height: 0 }}
               className="glass-card border-t border-white/10 p-4 space-y-3"
             >
-              {/* Mobile Solutions */}
+              {/* Mobile Dashboard for Premium Users */}
+              {isPremiumUser && (
+                <Link href="/dashboard">
+                  <Button variant="ghost" size="sm" className="w-full justify-start">
+                    Dashboard
+                  </Button>
+                </Link>
+              )}
+              
+              {/* Mobile Solutions/Tools */}
               <div className="space-y-2">
-                <div className="text-sm font-medium text-primary-300 px-3 py-2">Solutions</div>
+                <div className="text-sm font-medium text-primary-300 px-3 py-2">
+                  {isPremiumUser ? 'Tools' : 'Solutions'}
+                </div>
                 {solutions.map((solution, index) => (
                   <Link key={index} href={solution.href}>
                     <Button variant="ghost" size="sm" className="w-full justify-start pl-6">
@@ -178,7 +189,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                         <span>{solution.name}</span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           solution.badge === 'Free' ? 'bg-success-500/20 text-success-400' :
-                          solution.badge === 'Enabled' ? 'bg-blue-500/20 text-blue-400' :
+                          solution.badge === 'Active' ? 'bg-green-500/20 text-green-400' :
                           solution.badge === 'Premium' ? 'bg-accent-500/20 text-accent-400' :
                           'bg-orange-500/20 text-orange-400'
                         }`}>
@@ -244,7 +255,14 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               </div>
             </div>
             <nav className="flex items-center space-x-8">
-              {/* Solutions Dropdown */}
+              {/* Dashboard Link for Premium Users */}
+              {isPremiumUser && (
+                <Link href="/dashboard" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
+                  Dashboard
+                </Link>
+              )}
+              
+              {/* Solutions/Tools Dropdown */}
               <div className="relative"
                    onMouseEnter={handleMouseEnter}
                    onMouseLeave={handleMouseLeave}>
@@ -252,7 +270,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                   ref={buttonRef}
                   className="flex items-center text-primary-300 hover:text-accent-300 transition-colors font-medium"
                 >
-                  Solutions
+                  {isPremiumUser ? 'Tools' : 'Solutions'}
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
               </div>
@@ -287,7 +305,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                                     </h4>
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                       solution.badge === 'Free' ? 'bg-success-500/20 text-success-400' :
-                                      solution.badge === 'Enabled' ? 'bg-blue-500/20 text-blue-400' :
+                                      solution.badge === 'Active' ? 'bg-green-500/20 text-green-400' :
                                       solution.badge === 'Premium' ? 'bg-accent-500/20 text-accent-400' :
                                       'bg-orange-500/20 text-orange-400'
                                     }`}>

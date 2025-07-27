@@ -181,10 +181,10 @@ export default function PersonasPage() {
                   </Button>
                 </Link>
               ) : (
-                <Link href="/generate-persona">
+                <Link href="/personas">
                   <Button size="xl" className="px-12">
                     <Brain className="w-5 h-5 mr-2" />
-                    Generate New Persona
+                    View Personas
                   </Button>
                 </Link>
               )}
@@ -329,10 +329,10 @@ export default function PersonasPage() {
               <p className="text-primary-300 mb-8">
                 Try adjusting your search criteria or generate new personas from your audience data.
               </p>
-              <Link href="/generate-persona">
+              <Link href="/personas">
                 <Button>
                   <Brain className="w-4 h-4 mr-2" />
-                  Generate New Personas
+                  View Personas
                 </Button>
               </Link>
             </motion.div>
@@ -474,10 +474,10 @@ export default function PersonasPage() {
                       </Button>
                     </Link>
                   ) : (
-                    <Link href="/generate-persona">
+                    <Link href="/personas">
                       <Button size="xl" className="px-12">
                         <Brain className="w-5 h-5 mr-2" />
-                        Generate Your First Persona
+                        View Personas
                       </Button>
                     </Link>
                   )}

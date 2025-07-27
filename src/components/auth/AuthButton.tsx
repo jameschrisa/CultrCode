@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
-import { LogIn, LogOut, User, Crown, Settings, BarChart3, Target } from 'lucide-react'
+import { LogIn, LogOut, User, Crown, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/contexts/AuthContext'
 import Link from 'next/link'
@@ -119,26 +119,6 @@ export function AuthButton() {
                     Premium Access Active
                   </div>
                 </div>
-              )}
-
-              {/* Dashboard Link */}
-              {(user?.subscriptionTier === 'pro' || user?.subscriptionTier === 'enterprise' || isAdmin()) && (
-                <Link href="/dashboard">
-                  <Button variant="ghost" size="sm" className="w-full justify-start mb-1">
-                    <BarChart3 className="w-4 h-4 mr-2" />
-                    Dashboard
-                  </Button>
-                </Link>
-              )}
-
-              {/* Advanced Segmentation Link */}
-              {canAccessPremium() && (
-                <Link href="/advanced-segmentation">
-                  <Button variant="ghost" size="sm" className="w-full justify-start mb-1">
-                    <Target className="w-4 h-4 mr-2" />
-                    Advanced Segmentation
-                  </Button>
-                </Link>
               )}
 
               {isAdmin() && (
