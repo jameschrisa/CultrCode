@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, UserCheck, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight } from 'lucide-react'
+import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, UserCheck, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight, Brain } from 'lucide-react'
 import { HiSparkles } from 'react-icons/hi'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
+import { Tag } from '@/components/ui/Tag'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuth } from '@/contexts/AuthContext'
@@ -22,6 +23,7 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true)
   const [viewingReport, setViewingReport] = useState<SavedReport | null>(null)
   const [selectedCard, setSelectedCard] = useState<any>(null)
+  const [savedPersonasCount, setSavedPersonasCount] = useState(1) // Mock count for saved personas
   const [pinnedItems, setPinnedItems] = useState<{
     segments: Set<string>
     trends: Set<string>
@@ -307,16 +309,16 @@ function DashboardContent() {
               </CardContent>
             </Card>
             
-            <Card className="border-0">
+            <Card className="border-0 cursor-pointer hover:border-accent-500/30 transition-all duration-200" onClick={() => window.location.href = '/personas'}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-primary-400 text-sm font-medium">Premium Reports</p>
+                    <p className="text-primary-400 text-sm font-medium">Saved Personas</p>
                     <p className="text-3xl font-bold text-primary-50">
-                      {savedReports.filter(r => r.reportType === 'premium').length}
+                      {savedPersonasCount}
                     </p>
                   </div>
-                  <Crown className="w-8 h-8 text-accent-400" />
+                  <Brain className="w-8 h-8 text-accent-400" />
                 </div>
               </CardContent>
             </Card>
@@ -593,12 +595,8 @@ function DashboardContent() {
                           <Users className="w-10 h-10 text-brand-300 group-hover:text-brand-200 transition-colors duration-300" />
                         </div>
                         <div>
-                          <div className="flex items-center space-x-2 mb-1">
-                            <h3 className="text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300">Micro-Communities</h3>
-                            <div className="px-2 py-1 bg-brand-500/20 border border-brand-500/30 rounded-full">
-                              <span className="text-xs font-medium text-brand-300">PREMIUM</span>
-                            </div>
-                          </div>
+                          <h3 className="text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300 mb-2">Micro-Communities</h3>
+                          <Tag variant="primary" size="sm">PREMIUM</Tag>
                           <p className="text-primary-300 text-base font-medium">135+ niche communities</p>
                         </div>
                       </div>
@@ -819,11 +817,11 @@ function DashboardContent() {
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
                             <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                              report.type === 'premium' 
+                              report.reportType === 'premium' 
                                 ? 'bg-accent-500/20 text-accent-400 border-accent-500/30'
                                 : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
                             }`}>
-                              {report.type === 'premium' ? 'Premium' : 'Basic'}
+                              {report.reportType === 'premium' ? 'Premium' : 'Basic'}
                             </div>
                             <span className="text-xs text-primary-400">
                               {formatDate(report.createdAt)}
@@ -838,7 +836,7 @@ function DashboardContent() {
                             <span>Top Match: <span className="text-success-400 font-medium">92%</span></span>
                             <span>•</span>
                             <span>
-                              {Array.isArray(report.data?.segments) ? report.data.segments.length : 0} segments analyzed
+                              {report.segmentMatch ? 1 : 0} segments analyzed
                             </span>
                           </div>
                         </div>
@@ -897,8 +895,19 @@ function DashboardContent() {
       {/* Card Details Modal */}
       {selectedCard && (
         <CardDetailsModal
-          card={selectedCard}
+          isOpen={true}
+          data={selectedCard}
           onClose={() => setSelectedCard(null)}
+          onPin={() => {
+            const cardType = selectedCard.type === 'segment' ? 'segments' : 
+                           selectedCard.type === 'trend' ? 'trends' : 'communities'
+            handlePin(selectedCard.name, selectedCard.type)
+          }}
+          isPinned={
+            selectedCard.type === 'segment' ? pinnedItems.segments.has(selectedCard.name) :
+            selectedCard.type === 'trend' ? pinnedItems.trends.has(selectedCard.name) :
+            pinnedItems.communities.has(selectedCard.name)
+          }
         />
       )}
     </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { HeroUIProvider } from '@heroui/react'
 import './globals.css'
 
 const inter = Inter({ 
@@ -67,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} dark`}>
       <head>
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -80,9 +81,11 @@ export default function RootLayout({
         <link rel="preload" href="/images/hero.png" as="image" type="image/png" />
       </head>
       <body className={`${inter.className} antialiased mobile-safe-area custom-scrollbar`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <HeroUIProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </HeroUIProvider>
       </body>
     </html>
   )

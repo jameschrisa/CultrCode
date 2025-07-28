@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Target, Users, TrendingUp, Search, Filter, Eye, BookmarkPlus, ArrowUpRight, Star } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
+import { Tag } from '@/components/ui/Tag'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { expandedSegments, tierMapping } from '@/data/expanded_segments'
@@ -184,15 +185,23 @@ function SegmentsContent() {
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-2">
-                              <span className={`text-xs font-bold px-2 py-1 rounded border ${getTierColor(segment.tier)}`}>
-                                {segment.code}
-                              </span>
-                              <span className="text-xs text-primary-500">{segment.lifestyle}</span>
-                            </div>
-                            <CardTitle className="text-lg text-primary-50 leading-tight">
+                            <CardTitle className="text-lg text-primary-50 leading-tight mb-3">
                               {segment.name}
                             </CardTitle>
+                            <div className="flex flex-col space-y-2">
+                              <Tag 
+                                variant={
+                                  segment.tier === 'TIER1' ? 'danger' :
+                                  segment.tier === 'TIER2' ? 'warning' :
+                                  segment.tier === 'TIER3' ? 'primary' :
+                                  'secondary'
+                                }
+                                size="sm"
+                              >
+                                {segment.code}
+                              </Tag>
+                              <span className="text-xs text-primary-500">{segment.lifestyle}</span>
+                            </div>
                           </div>
                         </div>
                       </CardHeader>
@@ -286,14 +295,22 @@ function SegmentsContent() {
             <div className="p-6">
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className={`text-xs font-bold px-2 py-1 rounded border ${getTierColor(selectedSegment.tier)}`}>
+                  <h2 className="text-2xl font-bold text-primary-50 mb-3">{selectedSegment.name}</h2>
+                  <p className="text-accent-400 mb-3">{tierMapping[selectedSegment.tier as keyof typeof tierMapping]?.name}</p>
+                  <div className="flex flex-col space-y-2">
+                    <Tag 
+                      variant={
+                        selectedSegment.tier === 'TIER1' ? 'danger' :
+                        selectedSegment.tier === 'TIER2' ? 'warning' :
+                        selectedSegment.tier === 'TIER3' ? 'primary' :
+                        'secondary'
+                      }
+                      size="md"
+                    >
                       {selectedSegment.code}
-                    </span>
+                    </Tag>
                     <span className="text-xs text-primary-500">{selectedSegment.lifestyle}</span>
                   </div>
-                  <h2 className="text-2xl font-bold text-primary-50">{selectedSegment.name}</h2>
-                  <p className="text-accent-400">{tierMapping[selectedSegment.tier as keyof typeof tierMapping]?.name}</p>
                 </div>
                 <Button
                   variant="outline"
@@ -337,22 +354,22 @@ function SegmentsContent() {
                       <div>
                         <div className="text-primary-400 mb-1">Digital Behavior:</div>
                         <div className="flex items-center space-x-2">
-                          <span>{digitalBehaviorMapping[selectedSegment.digitalBehavior]?.icon}</span>
-                          <span className="text-primary-200">{digitalBehaviorMapping[selectedSegment.digitalBehavior]?.name}</span>
+                          <span>{digitalBehaviorMapping[selectedSegment.digitalBehavior as keyof typeof digitalBehaviorMapping]?.icon}</span>
+                          <span className="text-primary-200">{digitalBehaviorMapping[selectedSegment.digitalBehavior as keyof typeof digitalBehaviorMapping]?.name}</span>
                         </div>
                         <div className="text-xs text-primary-500 mt-1">
-                          {digitalBehaviorMapping[selectedSegment.digitalBehavior]?.description}
+                          {digitalBehaviorMapping[selectedSegment.digitalBehavior as keyof typeof digitalBehaviorMapping]?.description}
                         </div>
                       </div>
                       
                       <div>
                         <div className="text-primary-400 mb-1">Values Driver:</div>
                         <div className="flex items-center space-x-2">
-                          <span>{valuesDriverMapping[selectedSegment.valuesDriver]?.icon}</span>
-                          <span className="text-primary-200">{valuesDriverMapping[selectedSegment.valuesDriver]?.name}</span>
+                          <span>{valuesDriverMapping[selectedSegment.valuesDriver as keyof typeof valuesDriverMapping]?.icon}</span>
+                          <span className="text-primary-200">{valuesDriverMapping[selectedSegment.valuesDriver as keyof typeof valuesDriverMapping]?.name}</span>
                         </div>
                         <div className="text-xs text-primary-500 mt-1">
-                          {valuesDriverMapping[selectedSegment.valuesDriver]?.description}
+                          {valuesDriverMapping[selectedSegment.valuesDriver as keyof typeof valuesDriverMapping]?.description}
                         </div>
                       </div>
                     </div>

@@ -7,7 +7,7 @@ export interface Segment {
   id: string;
   code: string;
   name: string;
-  tier: 'TIER1' | 'TIER2' | 'TIER3';
+  tier: 'TIER1' | 'TIER2' | 'TIER3' | 'MICRO';
   digitalBehavior: DigitalBehavior;
   valuesDriver: ValuesDriver;
   spendingPower: SpendingPower;

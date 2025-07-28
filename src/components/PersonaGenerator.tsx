@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Brain, Target, Users, TrendingUp, Sparkles, ChevronRight, ChevronLeft, Save, Download, RefreshCw, Eye, Search } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { PsychographicSlider } from '@/components/ui/PsychographicSlider'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
+import { Tag } from '@/components/ui/Tag'
+import { PsychographicSlider } from '@/components/ui/HeroPsychographicSlider'
 
 interface PersonaData {
   name: string

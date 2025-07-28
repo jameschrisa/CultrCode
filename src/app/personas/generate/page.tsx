@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Target, Users, TrendingUp, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Search, Sparkles, Save, Download, RefreshCw } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Brain, Target, Users, TrendingUp, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Search, Sparkles, Save, Download, RefreshCw, Check, User } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { PsychographicSlider } from '@/components/ui/PsychographicSlider'
+import { PsychographicSlider } from '@/components/ui/HeroPsychographicSlider'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
 import Link from 'next/link'
@@ -95,13 +95,62 @@ function GeneratePersonaContent() {
     { id: 'urban-gardeners', name: 'Urban Garden Collective', description: 'City-based growing enthusiasts', size: '2.8K', engagement: 'Medium' }
   ]
 
-  // Key psychographic factors for custom personas
-  const psychographicFactors: PsychographicFactor[] = [
+  // Comprehensive psychographic factors
+  const psychographicFactors: PsychographicFactor[] = useMemo(() => [
+    // Values and Lifestyle
     {
-      id: 'priceSensitivity',
-      label: 'Price Sensitivity',
-      description: 'How much does price influence their purchasing decisions?',
-      tickLabels: ['Price First', 'Value Conscious', 'Balanced', 'Quality Focus', 'Premium Only']
+      id: 'sustainabilityImportance',
+      label: 'Sustainability Values',
+      description: 'How important are environmental and ethical considerations?',
+      tickLabels: ['Not Important', 'Slightly Important', 'Moderate', 'Important', 'Critical Priority']
+    },
+    {
+      id: 'convenienceOrientation',
+      label: 'Convenience Focus',
+      description: 'How much do they prioritize ease and efficiency?',
+      tickLabels: ['Process Enjoyer', 'Some Effort OK', 'Balanced', 'Convenience Preferred', 'Maximum Convenience']
+    },
+    {
+      id: 'luxuryAffinity',
+      label: 'Luxury Orientation',
+      description: 'How drawn are they to premium and luxury experiences?',
+      tickLabels: ['Budget Focused', 'Value Conscious', 'Balanced', 'Quality Seeker', 'Luxury Oriented']
+    },
+    
+    // Personality Traits
+    {
+      id: 'adventurousness',
+      label: 'Adventurous Spirit',
+      description: 'How willing are they to try new experiences and take risks?',
+      tickLabels: ['Very Cautious', 'Somewhat Cautious', 'Balanced', 'Adventurous', 'Thrill Seeker']
+    },
+    {
+      id: 'brandLoyalty',
+      label: 'Brand Loyalty',
+      description: 'How likely are they to stick with familiar brands?',
+      tickLabels: ['Always Switch', 'Often Switch', 'Neutral', 'Usually Loyal', 'Extremely Loyal']
+    },
+    
+    // Social Status and Aspirations
+    {
+      id: 'prestigeSeeking',
+      label: 'Prestige Seeking',
+      description: 'How important is social status and recognition?',
+      tickLabels: ['Status Indifferent', 'Low Priority', 'Moderate', 'Status Conscious', 'Prestige Driven']
+    },
+    {
+      id: 'belongingNeed',
+      label: 'Community Belonging',
+      description: 'How important is fitting in and being part of groups?',
+      tickLabels: ['Very Independent', 'Mostly Independent', 'Balanced', 'Community Minded', 'Group Oriented']
+    },
+    
+    // Risk Tolerance and Innovation
+    {
+      id: 'riskTolerance',
+      label: 'Risk Tolerance',
+      description: 'Comfort level with trying new or unfamiliar products',
+      tickLabels: ['Risk Averse', 'Cautious', 'Neutral', 'Risk Taking', 'Risk Seeking']
     },
     {
       id: 'innovationAdoption',
@@ -109,25 +158,49 @@ function GeneratePersonaContent() {
       description: 'How quickly they adopt new products or technologies',
       tickLabels: ['Laggard', 'Late Majority', 'Early Majority', 'Early Adopter', 'Innovator']
     },
+    
+    // Emotional Motivations
     {
-      id: 'socialInfluence',
-      label: 'Social Influence',
-      description: 'How much they are influenced by others opinions and recommendations',
-      tickLabels: ['Very Independent', 'Mostly Independent', 'Balanced', 'Socially Aware', 'Highly Influenced']
+      id: 'emotionalDriver',
+      label: 'Primary Emotional Driver',
+      description: 'What emotions primarily drive their purchase decisions?',
+      tickLabels: ['Security/Safety', 'Practicality', 'Balanced', 'Excitement/Joy', 'Aspiration/Pride']
     },
     {
-      id: 'riskTolerance',
-      label: 'Risk Tolerance',
-      description: 'Comfort level with trying new or unfamiliar things',
-      tickLabels: ['Risk Averse', 'Cautious', 'Neutral', 'Risk Taking', 'Risk Seeking']
+      id: 'nostalgiaInfluence',
+      label: 'Nostalgia Sensitivity',
+      description: 'How much do past experiences and memories influence decisions?',
+      tickLabels: ['Future Focused', 'Present Focused', 'Balanced', 'Memory Influenced', 'Nostalgia Driven']
+    },
+    
+    // Purchase Behavior
+    {
+      id: 'priceSensitivity',
+      label: 'Price Sensitivity',
+      description: 'How much does price influence their purchasing decisions?',
+      tickLabels: ['Price First', 'Value Conscious', 'Balanced', 'Quality Focus', 'Premium Only']
     },
     {
-      id: 'sustainabilityFocus',
-      label: 'Sustainability Focus',
-      description: 'Importance of environmental and social responsibility',
-      tickLabels: ['Not Important', 'Slightly Important', 'Moderate', 'Important', 'Critical Priority']
+      id: 'researchDepth',
+      label: 'Research Thoroughness',
+      description: 'How much research do they do before making purchases?',
+      tickLabels: ['Impulse Buyer', 'Light Research', 'Moderate', 'Thorough Research', 'Exhaustive Analysis']
+    },
+    
+    // Social Influences
+    {
+      id: 'socialMediaInfluence',
+      label: 'Social Media Influence',
+      description: 'How much do social media and online reviews affect decisions?',
+      tickLabels: ['Not Influenced', 'Minimal Impact', 'Some Influence', 'Significant Impact', 'Heavily Influenced']
+    },
+    {
+      id: 'expertOpinionValue',
+      label: 'Expert Opinion Value',
+      description: 'How much do they value professional and expert recommendations?',
+      tickLabels: ['Self Reliant', 'Minimal Value', 'Moderate', 'High Value', 'Expert Dependent']
     }
-  ]
+  ], [])
 
   useEffect(() => {
     // Initialize psychographic values
@@ -136,11 +209,11 @@ function GeneratePersonaContent() {
       initialPsychographics[factor.id] = 3
     })
     setPersonaData(prev => ({ ...prev, psychographics: initialPsychographics }))
-  }, [])
+  }, [psychographicFactors])
 
   const steps = [
     { id: 'base', title: 'Select Foundation', description: 'Choose your persona base' },
-    { id: 'details', title: 'Add Details', description: 'Configure persona specifics' },
+    { id: 'configure', title: 'Configure Persona', description: 'Add details and psychographics' },
     { id: 'generate', title: 'Generate', description: 'Create AI persona' }
   ]
 
@@ -184,6 +257,34 @@ function GeneratePersonaContent() {
         [factorId]: value
       }
     }))
+  }
+
+  const savePersona = () => {
+    // In a real app, this would save to a database
+    const personaToSave = {
+      ...personaData,
+      id: `persona-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      lastModified: new Date().toISOString()
+    }
+    
+    // For now, just show success message
+    alert(`Persona "${personaData.name}" saved successfully!`)
+    console.log('Saving persona:', personaToSave)
+  }
+
+  const exportPersona = () => {
+    // Create downloadable JSON file
+    const dataStr = JSON.stringify(personaData, null, 2)
+    const dataBlob = new Blob([dataStr], { type: 'application/json' })
+    const url = URL.createObjectURL(dataBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${personaData.name || 'persona'}.json`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   const generatePersona = async () => {
@@ -244,13 +345,19 @@ function GeneratePersonaContent() {
     // Generate based on base type
     switch (baseSelection.type) {
       case 'segment':
-        insights = generateFromSegment(baseSelection.data)
+        insights = baseSelection.data 
+          ? generateFromSegment(baseSelection.data)
+          : generateGenericSegment(psychographics)
         break
       case 'community':
-        insights = generateFromCommunity(baseSelection.data)
+        insights = baseSelection.data 
+          ? generateFromCommunity(baseSelection.data)
+          : generateGenericCommunity(psychographics)
         break
       case 'trend':
-        insights = generateFromTrend(baseSelection.data)
+        insights = baseSelection.data 
+          ? generateFromTrend(baseSelection.data)
+          : generateGenericTrend(psychographics)
         break
       case 'custom':
         insights = generateFromCustom(customInputs, psychographics)
@@ -260,20 +367,43 @@ function GeneratePersonaContent() {
     return insights
   }
 
-  const generateFromSegment = (segment: any) => ({
-    values: ['Innovation', 'Quality', 'Authenticity'].slice(0, 3),
-    personality: ['Goal-oriented', 'Detail-focused', 'Analytical'],
-    interests: ['Industry trends', 'Professional development', 'Quality products'],
-    painPoints: ['Information overload', 'Decision fatigue', 'Time constraints'],
-    goals: ['Professional growth', 'Efficient solutions', 'Quality outcomes'],
-    communication: ['Email newsletters', 'Professional networks', 'Industry publications'],
-    buyingMotivations: ['Quality assurance', 'Professional reputation', 'Long-term value'],
-    demographics: {
-      ageRange: `${segment.ageMin}-${segment.ageMax}`,
-      location: 'Urban/Suburban',
-      income: segment.incomeMin ? `$${Math.round(segment.incomeMin/1000)}K-$${Math.round(segment.incomeMax/1000)}K` : '$50K-$80K'
+  const generateFromSegment = (segment: any) => {
+    // Enhance based on segment tier and psychographic adjustments
+    const psychographics = personaData.psychographics
+    let values = ['Innovation', 'Quality', 'Authenticity']
+    let personality = ['Goal-oriented', 'Detail-focused', 'Analytical']
+    let interests = ['Industry trends', 'Professional development', 'Quality products']
+    let buyingMotivations = ['Quality assurance', 'Professional reputation', 'Long-term value']
+    
+    // Adjust based on psychographic inputs
+    if (psychographics.luxuryAffinity >= 4) {
+      values.unshift('Premium quality')
+      buyingMotivations.unshift('Luxury experience')
     }
-  })
+    if (psychographics.sustainabilityImportance >= 4) {
+      values.push('Environmental responsibility')
+      interests.push('Sustainable solutions')
+    }
+    if (psychographics.innovationAdoption >= 4) {
+      personality.push('Early adopter')
+      interests.unshift('Emerging technologies')
+    }
+    
+    return {
+      values: values.slice(0, 4),
+      personality: personality.slice(0, 4),
+      interests: interests.slice(0, 4),
+      painPoints: ['Information overload', 'Decision fatigue', 'Time constraints'],
+      goals: ['Professional growth', 'Efficient solutions', 'Quality outcomes'],
+      communication: ['Email newsletters', 'Professional networks', 'Industry publications'],
+      buyingMotivations: buyingMotivations.slice(0, 4),
+      demographics: {
+        ageRange: `${segment.ageMin}-${segment.ageMax}`,
+        location: 'Urban/Suburban',
+        income: segment.incomeMin ? `$${Math.round(segment.incomeMin/1000)}K-$${Math.round(segment.incomeMax/1000)}K` : '$50K-$80K'
+      }
+    }
+  }
 
   const generateFromCommunity = (community: any) => ({
     values: ['Community', 'Shared interests', 'Collaboration'],
@@ -308,33 +438,180 @@ function GeneratePersonaContent() {
   const generateFromCustom = (inputs: any, psychographics: any) => {
     const values = []
     const personality = []
+    const interests = []
+    const painPoints = []
+    const goals = []
+    const communication = []
     const buyingMotivations = []
 
-    // Generate based on psychographic inputs
-    if (psychographics.sustainabilityFocus >= 4) {
+    // Values and Lifestyle
+    if (psychographics.sustainabilityImportance >= 4) {
       values.push('Environmental responsibility')
       buyingMotivations.push('Sustainability impact')
+      interests.push('Eco-friendly products')
     }
-    if (psychographics.innovationAdoption >= 4) {
-      values.push('Innovation')
-      personality.push('Early adopter')
+    if (psychographics.luxuryAffinity >= 4) {
+      values.push('Premium quality')
+      buyingMotivations.push('Luxury experience')
+      goals.push('Acquire prestigious items')
     }
-    if (psychographics.priceSensitivity >= 4) {
-      buyingMotivations.push('Value for money')
+    if (psychographics.convenienceOrientation >= 4) {
+      values.push('Efficiency')
+      buyingMotivations.push('Time savings')
+      painPoints.push('Complex processes')
     }
 
+    // Personality Traits
+    if (psychographics.adventurousness >= 4) {
+      personality.push('Adventurous')
+      interests.push('New experiences')
+      goals.push('Explore opportunities')
+    } else if (psychographics.adventurousness <= 2) {
+      personality.push('Cautious')
+      painPoints.push('Uncertainty')
+    }
+
+    if (psychographics.brandLoyalty >= 4) {
+      personality.push('Brand loyal')
+      buyingMotivations.push('Trusted brands')
+    } else if (psychographics.brandLoyalty <= 2) {
+      personality.push('Brand switcher')
+      interests.push('Product comparison')
+    }
+
+    // Social Aspects
+    if (psychographics.prestigeSeeking >= 4) {
+      goals.push('Social recognition')
+      buyingMotivations.push('Status symbols')
+      interests.push('Luxury brands')
+    }
+    if (psychographics.belongingNeed >= 4) {
+      personality.push('Community-oriented')
+      communication.push('Group discussions')
+      goals.push('Social connection')
+    }
+
+    // Risk and Innovation
+    if (psychographics.innovationAdoption >= 4) {
+      personality.push('Early adopter')
+      interests.push('Latest technologies')
+      goals.push('Stay ahead of trends')
+    }
+    if (psychographics.riskTolerance <= 2) {
+      painPoints.push('Product uncertainty')
+      buyingMotivations.push('Proven reliability')
+    }
+
+    // Emotional Drivers
+    if (psychographics.emotionalDriver >= 4) {
+      buyingMotivations.push('Emotional satisfaction')
+      communication.push('Inspiring content')
+    }
+    if (psychographics.nostalgiaInfluence >= 4) {
+      interests.push('Nostalgic brands')
+      buyingMotivations.push('Familiar experiences')
+    }
+
+    // Purchase Behavior
+    if (psychographics.priceSensitivity >= 4) {
+      buyingMotivations.push('Value for money')
+      painPoints.push('Premium pricing')
+      personality.push('Budget conscious')
+    }
+    if (psychographics.researchDepth >= 4) {
+      personality.push('Research-oriented')
+      communication.push('Detailed reviews')
+      painPoints.push('Information overload')
+    } else if (psychographics.researchDepth <= 2) {
+      personality.push('Impulse buyer')
+      buyingMotivations.push('Quick decisions')
+    }
+
+    // Social Influences
+    if (psychographics.socialMediaInfluence >= 4) {
+      communication.push('Social media')
+      buyingMotivations.push('Social proof')
+      interests.push('Online communities')
+    }
+    if (psychographics.expertOpinionValue >= 4) {
+      communication.push('Expert reviews')
+      buyingMotivations.push('Professional recommendations')
+      interests.push('Industry insights')
+    }
+
+    // Fallbacks for empty arrays
+    const finalValues = values.length > 0 ? values.slice(0, 4) : ['Personal growth', 'Quality', 'Authenticity']
+    const finalPersonality = personality.length > 0 ? personality.slice(0, 4) : ['Thoughtful', 'Practical', 'Balanced']
+    const finalInterests = interests.length > 0 ? interests.slice(0, 4) : 
+      inputs.targetAudience ? [inputs.targetAudience, inputs.industry, 'Personal development'] : ['Personal development', 'Quality products']
+    const finalPainPoints = painPoints.length > 0 ? painPoints.slice(0, 4) : ['Decision complexity', 'Information overload', 'Time constraints']
+    const finalGoals = goals.length > 0 ? goals.slice(0, 4) : ['Achieve personal objectives', 'Make informed decisions', 'Optimize outcomes']
+    const finalCommunication = communication.length > 0 ? communication.slice(0, 4) : ['Email', 'Social media', 'Word of mouth']
+    const finalBuyingMotivations = buyingMotivations.length > 0 ? buyingMotivations.slice(0, 4) : ['Quality', 'Value', 'Convenience']
+
     return {
-      values: values.length > 0 ? values : ['Personal growth', 'Quality', 'Authenticity'],
-      personality: personality.length > 0 ? personality : ['Thoughtful', 'Practical', 'Balanced'],
-      interests: inputs.targetAudience ? [inputs.targetAudience, inputs.industry] : ['Personal development', 'Quality products'],
-      painPoints: ['Decision complexity', 'Information overload', 'Time constraints'],
-      goals: ['Achieve personal objectives', 'Make informed decisions', 'Optimize outcomes'],
-      communication: ['Email', 'Social media', 'Word of mouth'],
-      buyingMotivations: buyingMotivations.length > 0 ? buyingMotivations : ['Quality', 'Value', 'Convenience'],
+      values: finalValues,
+      personality: finalPersonality,
+      interests: finalInterests,
+      painPoints: finalPainPoints,
+      goals: finalGoals,
+      communication: finalCommunication,
+      buyingMotivations: finalBuyingMotivations,
       demographics: {
         ageRange: '25-45',
         location: 'Mixed',
         income: '$45K-$85K'
+      }
+    }
+  }
+
+  const generateGenericSegment = (psychographics: any) => {
+    return {
+      values: ['Quality', 'Innovation', 'Value'],
+      personality: ['Discerning', 'Goal-oriented', 'Practical'],
+      interests: ['Product research', 'Brand comparisons', 'Market trends'],
+      painPoints: ['Too many options', 'Price vs quality tradeoffs', 'Information overload'],
+      goals: ['Find reliable products', 'Make informed purchases', 'Get good value'],
+      communication: ['Online reviews', 'Social media', 'Email'],
+      buyingMotivations: ['Quality assurance', 'Brand reputation', 'Peer recommendations'],
+      demographics: {
+        ageRange: '25-45',
+        location: 'Mixed urban/suburban',
+        income: '$40K-$100K'
+      }
+    }
+  }
+
+  const generateGenericCommunity = (psychographics: any) => {
+    return {
+      values: ['Community', 'Belonging', 'Shared interests'],
+      personality: ['Social', 'Engaged', 'Collaborative'],
+      interests: ['Community activities', 'Group discussions', 'Shared hobbies'],
+      painPoints: ['Feeling isolated', 'Finding like-minded people', 'Limited local options'],
+      goals: ['Connect with others', 'Share experiences', 'Build relationships'],
+      communication: ['Community forums', 'Group messaging', 'Social platforms'],
+      buyingMotivations: ['Community recommendations', 'Group buying', 'Shared values'],
+      demographics: {
+        ageRange: '22-50',
+        location: 'Community-focused areas',
+        income: '$35K-$90K'
+      }
+    }
+  }
+
+  const generateGenericTrend = (psychographics: any) => {
+    return {
+      values: ['Innovation', 'Staying current', 'Being first'],
+      personality: ['Trendy', 'Early adopter', 'Influential'],
+      interests: ['Latest trends', 'New technologies', 'Cultural movements'],
+      painPoints: ['Missing out', 'Information fatigue', 'Trend oversaturation'],
+      goals: ['Stay ahead of trends', 'Influence others', 'Be seen as current'],
+      communication: ['Social media', 'Trend platforms', 'Influencer content'],
+      buyingMotivations: ['Novelty', 'Social status', 'Early access'],
+      demographics: {
+        ageRange: '18-40',
+        location: 'Urban centers',
+        income: '$30K-$120K'
       }
     }
   }
@@ -354,17 +631,24 @@ function GeneratePersonaContent() {
               <Card 
                 className={`glass-card cursor-pointer transition-all duration-200 ${
                   personaData.baseSelection.type === 'segment' 
-                    ? 'border-accent-400 bg-accent-500/10' 
+                    ? 'border-accent-400 bg-accent-500/10 ring-2 ring-accent-400/30' 
                     : 'hover:border-accent-500/50'
                 }`}
                 onClick={() => selectBase('segment')}
               >
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative">
                   <div className="w-16 h-16 bg-accent-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <Target className="w-8 h-8 text-accent-400" />
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100 mb-2">Audience Segment</h4>
                   <p className="text-sm text-primary-300">Build from our 48 precision segments</p>
+                  {personaData.baseSelection.type === 'segment' && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-6 h-6 bg-accent-400 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -372,17 +656,24 @@ function GeneratePersonaContent() {
               <Card 
                 className={`glass-card cursor-pointer transition-all duration-200 ${
                   personaData.baseSelection.type === 'community' 
-                    ? 'border-brand-400 bg-brand-500/10' 
+                    ? 'border-brand-400 bg-brand-500/10 ring-2 ring-brand-400/30' 
                     : 'hover:border-brand-500/50'
                 }`}
                 onClick={() => selectBase('community')}
               >
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative">
                   <div className="w-16 h-16 bg-brand-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <Users className="w-8 h-8 text-brand-400" />
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100 mb-2">Micro-Community</h4>
                   <p className="text-sm text-primary-300">Base on specific community behaviors</p>
+                  {personaData.baseSelection.type === 'community' && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-6 h-6 bg-brand-400 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -390,17 +681,24 @@ function GeneratePersonaContent() {
               <Card 
                 className={`glass-card cursor-pointer transition-all duration-200 ${
                   personaData.baseSelection.type === 'trend' 
-                    ? 'border-success-400 bg-success-500/10' 
+                    ? 'border-success-400 bg-success-500/10 ring-2 ring-success-400/30' 
                     : 'hover:border-success-500/50'
                 }`}
                 onClick={() => selectBase('trend')}
               >
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative">
                   <div className="w-16 h-16 bg-success-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <TrendingUp className="w-8 h-8 text-success-400" />
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100 mb-2">Emerging Trend</h4>
                   <p className="text-sm text-primary-300">Build around cultural movements</p>
+                  {personaData.baseSelection.type === 'trend' && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-6 h-6 bg-success-400 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -408,17 +706,24 @@ function GeneratePersonaContent() {
               <Card 
                 className={`glass-card cursor-pointer transition-all duration-200 ${
                   personaData.baseSelection.type === 'custom' 
-                    ? 'border-purple-400 bg-purple-500/10' 
+                    ? 'border-purple-400 bg-purple-500/10 ring-2 ring-purple-400/30' 
                     : 'hover:border-purple-500/50'
                 }`}
                 onClick={() => selectBase('custom')}
               >
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-6 text-center relative">
                   <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <Brain className="w-8 h-8 text-purple-400" />
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100 mb-2">Custom Persona</h4>
                   <p className="text-sm text-primary-300">Create with detailed inputs</p>
+                  {personaData.baseSelection.type === 'custom' && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-6 h-6 bg-purple-400 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -426,6 +731,15 @@ function GeneratePersonaContent() {
             {/* Selection Details */}
             {personaData.baseSelection.type && personaData.baseSelection.type !== 'custom' && (
               <div className="space-y-4">
+                <div className="text-center py-4">
+                  <h4 className="text-lg font-semibold text-primary-100 mb-2">
+                    Great! Now choose a specific {personaData.baseSelection.type}
+                  </h4>
+                  <p className="text-sm text-primary-400">
+                    Select one of the options below to continue with your persona generation
+                  </p>
+                </div>
+                
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-primary-400" />
                   <input
@@ -441,19 +755,33 @@ function GeneratePersonaContent() {
                   {personaData.baseSelection.type === 'segment' && filteredSegments.map(segment => (
                     <Card 
                       key={segment.id}
-                      className={`glass-card cursor-pointer transition-all duration-200 ${
+                      className={`glass-card cursor-pointer transition-all duration-200 relative ${
                         personaData.baseSelection.data?.id === segment.id
-                          ? 'border-accent-400 bg-accent-500/10'
+                          ? 'border-accent-400 bg-accent-500/10 ring-2 ring-accent-400/30'
                           : 'hover:border-accent-500/50'
                       }`}
                       onClick={() => selectBase('segment', segment)}
                     >
                       <CardContent className="p-4">
-                        <h5 className="font-semibold text-primary-100 mb-1">{segment.name}</h5>
-                        <p className="text-sm text-primary-300 mb-2">{segment.description}</p>
-                        <div className="text-xs text-primary-400">
-                          {segment.tier} • Age {segment.ageMin}-{segment.ageMax}
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h5 className="font-semibold text-primary-100 mb-1">{segment.name}</h5>
+                            <p className="text-sm text-primary-300 mb-2">{segment.description}</p>
+                            <div className="text-xs text-primary-400">
+                              {segment.tier} • Age {segment.ageMin}-{segment.ageMax}
+                            </div>
+                          </div>
+                          {personaData.baseSelection.data?.id === segment.id && (
+                            <div className="w-6 h-6 bg-accent-400 rounded-full flex items-center justify-center ml-3">
+                              <Check className="w-4 h-4 text-white" />
+                            </div>
+                          )}
                         </div>
+                        {personaData.baseSelection.data?.id === segment.id && (
+                          <div className="mt-2 px-2 py-1 bg-accent-500/20 text-accent-300 rounded text-xs font-medium">
+                            ✓ Selected
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
@@ -461,19 +789,33 @@ function GeneratePersonaContent() {
                   {personaData.baseSelection.type === 'community' && filteredCommunities.map(community => (
                     <Card 
                       key={community.id}
-                      className={`glass-card cursor-pointer transition-all duration-200 ${
+                      className={`glass-card cursor-pointer transition-all duration-200 relative ${
                         personaData.baseSelection.data?.id === community.id
-                          ? 'border-brand-400 bg-brand-500/10'
+                          ? 'border-brand-400 bg-brand-500/10 ring-2 ring-brand-400/30'
                           : 'hover:border-brand-500/50'
                       }`}
                       onClick={() => selectBase('community', community)}
                     >
                       <CardContent className="p-4">
-                        <h5 className="font-semibold text-primary-100 mb-1">{community.name}</h5>
-                        <p className="text-sm text-primary-300 mb-2">{community.description}</p>
-                        <div className="text-xs text-primary-400">
-                          {community.size} members • {community.engagement} engagement
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h5 className="font-semibold text-primary-100 mb-1">{community.name}</h5>
+                            <p className="text-sm text-primary-300 mb-2">{community.description}</p>
+                            <div className="text-xs text-primary-400">
+                              {community.size} members • {community.engagement} engagement
+                            </div>
+                          </div>
+                          {personaData.baseSelection.data?.id === community.id && (
+                            <div className="w-6 h-6 bg-brand-400 rounded-full flex items-center justify-center ml-3">
+                              <Check className="w-4 h-4 text-white" />
+                            </div>
+                          )}
                         </div>
+                        {personaData.baseSelection.data?.id === community.id && (
+                          <div className="mt-2 px-2 py-1 bg-brand-500/20 text-brand-300 rounded text-xs font-medium">
+                            ✓ Selected
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
@@ -481,19 +823,33 @@ function GeneratePersonaContent() {
                   {personaData.baseSelection.type === 'trend' && filteredTrends.map(trend => (
                     <Card 
                       key={trend.id}
-                      className={`glass-card cursor-pointer transition-all duration-200 ${
+                      className={`glass-card cursor-pointer transition-all duration-200 relative ${
                         personaData.baseSelection.data?.id === trend.id
-                          ? 'border-success-400 bg-success-500/10'
+                          ? 'border-success-400 bg-success-500/10 ring-2 ring-success-400/30'
                           : 'hover:border-success-500/50'
                       }`}
                       onClick={() => selectBase('trend', trend)}
                     >
                       <CardContent className="p-4">
-                        <h5 className="font-semibold text-primary-100 mb-1">{trend.name}</h5>
-                        <p className="text-sm text-primary-300 mb-2">{trend.description}</p>
-                        <div className="text-xs text-primary-400">
-                          {trend.category} • {trend.status} • {trend.virality}% virality
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h5 className="font-semibold text-primary-100 mb-1">{trend.name}</h5>
+                            <p className="text-sm text-primary-300 mb-2">{trend.description}</p>
+                            <div className="text-xs text-primary-400">
+                              {trend.category} • {trend.status} • {trend.virality}% virality
+                            </div>
+                          </div>
+                          {personaData.baseSelection.data?.id === trend.id && (
+                            <div className="w-6 h-6 bg-success-400 rounded-full flex items-center justify-center ml-3">
+                              <Check className="w-4 h-4 text-white" />
+                            </div>
+                          )}
                         </div>
+                        {personaData.baseSelection.data?.id === trend.id && (
+                          <div className="mt-2 px-2 py-1 bg-success-500/20 text-success-300 rounded text-xs font-medium">
+                            ✓ Selected
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
@@ -503,21 +859,56 @@ function GeneratePersonaContent() {
           </div>
         )
 
-      case 'details':
+      case 'configure':
         return (
           <div className="space-y-8">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-primary-100 mb-2">Configure Details</h3>
+              <h3 className="text-2xl font-bold text-primary-100 mb-2">Configure Your Persona</h3>
               <p className="text-primary-300">
                 {personaData.baseSelection.type === 'custom' 
-                  ? 'Provide detailed inputs for your custom persona'
-                  : 'Fine-tune your persona with additional inputs'
+                  ? 'Provide details and fine-tune psychological characteristics'
+                  : 'Add context and adjust psychographic traits for your persona'
                 }
               </p>
             </div>
 
-            {personaData.baseSelection.type === 'custom' ? (
+            {/* Summary of Selected Base */}
+            {personaData.baseSelection.data && personaData.baseSelection.type !== 'custom' && (
+              <Card className="glass-card border-accent-500/30">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      personaData.baseSelection.type === 'segment' ? 'bg-accent-500/20' :
+                      personaData.baseSelection.type === 'community' ? 'bg-brand-500/20' :
+                      'bg-success-500/20'
+                    }`}>
+                      {personaData.baseSelection.type === 'segment' && <Target className="w-5 h-5 text-accent-400" />}
+                      {personaData.baseSelection.type === 'community' && <Users className="w-5 h-5 text-brand-400" />}
+                      {personaData.baseSelection.type === 'trend' && <TrendingUp className="w-5 h-5 text-success-400" />}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-primary-200">
+                        Based on: {personaData.baseSelection.data.name}
+                      </div>
+                      <div className="text-xs text-primary-400">
+                        {personaData.baseSelection.type} foundation
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Custom Persona Details Section */}
+            {personaData.baseSelection.type === 'custom' && (
               <div className="space-y-6">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Persona Details</h4>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-primary-200 mb-2">
                     Persona Description *
@@ -531,103 +922,217 @@ function GeneratePersonaContent() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-primary-200 mb-2">
-                    Target Audience
-                  </label>
-                  <input
-                    type="text"
-                    value={personaData.customInputs.targetAudience}
-                    onChange={(e) => updateCustomInput('targetAudience', e.target.value)}
-                    placeholder="e.g., Young professionals, Parents, Students..."
-                    className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-primary-200 mb-2">
-                    Industry Context
-                  </label>
-                  <input
-                    type="text"
-                    value={personaData.customInputs.industry}
-                    onChange={(e) => updateCustomInput('industry', e.target.value)}
-                    placeholder="e.g., Technology, Healthcare, Fashion..."
-                    className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-primary-200 mb-2">
-                    Behavioral Prompt
-                  </label>
-                  <textarea
-                    value={personaData.customInputs.behaviorPrompt}
-                    onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
-                    placeholder="Describe specific behaviors, preferences, or characteristics..."
-                    rows={4}
-                    className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                  />
-                </div>
-
-                <div className="space-y-6">
-                  <h4 className="text-lg font-semibold text-primary-100">Psychographic Factors</h4>
-                  {psychographicFactors.map(factor => (
-                    <PsychographicSlider
-                      key={factor.id}
-                      label={factor.label}
-                      description={factor.description}
-                      value={personaData.psychographics[factor.id] || 3}
-                      onChange={(value) => updatePsychographic(factor.id, value)}
-                      tickLabels={factor.tickLabels}
-                      className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-primary-200 mb-2">
+                      Target Audience
+                    </label>
+                    <input
+                      type="text"
+                      value={personaData.customInputs.targetAudience}
+                      onChange={(e) => updateCustomInput('targetAudience', e.target.value)}
+                      placeholder="e.g., Young professionals, Parents..."
+                      className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
                     />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <Card className="glass-card">
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                        personaData.baseSelection.type === 'segment' ? 'bg-accent-500/20' :
-                        personaData.baseSelection.type === 'community' ? 'bg-brand-500/20' :
-                        'bg-success-500/20'
-                      }`}>
-                        {personaData.baseSelection.type === 'segment' && <Target className="w-6 h-6 text-accent-400" />}
-                        {personaData.baseSelection.type === 'community' && <Users className="w-6 h-6 text-brand-400" />}
-                        {personaData.baseSelection.type === 'trend' && <TrendingUp className="w-6 h-6 text-success-400" />}
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-primary-100">
-                          {personaData.baseSelection.data?.name}
-                        </h4>
-                        <p className="text-sm text-primary-300">
-                          {personaData.baseSelection.data?.description}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-primary-400">
-                      This persona will be generated based on the characteristics and behaviors associated with this {personaData.baseSelection.type}.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-primary-200 mb-2">
-                    Additional Context (Optional)
-                  </label>
-                  <textarea
-                    value={personaData.customInputs.behaviorPrompt}
-                    onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
-                    placeholder="Add any specific behaviors, preferences, or characteristics you want to emphasize..."
-                    rows={3}
-                    className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-primary-200 mb-2">
+                      Industry Context
+                    </label>
+                    <input
+                      type="text"
+                      value={personaData.customInputs.industry}
+                      onChange={(e) => updateCustomInput('industry', e.target.value)}
+                      placeholder="e.g., Technology, Healthcare..."
+                      className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:border-transparent"
+                    />
+                  </div>
                 </div>
               </div>
             )}
+
+            {/* Additional Context for Non-Custom */}
+            {personaData.baseSelection.type !== 'custom' && (
+              <div>
+                <label className="block text-sm font-medium text-primary-200 mb-2">
+                  Additional Context (Optional)
+                </label>
+                <textarea
+                  value={personaData.customInputs.behaviorPrompt}
+                  onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
+                  placeholder="Add any specific behaviors, preferences, or characteristics you want to emphasize..."
+                  rows={3}
+                  className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
+                />
+              </div>
+            )}
+
+            {/* Behavioral Prompt for Custom */}
+            {personaData.baseSelection.type === 'custom' && (
+              <div>
+                <label className="block text-sm font-medium text-primary-200 mb-2">
+                  Behavioral Prompt (Optional)
+                </label>
+                <textarea
+                  value={personaData.customInputs.behaviorPrompt}
+                  onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
+                  placeholder="Describe specific behaviors, preferences, or characteristics..."
+                  rows={3}
+                  className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
+                />
+              </div>
+            )}
+
+            {/* Psychographic Categories */}
+            <div className="space-y-8">
+              {/* Values and Lifestyle */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-accent-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Values &amp; Lifestyle</h4>
+                </div>
+                {psychographicFactors.filter(f => ['sustainabilityImportance', 'convenienceOrientation', 'luxuryAffinity'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Personality Traits */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-brand-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Personality Traits</h4>
+                </div>
+                {psychographicFactors.filter(f => ['adventurousness', 'brandLoyalty'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Social Status & Aspirations */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-success-500/20 rounded-lg flex items-center justify-center">
+                    <Users className="w-4 h-4 text-success-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Social Status &amp; Aspirations</h4>
+                </div>
+                {psychographicFactors.filter(f => ['prestigeSeeking', 'belongingNeed'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Risk & Innovation */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-warning-500/20 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-warning-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Risk Tolerance &amp; Innovation</h4>
+                </div>
+                {psychographicFactors.filter(f => ['riskTolerance', 'innovationAdoption'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Emotional Motivations */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Emotional Motivations</h4>
+                </div>
+                {psychographicFactors.filter(f => ['emotionalDriver', 'nostalgiaInfluence'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Purchase Behavior */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center">
+                    <Target className="w-4 h-4 text-red-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Purchase Behavior</h4>
+                </div>
+                {psychographicFactors.filter(f => ['priceSensitivity', 'researchDepth'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+
+              {/* Social Influences */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <Users className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-primary-100">Social Influences</h4>
+                </div>
+                {psychographicFactors.filter(f => ['socialMediaInfluence', 'expertOpinionValue'].includes(f.id)).map(factor => (
+                  <PsychographicSlider
+                    key={factor.id}
+                    label={factor.label}
+                    description={factor.description}
+                    value={personaData.psychographics[factor.id] || 3}
+                    onChange={(value) => updatePsychographic(factor.id, value)}
+                    tickLabels={factor.tickLabels}
+                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         )
 
@@ -643,12 +1148,30 @@ function GeneratePersonaContent() {
                     <div className="space-y-2 text-sm mb-8">
                       <div className="flex justify-between">
                         <span className="text-primary-400">Foundation:</span>
-                        <span className="text-primary-200">{personaData.baseSelection.type}</span>
+                        <span className="text-primary-200 capitalize">{personaData.baseSelection.type}</span>
                       </div>
                       {personaData.baseSelection.data && (
                         <div className="flex justify-between">
                           <span className="text-primary-400">Source:</span>
                           <span className="text-primary-200">{personaData.baseSelection.data.name}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span className="text-primary-400">Psychographic Adjustments:</span>
+                        <span className="text-primary-200">
+                          {Object.values(personaData.psychographics).filter(val => val !== 3).length} factors modified
+                        </span>
+                      </div>
+                      {personaData.psychographics.priceSensitivity && personaData.psychographics.priceSensitivity !== 3 && (
+                        <div className="flex justify-between">
+                          <span className="text-primary-400">Price Sensitivity:</span>
+                          <span className="text-primary-200">{psychographicFactors.find(f => f.id === 'priceSensitivity')?.tickLabels[personaData.psychographics.priceSensitivity - 1] || 'Balanced'}</span>
+                        </div>
+                      )}
+                      {personaData.psychographics.innovationAdoption && personaData.psychographics.innovationAdoption !== 3 && (
+                        <div className="flex justify-between">
+                          <span className="text-primary-400">Innovation Adoption:</span>
+                          <span className="text-primary-200">{psychographicFactors.find(f => f.id === 'innovationAdoption')?.tickLabels[personaData.psychographics.innovationAdoption - 1] || 'Balanced'}</span>
                         </div>
                       )}
                     </div>
@@ -677,10 +1200,19 @@ function GeneratePersonaContent() {
               <div className="space-y-6">
                 <Card className="glass-card">
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <Brain className="w-6 h-6 text-accent-400" />
-                      <span className="text-primary-50">{personaData.name}</span>
-                    </CardTitle>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-20 h-20 bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <User className="w-10 h-10 text-accent-400" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="flex items-center space-x-2 mb-2">
+                          <span className="text-primary-50">{personaData.name}</span>
+                        </CardTitle>
+                        <div className="text-sm text-primary-400">
+                          Generated from {personaData.baseSelection.type} • {new Date().toLocaleDateString()}
+                        </div>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -753,12 +1285,35 @@ function GeneratePersonaContent() {
                       </div>
                     </div>
                     
+                    {/* Psychographic Adjustments Summary */}
+                    {Object.values(personaData.psychographics).filter(val => val !== 3).length > 0 && (
+                      <div className="mt-6 pt-6 border-t border-primary-700/50">
+                        <h5 className="font-semibold text-primary-50 mb-3">Psychographic Adjustments Applied</h5>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                          {Object.entries(personaData.psychographics)
+                            .filter(([_, value]) => value !== 3)
+                            .map(([factorId, value]) => {
+                              const factor = psychographicFactors.find(f => f.id === factorId)
+                              if (!factor) return null
+                              return (
+                                <div key={factorId} className="flex justify-between items-center">
+                                  <span className="text-primary-300">{factor.label}:</span>
+                                  <span className="text-accent-400 font-medium">
+                                    {factor.tickLabels[value - 1]}
+                                  </span>
+                                </div>
+                              )
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    
                     <div className="flex space-x-4 mt-8 pt-6 border-t border-primary-700">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={savePersona}>
                         <Save className="w-4 h-4 mr-2" />
                         Save Persona
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={exportPersona}>
                         <Download className="w-4 h-4 mr-2" />
                         Export
                       </Button>
@@ -770,6 +1325,12 @@ function GeneratePersonaContent() {
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Create Another
                       </Button>
+                      <Link href="/dashboard">
+                        <Button size="sm" className="bg-accent-500 hover:bg-accent-600">
+                          <ArrowLeft className="w-4 h-4 mr-2" />
+                          Complete
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -785,11 +1346,12 @@ function GeneratePersonaContent() {
 
   const canProceed = () => {
     switch (currentStep) {
-      case 0:
-        return personaData.baseSelection.type !== null && (
-          personaData.baseSelection.type === 'custom' || personaData.baseSelection.data !== null
-        )
-      case 1:
+      case 0: // Base selection
+        // Allow progression after selecting any foundation type
+        // If they selected a specific item, great. If they just selected the type, also allow progression
+        // This gives users flexibility to either choose specific items or proceed with the general type
+        return personaData.baseSelection.type !== null
+      case 1: // Configure (details + psychographics)
         if (personaData.baseSelection.type === 'custom') {
           return personaData.customInputs.description.trim() !== ''
         }

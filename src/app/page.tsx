@@ -7,7 +7,7 @@ import { Target, Sparkles, ChevronLeft, Menu, X, Zap, Users, TrendingUp, ArrowRi
 import { FaRobot, FaChartLine, FaMapMarkedAlt, FaReddit, FaTiktok, FaYoutube, FaDiscord } from 'react-icons/fa'
 import { HiSparkles, HiLightningBolt } from 'react-icons/hi'
 import { RiAiGenerate, RiBrainFill } from 'react-icons/ri'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/HeroButton'
 import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
 import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'

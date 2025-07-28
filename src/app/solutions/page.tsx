@@ -444,7 +444,7 @@ function SolutionsContent() {
                 Ready to Transform Your Launch Strategy?
               </h2>
               <p className="text-lg text-primary-300 mb-8 max-w-2xl mx-auto">
-                Join creators who've discovered their perfect audience and launched with confidence
+                Join creators who&apos;ve discovered their perfect audience and launched with confidence
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

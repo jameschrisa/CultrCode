@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Users, Search, Filter, Eye, TrendingUp, Activity, Star, Pin } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuth } from '@/contexts/AuthContext'
@@ -573,7 +573,7 @@ function CommunitiesContent() {
                     <div className="bg-accent-500/10 border border-accent-500/30 rounded-lg p-4">
                       <p className="text-accent-300 text-sm leading-relaxed">
                         This community shows {selectedCommunity.engagement_level.replace('_', ' ')} engagement levels with {selectedCommunity.growth_trend} growth trends. 
-                        Consider targeting this audience with content that aligns with their {selectedCommunity.category_name.toLowerCase()} interests.
+                        Consider targeting this audience with content that aligns with their {selectedCommunity.category_name?.toLowerCase() || 'community'} interests.
                         {selectedCommunity.growth_trend === 'exploding' && ' This community is experiencing rapid growth - perfect timing for early entry.'}
                         {selectedCommunity.engagement_level === 'very_high' && ' High engagement indicates active community participation and word-of-mouth potential.'}
                       </p>

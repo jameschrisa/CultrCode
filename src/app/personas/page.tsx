@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Brain, Users, Target, TrendingUp, Plus, Sparkles, Eye, Download, Edit2, Trash2, ArrowRight, BookOpen, Star } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
+import { Button } from '@/components/ui/HeroButton'
+import { Tag } from '@/components/ui/Tag'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuth } from '@/contexts/AuthContext'
@@ -450,9 +451,9 @@ function PersonasContent() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="px-2 py-1 bg-success-500/20 text-success-400 rounded text-xs font-medium">
+                          <Tag variant="success" size="sm">
                             {persona.confidence}% match
-                          </div>
+                          </Tag>
                         </div>
                       </div>
                     </CardHeader>
@@ -463,15 +464,18 @@ function PersonasContent() {
                       <div className="space-y-3">
                         <div>
                           <h4 className="text-xs font-semibold text-primary-200 mb-2">Source</h4>
-                          <div className="flex items-center space-x-2">
-                            <span className={`px-2 py-1 rounded text-xs ${
-                              persona.source === 'segment' ? 'bg-accent-500/20 text-accent-400' :
-                              persona.source === 'community' ? 'bg-brand-500/20 text-brand-400' :
-                              persona.source === 'trend' ? 'bg-success-500/20 text-success-400' :
-                              'bg-purple-500/20 text-purple-400'
-                            }`}>
+                          <div className="flex flex-col space-y-2">
+                            <Tag 
+                              variant={
+                                persona.source === 'segment' ? 'accent' :
+                                persona.source === 'community' ? 'primary' :
+                                persona.source === 'trend' ? 'success' :
+                                'secondary'
+                              }
+                              size="sm"
+                            >
                               {persona.source}
-                            </span>
+                            </Tag>
                             <span className="text-xs text-primary-400">{persona.sourceData.name}</span>
                           </div>
                         </div>
@@ -554,7 +558,7 @@ function PersonasContent() {
               
               <div className="text-center mt-8">
                 <p className="text-sm text-primary-400 mb-4">
-                  Can't find the right foundation? Create a custom persona with detailed inputs and prompts.
+                  Can&apos;t find the right foundation? Create a custom persona with detailed inputs and prompts.
                 </p>
                 {canAccessPremium() ? (
                   <Link href="/personas/generate">
