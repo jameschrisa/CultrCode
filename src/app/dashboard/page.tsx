@@ -196,7 +196,7 @@ function DashboardContent() {
                 <Button
                   variant="outline"
                   onClick={() => window.location.href = '/advanced-segmentation'}
-                  className="w-full text-sm"
+                  className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                   size="sm"
                 >
                   <Target className="w-4 h-4 mr-2" />
@@ -208,7 +208,7 @@ function DashboardContent() {
                 <Button
                   variant="outline"
                   onClick={() => window.location.href = '/microcommunities'}
-                  className="w-full text-sm"
+                  className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                   size="sm"
                 >
                   <Users className="w-4 h-4 mr-2" />
@@ -219,7 +219,7 @@ function DashboardContent() {
               <Button
                 variant="outline"
                 onClick={() => window.location.href = '/trends'}
-                className="w-full text-sm"
+                className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                 size="sm"
               >
                 <Activity className="w-4 h-4 mr-2" />
@@ -228,8 +228,8 @@ function DashboardContent() {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => window.location.href = '/solutions/personas'}
-                className="w-full text-sm"
+                onClick={() => window.location.href = '/personas'}
+                className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                 size="sm"
               >
                 <UserCheck className="w-4 h-4 mr-2" />
@@ -263,6 +263,7 @@ function DashboardContent() {
                   <Button
                     variant="outline"
                     onClick={() => window.location.href = '/advanced-segmentation'}
+                    className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                   >
                     <Target className="w-4 h-4 mr-2" />
                     Advanced Segmentation
@@ -272,6 +273,7 @@ function DashboardContent() {
                   <Button
                     variant="outline"
                     onClick={() => window.location.href = '/microcommunities'}
+                    className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                   >
                     <Users className="w-4 h-4 mr-2" />
                     Explore Microcommunities
@@ -280,13 +282,15 @@ function DashboardContent() {
                 <Button
                   variant="outline"
                   onClick={() => window.location.href = '/trends'}
+                  className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                 >
                   <Activity className="w-4 h-4 mr-2" />
                   Monitor Emerging Trends
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.href = '/solutions/personas'}
+                  onClick={() => window.location.href = '/personas'}
+                  className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
                 >
                   <UserCheck className="w-4 h-4 mr-2" />
                   Generated Personas
@@ -296,7 +300,7 @@ function DashboardContent() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <Card className="border-0">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -341,7 +345,7 @@ function DashboardContent() {
           </div>
 
           {/* Pinned Items Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
             <Card className="border-0">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -398,7 +402,7 @@ function DashboardContent() {
             <p className="text-primary-400">Discover segments and communities to target for your next launch</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
                 name: "Digital Nomad Families",
@@ -480,7 +484,7 @@ function DashboardContent() {
                         <Button 
                           variant="outline" 
                           size="sm" 
-                          className="flex-1 text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
+                          className="flex-1 text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                           onClick={() => handleViewDetails(segment, 'segment')}
                         >
                           <Eye className="w-4 h-4 mr-2" />
@@ -489,7 +493,7 @@ function DashboardContent() {
                         <Button 
                           variant={pinnedItems.segments.has(segment.name) ? "primary" : "outline"} 
                           size="sm" 
-                          className="flex-1"
+                          className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                           onClick={() => handlePin(segment.name, 'segment')}
                         >
                           <Pin className={`w-4 h-4 mr-2 ${pinnedItems.segments.has(segment.name) ? 'fill-current' : ''}`} />
@@ -499,7 +503,7 @@ function DashboardContent() {
                     )}
                     
                     {!canAccessPremium() && (
-                      <Button variant="outline" size="sm" className="w-full">
+                      <Button variant="outline" size="sm" className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <Crown className="w-4 h-4 mr-2" />
                         Unlock with Premium
                       </Button>
@@ -568,7 +572,7 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="lg" className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold">
+                    <Button variant="outline" size="lg" className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-accent-500/20">
                       Explore All Segments →
                     </Button>
                   </CardContent>
@@ -627,7 +631,7 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="lg" className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold">
+                    <Button variant="outline" size="lg" className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/20">
                       Explore All Communities →
                     </Button>
                   </CardContent>
@@ -646,13 +650,13 @@ function DashboardContent() {
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-primary-50">Emerging Trends</h2>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
               <TrendingUp className="w-4 h-4 mr-2" />
               View All Trends
             </Button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 name: "Silent Walking",
@@ -732,7 +736,7 @@ function DashboardContent() {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1"
+                        className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                         onClick={() => handleViewDetails({
                           name: trend.name,
                           description: trend.description,
@@ -748,6 +752,7 @@ function DashboardContent() {
                       <Button 
                         variant="outline" 
                         size="sm"
+                        className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                         onClick={() => handlePin(trend.name, 'trend')}
                       >
                         <BookmarkPlus className="w-4 h-4" />
@@ -797,13 +802,14 @@ function DashboardContent() {
                 <Button 
                   variant="outline"
                   onClick={() => window.location.href = '/analysis'}
+                  className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                 >
                   Generate Report
                 </Button>
               </CardContent>
             </Card>
           ) : (
-            <div className="grid gap-6">
+            <div className="grid gap-8">
               {savedReports.map((report, index) => (
                 <motion.div
                   key={report.id}
@@ -846,6 +852,7 @@ function DashboardContent() {
                             variant="outline"
                             size="sm"
                             onClick={() => setViewingReport(report)}
+                            className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                           >
                             <Eye className="w-4 h-4 mr-2" />
                             View
@@ -854,7 +861,7 @@ function DashboardContent() {
                             variant="outline"
                             size="sm"
                             onClick={() => deleteReport(report.id)}
-                            className="text-red-400 border-red-500/30 hover:bg-red-500/10"
+                            className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
