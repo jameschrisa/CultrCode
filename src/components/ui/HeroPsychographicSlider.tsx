@@ -42,7 +42,7 @@ export function PsychographicSlider({
   }
 
   return (
-    <div className={cn('space-y-6 md:space-y-8 p-4 md:p-6 bg-gradient-to-br from-primary-900/50 to-primary-800/30 rounded-2xl border border-primary-700/30 backdrop-blur-sm', className)}>
+    <div className={cn('space-y-6 md:space-y-8 p-4 md:p-6 bg-gradient-to-br from-primary-900/50 to-primary-800/30 rounded-2xl border border-primary-700/30 backdrop-blur-sm transition-all duration-300 hover:border-primary-600/40', className)}>
       {/* Label and Description */}
       <div className="space-y-2 md:space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -54,7 +54,10 @@ export function PsychographicSlider({
           </span>
         </div>
         {description && (
-          <p className="text-sm text-primary-300 leading-relaxed opacity-90">
+          <p 
+            className="text-sm text-primary-300 leading-relaxed opacity-90"
+            id={`${label.replace(/\s+/g, '-').toLowerCase()}-desc`}
+          >
             {description}
           </p>
         )}
@@ -82,34 +85,51 @@ export function PsychographicSlider({
           size="lg"
           color="primary"
           className="w-full py-2 md:py-4"
+          aria-label={label}
+          aria-describedby={description ? `${label.replace(/\s+/g, '-').toLowerCase()}-desc` : undefined}
           classNames={{
             base: "gap-4 md:gap-6",
             track: [
-              "border-s-primary-800/50 bg-primary-800/30",
-              "h-2 md:h-3 rounded-full shadow-inner",
-              "border border-primary-700/30"
+              // Track background - simplified
+              "bg-primary-800/40 border border-primary-700/50",
+              "h-2 md:h-3 rounded-full",
+              "shadow-inner",
+              "relative overflow-hidden"
             ],
             filler: [
+              // Active fill - clean gradient
               "bg-gradient-to-r from-primary-400 via-accent-500 to-primary-500",
-              "h-2 md:h-3 rounded-full shadow-lg",
-              "border border-primary-300/20"
+              "h-2 md:h-3 rounded-full",
+              "shadow-sm",
+              "transition-all duration-200"
             ],
             thumb: [
-              "w-10 h-10 md:w-12 md:h-12 bg-white border-3 md:border-4 border-primary-400 shadow-xl",
-              "after:w-6 after:h-6 md:after:w-8 md:after:h-8 after:bg-gradient-to-br after:from-primary-400 after:to-accent-500",
-              "after:rounded-full after:absolute after:inset-2 after:shadow-inner",
-              "hover:scale-125 hover:shadow-2xl hover:border-accent-400",
-              "active:scale-110 transition-all duration-300 cursor-grab active:cursor-grabbing",
-              "ring-2 md:ring-4 ring-primary-500/20 hover:ring-accent-500/30",
-              "focus:scale-125 focus:shadow-2xl focus:border-accent-400 focus:ring-accent-500/40",
-              "touch-action-none" // Better touch support
+              // Base thumb styling - simplified
+              "w-8 h-8 md:w-10 md:h-10",
+              "bg-gradient-to-br from-white to-primary-50",
+              "border-2 md:border-3 border-primary-400",
+              "rounded-full shadow-lg",
+              // Hover states
+              "hover:scale-110 hover:shadow-xl hover:border-accent-400",
+              "hover:from-accent-50 hover:to-white",
+              // Active states
+              "active:scale-105 transition-all duration-200",
+              "cursor-grab active:cursor-grabbing",
+              // Focus states for accessibility
+              "focus:outline-none focus:ring-4 focus:ring-accent-500/30",
+              "focus:border-accent-400 focus:scale-110",
+              // Better touch support
+              "touch-action-none select-none",
+              // Ensure proper positioning
+              "relative z-10"
             ],
             mark: [
               "text-xs md:text-sm font-medium text-primary-400 mt-3 md:mt-4",
               "hover:text-primary-300 transition-colors"
             ],
             labelWrapper: "mb-3 md:mb-4",
-            trackWrapper: "py-1 md:py-2"
+            trackWrapper: "py-2 md:py-3 px-1",
+            step: "bg-primary-600/50 w-1 h-4 rounded-sm"
           }}
         />
       </div>
