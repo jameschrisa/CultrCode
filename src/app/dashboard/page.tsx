@@ -24,6 +24,11 @@ function DashboardContent() {
   const [viewingReport, setViewingReport] = useState<SavedReport | null>(null)
   const [selectedCard, setSelectedCard] = useState<any>(null)
   const [savedPersonasCount, setSavedPersonasCount] = useState(1) // Mock count for saved personas
+  const [showPinnedModal, setShowPinnedModal] = useState<{
+    type: 'segments' | 'trends' | 'communities' | 'personas' | null
+    title: string
+    items: string[]
+  }>({ type: null, title: '', items: [] })
   const [pinnedItems, setPinnedItems] = useState<{
     segments: Set<string>
     trends: Set<string>
@@ -153,6 +158,62 @@ function DashboardContent() {
       } else {
         newSet.add(cardName)
       }
+      return {
+        ...prev,
+        [key]: newSet
+      }
+    })
+  }
+
+  const handleStatCardClick = (type: 'segments' | 'trends' | 'communities' | 'personas') => {
+    if (!canAccessPremium()) return
+    
+    let title = ''
+    let items: string[] = []
+    
+    switch (type) {
+      case 'segments':
+        title = 'Pinned Segments'
+        items = Array.from(pinnedItems.segments)
+        break
+      case 'trends':
+        title = 'Pinned Trends'
+        items = Array.from(pinnedItems.trends)
+        break
+      case 'communities':
+        title = 'Pinned Communities'
+        items = Array.from(pinnedItems.communities)
+        break
+      case 'personas':
+        title = 'Saved Personas'
+        items = ['Eco-Conscious Emma'] // Mock data - in production this would come from API
+        break
+    }
+    
+    setShowPinnedModal({ type, title, items })
+  }
+
+  const handleUnpin = (itemName: string, type: 'segments' | 'trends' | 'communities' | 'personas') => {
+    if (type === 'personas') {
+      // Handle persona deletion - in production this would call an API
+      setShowPinnedModal(prev => ({
+        ...prev,
+        items: prev.items.filter(item => item !== itemName)
+      }))
+      return
+    }
+    
+    setPinnedItems(prev => {
+      const key = type
+      const newSet = new Set(prev[key])
+      newSet.delete(itemName)
+      
+      // Update modal items
+      setShowPinnedModal(prevModal => ({
+        ...prevModal,
+        items: Array.from(newSet)
+      }))
+      
       return {
         ...prev,
         [key]: newSet
@@ -313,7 +374,7 @@ function DashboardContent() {
               </CardContent>
             </Card>
             
-            <Card className="border-0 cursor-pointer hover:border-accent-500/30 transition-all duration-200" onClick={() => window.location.href = '/personas'}>
+            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() ? handleStatCardClick('personas') : window.location.href = '/personas'}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -346,7 +407,7 @@ function DashboardContent() {
 
           {/* Pinned Items Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
-            <Card className="border-0">
+            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() && handleStatCardClick('segments')}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -360,7 +421,7 @@ function DashboardContent() {
               </CardContent>
             </Card>
             
-            <Card className="border-0">
+            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() && handleStatCardClick('trends')}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -374,7 +435,7 @@ function DashboardContent() {
               </CardContent>
             </Card>
 
-            <Card className="border-0">
+            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() && handleStatCardClick('communities')}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -916,6 +977,98 @@ function DashboardContent() {
             pinnedItems.communities.has(selectedCard.name)
           }
         />
+      )}
+
+      {/* Pinned Items Modal */}
+      {showPinnedModal.type && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-primary-900 rounded-xl border border-primary-700 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center">
+                    {showPinnedModal.type === 'segments' && <Target className="w-6 h-6 text-accent-400" />}
+                    {showPinnedModal.type === 'trends' && <TrendingUp className="w-6 h-6 text-success-400" />}
+                    {showPinnedModal.type === 'communities' && <Users className="w-6 h-6 text-blue-400" />}
+                    {showPinnedModal.type === 'personas' && <Brain className="w-6 h-6 text-accent-400" />}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-primary-50">{showPinnedModal.title}</h2>
+                    <p className="text-primary-300">{showPinnedModal.items.length} {showPinnedModal.items.length === 1 ? 'item' : 'items'}</p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowPinnedModal({ type: null, title: '', items: [] })}
+                  className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                >
+                  ✕
+                </Button>
+              </div>
+
+              {showPinnedModal.items.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                    {showPinnedModal.type === 'segments' && <Target className="w-8 h-8 text-primary-400" />}
+                    {showPinnedModal.type === 'trends' && <TrendingUp className="w-8 h-8 text-primary-400" />}
+                    {showPinnedModal.type === 'communities' && <Users className="w-8 h-8 text-primary-400" />}
+                    {showPinnedModal.type === 'personas' && <Brain className="w-8 h-8 text-primary-400" />}
+                  </div>
+                  <h3 className="text-xl font-semibold text-primary-300 mb-2">No {showPinnedModal.title}</h3>
+                  <p className="text-primary-500">
+                    {showPinnedModal.type === 'personas' 
+                      ? 'Create your first persona to get started'
+                      : `Pin ${showPinnedModal.type} from the dashboard to see them here`
+                    }
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {showPinnedModal.items.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 bg-primary-800/50 rounded-xl border border-primary-700/50"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center">
+                          {showPinnedModal.type === 'segments' && <Target className="w-4 h-4 text-accent-400" />}
+                          {showPinnedModal.type === 'trends' && <TrendingUp className="w-4 h-4 text-success-400" />}
+                          {showPinnedModal.type === 'communities' && <Users className="w-4 h-4 text-blue-400" />}
+                          {showPinnedModal.type === 'personas' && <Brain className="w-4 h-4 text-accent-400" />}
+                        </div>
+                        <span className="text-primary-100 font-medium">{item}</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleUnpin(item, showPinnedModal.type!)}
+                        className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+                      >
+                        <Trash2 className="w-4 h-4 mr-1" />
+                        {showPinnedModal.type === 'personas' ? 'Delete' : 'Unpin'}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-6 pt-4 border-t border-primary-700">
+                <Button
+                  variant="outline"
+                  className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                  onClick={() => setShowPinnedModal({ type: null, title: '', items: [] })}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       )}
     </div>
   )
