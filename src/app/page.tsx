@@ -544,11 +544,118 @@ export default function Home() {
                   </div>
                 </motion.div>
 
+                {/* Creator Teams Using CultrCode */}
+                <motion.div
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
+                  className="mt-20 space-y-12"
+                >
+                  <div className="text-center">
+                    <h2 className="text-3xl lg:text-4xl font-bold text-primary-50 mb-4">
+                      Meet the Creator Teams <span className="gradient-text">Building the Future</span>
+                    </h2>
+                    <p className="text-xl text-primary-300 max-w-3xl mx-auto mb-12">
+                      From solo creators to enterprise teams, see who&apos;s using CultrCode to dominate their niche and scale their brands
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {[
+                      {
+                        image: "/images/group 1.png",
+                        title: "Content Creator Collectives",
+                        caption: "Multi-creator teams using AI segmentation to identify shared audience overlaps and cross-promotional opportunities across platforms.",
+                        highlight: "15+ creator collectives"
+                      },
+                      {
+                        image: "/images/group 2.png", 
+                        title: "Brand Strategy Teams",
+                        caption: "Marketing teams leveraging trend intelligence and community insights to position creator brands ahead of cultural shifts.",
+                        highlight: "300+ brand strategists"
+                      },
+                      {
+                        image: "/images/group 3.png",
+                        title: "Creative Studio Partners",
+                        caption: "Production teams and creative agencies using hyperlocal data to create regionally-targeted content that resonates deeply.",
+                        highlight: "50+ creative studios"
+                      },
+                      {
+                        image: "/images/group 4.png",
+                        title: "Growth-Focused Entrepreneurs",
+                        caption: "Solo creators and small teams using the complete suite to validate ideas, spot trends, and scale systematically.",
+                        highlight: "500+ entrepreneurs"
+                      },
+                      {
+                        image: "/images/group 5.png",
+                        title: "Community-Driven Brands",
+                        caption: "Teams building authentic communities using micro-community discovery to find their tribe and create meaningful connections.",
+                        highlight: "200+ community brands"
+                      },
+                      {
+                        image: "/images/group 6.png",
+                        title: "Data-Driven Creators",
+                        caption: "Analytics-focused creators combining persona generation with segmentation data to optimize content strategy and conversion rates.",
+                        highlight: "100+ data creators"
+                      }
+                    ].map((group, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                        className="glass-card rounded-2xl overflow-hidden group hover:border-accent-500/30 transition-all duration-300 relative"
+                      >
+                        <div className="relative h-48 overflow-hidden">
+                          <Image
+                            src={group.image}
+                            alt={group.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/20 to-transparent" />
+                          <div className="absolute top-4 right-4">
+                            <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-xs font-medium backdrop-blur-sm">
+                              {group.highlight}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="p-6 space-y-3">
+                          <h3 className="font-bold text-xl text-primary-50 group-hover:text-accent-300 transition-colors">
+                            {group.title}
+                          </h3>
+                          <p className="text-primary-300 leading-relaxed text-sm">
+                            {group.caption}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <div className="text-center mt-12">
+                    <div className="inline-flex items-center space-x-8 text-sm text-primary-400">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-success-400 rounded-full mr-2" />
+                        <span>1,165+ Active Teams</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-accent-400 rounded-full mr-2" />
+                        <span>Growing 47% Monthly</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-brand-400 rounded-full mr-2" />
+                        <span>All Creator Sizes</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
                 {/* Success Stories */}
                 <motion.div
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                  transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
                   className="mt-24"
                 >
                   <div className="text-center mb-16">
