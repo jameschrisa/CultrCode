@@ -25,7 +25,7 @@ function DashboardContent() {
   const [selectedCard, setSelectedCard] = useState<any>(null)
   const [savedPersonasCount, setSavedPersonasCount] = useState(1) // Mock count for saved personas
   const [showPinnedModal, setShowPinnedModal] = useState<{
-    type: 'segments' | 'trends' | 'communities' | 'personas' | null
+    type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports' | null
     title: string
     items: string[]
   }>({ type: null, title: '', items: [] })
@@ -165,7 +165,7 @@ function DashboardContent() {
     })
   }
 
-  const handleStatCardClick = (type: 'segments' | 'trends' | 'communities' | 'personas') => {
+  const handleStatCardClick = (type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports') => {
     if (!canAccessPremium()) return
     
     let title = ''
@@ -188,18 +188,36 @@ function DashboardContent() {
         title = 'Saved Personas'
         items = ['Eco-Conscious Emma'] // Mock data - in production this would come from API
         break
+      case 'reports':
+        title = 'Saved Reports'
+        items = savedReports.map(report => `Analysis Report - ${formatDate(report.createdAt)}`)
+        break
     }
     
     setShowPinnedModal({ type, title, items })
   }
 
-  const handleUnpin = (itemName: string, type: 'segments' | 'trends' | 'communities' | 'personas') => {
+  const handleUnpin = (itemName: string, type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports') => {
     if (type === 'personas') {
       // Handle persona deletion - in production this would call an API
       setShowPinnedModal(prev => ({
         ...prev,
         items: prev.items.filter(item => item !== itemName)
       }))
+      return
+    }
+    
+    if (type === 'reports') {
+      // Handle report deletion - find the report by name and delete it
+      const reportToDelete = savedReports.find(report => `Analysis Report - ${formatDate(report.createdAt)}` === itemName)
+      if (reportToDelete) {
+        deleteReport(reportToDelete.id)
+        // Update modal items
+        setShowPinnedModal(prev => ({
+          ...prev,
+          items: prev.items.filter(item => item !== itemName)
+        }))
+      }
       return
     }
     
@@ -362,11 +380,11 @@ function DashboardContent() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <Card className="border-0">
+            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() && handleStatCardClick('reports')}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-primary-400 text-sm font-medium">Total Reports</p>
+                    <p className="text-primary-400 text-sm font-medium">Saved Reports</p>
                     <p className="text-3xl font-bold text-primary-50">{savedReports.length}</p>
                   </div>
                   <BookmarkPlus className="w-8 h-8 text-accent-400" />
@@ -826,118 +844,122 @@ function DashboardContent() {
           </div>
         </motion.div>
 
-        {/* Communities Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-12"
-        >
-          <h2 className="text-2xl font-bold text-primary-50 mb-6">Trending Micro-Communities Feed</h2>
-          
-          <div className="text-center py-8">
-            <p className="text-primary-400">Communities content coming soon...</p>
-          </div>
-        </motion.div>
-
-        {/* Saved Reports */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <h2 className="text-2xl font-bold text-primary-50 mb-6">Saved Reports</h2>
-          
-          {loading ? (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin w-6 h-6 border-2 border-accent-500 border-t-transparent rounded-full"></div>
+        {/* Communities Section - Only for non-premium users */}
+        {!canAccessPremium() && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-12"
+          >
+            <h2 className="text-2xl font-bold text-primary-50 mb-6">Trending Micro-Communities Feed</h2>
+            
+            <div className="text-center py-8">
+              <p className="text-primary-400">Communities content coming soon...</p>
             </div>
-          ) : savedReports.length === 0 ? (
-            <Card className="glass-card">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Activity className="w-8 h-8 text-primary-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-primary-300 mb-2">No Reports Yet</h3>
-                <p className="text-primary-500 mb-4">Start by generating your first audience analysis report</p>
-                <Button 
-                  variant="outline"
-                  onClick={() => window.location.href = '/analysis'}
-                  className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                >
-                  Generate Report
-                </Button>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-8">
-              {savedReports.map((report, index) => (
-                <motion.div
-                  key={report.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="glass-card hover:border-accent-500/50 transition-all duration-200">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-3 mb-3">
-                            <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                              report.reportType === 'premium' 
-                                ? 'bg-accent-500/20 text-accent-400 border-accent-500/30'
-                                : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
-                            }`}>
-                              {report.reportType === 'premium' ? 'Premium' : 'Basic'}
+          </motion.div>
+        )}
+
+        {/* Saved Reports - Only for non-premium users */}
+        {!canAccessPremium() && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <h2 className="text-2xl font-bold text-primary-50 mb-6">Saved Reports</h2>
+            
+            {loading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin w-6 h-6 border-2 border-accent-500 border-t-transparent rounded-full"></div>
+              </div>
+            ) : savedReports.length === 0 ? (
+              <Card className="glass-card">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Activity className="w-8 h-8 text-primary-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-primary-300 mb-2">No Reports Yet</h3>
+                  <p className="text-primary-500 mb-4">Start by generating your first audience analysis report</p>
+                  <Button 
+                    variant="outline"
+                    onClick={() => window.location.href = '/analysis'}
+                    className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                  >
+                    Generate Report
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-8">
+                {savedReports.map((report, index) => (
+                  <motion.div
+                    key={report.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Card className="glass-card hover:border-accent-500/50 transition-all duration-200">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                                report.reportType === 'premium' 
+                                  ? 'bg-accent-500/20 text-accent-400 border-accent-500/30'
+                                  : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+                              }`}>
+                                {report.reportType === 'premium' ? 'Premium' : 'Basic'}
+                              </div>
+                              <span className="text-xs text-primary-400">
+                                {formatDate(report.createdAt)}
+                              </span>
                             </div>
-                            <span className="text-xs text-primary-400">
-                              {formatDate(report.createdAt)}
-                            </span>
+                            
+                            <h3 className="text-lg font-semibold text-primary-50 mb-2">
+                              Analysis Report
+                            </h3>
+                            
+                            <div className="flex items-center space-x-4 text-sm text-primary-300 mb-4">
+                              <span>Top Match: <span className="text-success-400 font-medium">92%</span></span>
+                              <span>•</span>
+                              <span>
+                                {report.segmentMatch ? 1 : 0} segments analyzed
+                              </span>
+                            </div>
                           </div>
                           
-                          <h3 className="text-lg font-semibold text-primary-50 mb-2">
-                            Analysis Report
-                          </h3>
-                          
-                          <div className="flex items-center space-x-4 text-sm text-primary-300 mb-4">
-                            <span>Top Match: <span className="text-success-400 font-medium">92%</span></span>
-                            <span>•</span>
-                            <span>
-                              {report.segmentMatch ? 1 : 0} segments analyzed
-                            </span>
+                          <div className="flex space-x-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setViewingReport(report)}
+                              className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                            >
+                              <Eye className="w-4 h-4 mr-2" />
+                              View
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => deleteReport(report.id)}
+                              className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
                           </div>
                         </div>
-                        
-                        <div className="flex space-x-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setViewingReport(report)}
-                            className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            View
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => deleteReport(report.id)}
-                            className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </motion.div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
 
-        {/* Report Management */}
-        {savedReports.length > 0 && (
+        {/* Report Management - Only for non-premium users */}
+        {!canAccessPremium() && savedReports.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -995,6 +1017,7 @@ function DashboardContent() {
                     {showPinnedModal.type === 'trends' && <TrendingUp className="w-6 h-6 text-success-400" />}
                     {showPinnedModal.type === 'communities' && <Users className="w-6 h-6 text-blue-400" />}
                     {showPinnedModal.type === 'personas' && <Brain className="w-6 h-6 text-accent-400" />}
+                    {showPinnedModal.type === 'reports' && <BookmarkPlus className="w-6 h-6 text-accent-400" />}
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-primary-50">{showPinnedModal.title}</h2>
@@ -1018,11 +1041,14 @@ function DashboardContent() {
                     {showPinnedModal.type === 'trends' && <TrendingUp className="w-8 h-8 text-primary-400" />}
                     {showPinnedModal.type === 'communities' && <Users className="w-8 h-8 text-primary-400" />}
                     {showPinnedModal.type === 'personas' && <Brain className="w-8 h-8 text-primary-400" />}
+                    {showPinnedModal.type === 'reports' && <BookmarkPlus className="w-8 h-8 text-primary-400" />}
                   </div>
                   <h3 className="text-xl font-semibold text-primary-300 mb-2">No {showPinnedModal.title}</h3>
                   <p className="text-primary-500">
                     {showPinnedModal.type === 'personas' 
                       ? 'Create your first persona to get started'
+                      : showPinnedModal.type === 'reports'
+                      ? 'Generate your first analysis report to get started'
                       : `Pin ${showPinnedModal.type} from the dashboard to see them here`
                     }
                   </p>
@@ -1040,6 +1066,7 @@ function DashboardContent() {
                           {showPinnedModal.type === 'trends' && <TrendingUp className="w-4 h-4 text-success-400" />}
                           {showPinnedModal.type === 'communities' && <Users className="w-4 h-4 text-blue-400" />}
                           {showPinnedModal.type === 'personas' && <Brain className="w-4 h-4 text-accent-400" />}
+                          {showPinnedModal.type === 'reports' && <BookmarkPlus className="w-4 h-4 text-accent-400" />}
                         </div>
                         <span className="text-primary-100 font-medium">{item}</span>
                       </div>
@@ -1050,7 +1077,7 @@ function DashboardContent() {
                         className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
                       >
                         <Trash2 className="w-4 h-4 mr-1" />
-                        {showPinnedModal.type === 'personas' ? 'Delete' : 'Unpin'}
+                        {showPinnedModal.type === 'personas' || showPinnedModal.type === 'reports' ? 'Delete' : 'Unpin'}
                       </Button>
                     </div>
                   ))}

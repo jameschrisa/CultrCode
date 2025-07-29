@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
 import { CitySelector } from '@/components/CitySelector'
 import { PremiumFormSection } from '@/components/PremiumFormSection'
+import { AudioTextArea } from '@/components/ui/AudioTextArea'
 
 interface SegmentFinderProps {
   onResults?: (matches: SegmentMatch[], userInputs: UserInputs) => void
@@ -396,27 +397,21 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
               {currentStep === 0 && (
                 <div className="space-y-8">
                   <div>
-                    <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      Describe your brand in a few words
-                    </label>
-                    <textarea
-                      {...register('brandDescription', { 
-                        required: true,
-                        minLength: 10 
-                      })}
+                    <AudioTextArea
+                      label="Describe your brand in a few words"
+                      value={watchedValues.brandDescription || ''}
+                      onChange={(value) => setValue('brandDescription', value, { shouldValidate: true })}
                       placeholder="e.g., Sustainable skincare for busy professionals who care about clean ingredients and want a simple routine that actually works..."
-                      className="w-full p-6 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-50 placeholder-primary-400 resize-none backdrop-blur-sm"
                       rows={5}
+                      required={true}
+                      maxLength={1000}
+                      showCharCount={true}
+                      audioMaxDuration={120}
+                      error={errors.brandDescription ? 'Please describe your brand (minimum 10 characters)' : undefined}
+                      className="text-lg"
+                      id="brandDescription"
+                      name="brandDescription"
                     />
-                    {errors.brandDescription && (
-                      <motion.p 
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-sm mt-3"
-                      >
-                        Please describe your brand (minimum 10 characters)
-                      </motion.p>
-                    )}
                   </div>
 
                   <div>

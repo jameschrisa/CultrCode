@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { PsychographicSlider } from '@/components/ui/HeroPsychographicSlider'
+import { AudioTextArea } from '@/components/ui/AudioTextArea'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
 import Link from 'next/link'
@@ -909,18 +910,19 @@ function GeneratePersonaContent() {
                   <h4 className="text-lg font-semibold text-primary-100">Persona Details</h4>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-primary-200 mb-2">
-                    Persona Description *
-                  </label>
-                  <textarea
-                    value={personaData.customInputs.description}
-                    onChange={(e) => updateCustomInput('description', e.target.value)}
-                    placeholder="Describe the persona you want to create..."
-                    rows={3}
-                    className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                  />
-                </div>
+                <AudioTextArea
+                  label="Persona Description"
+                  value={personaData.customInputs.description}
+                  onChange={(value) => updateCustomInput('description', value)}
+                  placeholder="Describe the persona you want to create..."
+                  rows={3}
+                  required={true}
+                  maxLength={500}
+                  showCharCount={true}
+                  audioMaxDuration={90}
+                  id="personaDescription"
+                  name="personaDescription"
+                />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -958,12 +960,13 @@ function GeneratePersonaContent() {
                 <label className="block text-sm font-medium text-primary-200 mb-2">
                   Additional Context (Optional)
                 </label>
-                <textarea
+                <AudioTextArea
                   value={personaData.customInputs.behaviorPrompt}
-                  onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
+                  onChange={(value) => updateCustomInput('behaviorPrompt', value)}
                   placeholder="Add any specific behaviors, preferences, or characteristics you want to emphasize..."
                   rows={3}
-                  className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
+                  className=""
+                  audioMaxDuration={180}
                 />
               </div>
             )}
@@ -974,12 +977,13 @@ function GeneratePersonaContent() {
                 <label className="block text-sm font-medium text-primary-200 mb-2">
                   Behavioral Prompt (Optional)
                 </label>
-                <textarea
+                <AudioTextArea
                   value={personaData.customInputs.behaviorPrompt}
-                  onChange={(e) => updateCustomInput('behaviorPrompt', e.target.value)}
+                  onChange={(value) => updateCustomInput('behaviorPrompt', value)}
                   placeholder="Describe specific behaviors, preferences, or characteristics..."
                   rows={3}
-                  className="w-full p-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
+                  className=""
+                  audioMaxDuration={180}
                 />
               </div>
             )}
@@ -1175,7 +1179,7 @@ function GeneratePersonaContent() {
                         </div>
                       )}
                     </div>
-                    <Button size="xl" onClick={generatePersona} className="px-12">
+                    <Button size="xl" onClick={generatePersona} className="px-12 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                       <Sparkles className="w-5 h-5 mr-2" />
                       Generate Persona
                     </Button>
@@ -1309,11 +1313,11 @@ function GeneratePersonaContent() {
                     )}
                     
                     <div className="flex space-x-4 mt-8 pt-6 border-t border-primary-700">
-                      <Button variant="outline" size="sm" onClick={savePersona}>
+                      <Button variant="outline" size="sm" onClick={savePersona} className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <Save className="w-4 h-4 mr-2" />
                         Save Persona
                       </Button>
-                      <Button variant="outline" size="sm" onClick={exportPersona}>
+                      <Button variant="outline" size="sm" onClick={exportPersona} className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <Download className="w-4 h-4 mr-2" />
                         Export
                       </Button>
@@ -1321,12 +1325,12 @@ function GeneratePersonaContent() {
                         setShowResult(false)
                         setCurrentStep(0)
                         setPersonaData(prev => ({ ...prev, baseSelection: { type: null, data: null } }))
-                      }}>
+                      }} className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Create Another
                       </Button>
                       <Link href="/dashboard">
-                        <Button size="sm" className="bg-accent-500 hover:bg-accent-600">
+                        <Button size="sm" className="bg-accent-500 hover:bg-accent-600 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                           <ArrowLeft className="w-4 h-4 mr-2" />
                           Complete
                         </Button>
@@ -1373,7 +1377,7 @@ function GeneratePersonaContent() {
           className="flex items-center space-x-4"
         >
           <Link href="/personas">
-            <Button variant="outline" size="sm" className="flex items-center">
+            <Button variant="outline" size="sm" className="flex items-center rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Personas
             </Button>
@@ -1459,6 +1463,7 @@ function GeneratePersonaContent() {
               variant="outline"
               onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
               disabled={currentStep === 0}
+              className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Previous
@@ -1468,6 +1473,11 @@ function GeneratePersonaContent() {
               <Button
                 onClick={() => setCurrentStep(currentStep + 1)}
                 disabled={!canProceed()}
+                className={`rounded-xl transition-all duration-300 ${
+                  canProceed() 
+                    ? 'bg-accent-500 hover:bg-accent-600 hover:shadow-lg hover:shadow-accent-500/20 text-white' 
+                    : 'opacity-50 cursor-not-allowed'
+                }`}
               >
                 Next
                 <ChevronRight className="w-4 h-4 ml-2" />

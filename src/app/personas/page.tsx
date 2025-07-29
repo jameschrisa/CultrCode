@@ -246,7 +246,7 @@ function PersonasContent() {
           className="flex items-center space-x-4"
         >
           <Link href="/dashboard">
-            <Button variant="outline" size="sm" className="flex items-center">
+            <Button variant="outline" size="sm" className="flex items-center rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
               <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
               Back to Dashboard
             </Button>
@@ -284,14 +284,14 @@ function PersonasContent() {
           <div className="flex items-center justify-center">
             {canAccessPremium() ? (
               <Link href="/personas/generate">
-                <Button size="lg" className="px-8">
+                <Button size="lg" className="px-8 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                   <Plus className="w-5 h-5 mr-2" />
                   Generate New Persona
                 </Button>
               </Link>
             ) : (
               <Link href="/pricing">
-                <Button size="lg" className="px-8">
+                <Button size="lg" className="px-8 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                   <Star className="w-5 h-5 mr-2" />
                   Upgrade to Generate Personas
                 </Button>
@@ -378,7 +378,7 @@ function PersonasContent() {
                     </div>
                     
                     <div className="pt-4 border-t border-primary-700/50">
-                      <Button variant="outline" size="sm" className="w-full">
+                      <Button variant="outline" size="sm" className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <Eye className="w-4 h-4 mr-2" />
                         View Full Persona
                       </Button>
@@ -414,14 +414,14 @@ function PersonasContent() {
                 </p>
                 {canAccessPremium() ? (
                   <Link href="/personas/generate">
-                    <Button>
+                    <Button className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                       <Plus className="w-4 h-4 mr-2" />
                       Generate Your First Persona
                     </Button>
                   </Link>
                 ) : (
                   <Link href="/pricing">
-                    <Button>
+                    <Button className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                       <Star className="w-4 h-4 mr-2" />
                       Upgrade to Generate Personas
                     </Button>
@@ -487,15 +487,15 @@ function PersonasContent() {
                       </div>
                       
                       <div className="pt-4 border-t border-primary-700/50 flex space-x-2">
-                        <Button variant="outline" size="sm" className="flex-1" onClick={() => setSelectedPersona(persona)}>
+                        <Button variant="outline" size="sm" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300" onClick={() => setSelectedPersona(persona)}>
                           <Eye className="w-3 h-3 mr-1" />
                           View
                         </Button>
-                        <Button variant="outline" size="sm" className="flex-1">
+                        <Button variant="outline" size="sm" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                           <Edit2 className="w-3 h-3 mr-1" />
                           Edit
                         </Button>
-                        <Button variant="outline" size="sm" className="text-red-400 hover:text-red-300 border-red-400/50">
+                        <Button variant="outline" size="sm" className="text-red-400 hover:text-red-300 border-red-400/50 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300">
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </div>
@@ -562,14 +562,14 @@ function PersonasContent() {
                 </p>
                 {canAccessPremium() ? (
                   <Link href="/personas/generate">
-                    <Button variant="outline">
+                    <Button variant="outline" className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                       <BookOpen className="w-4 h-4 mr-2" />
                       Start Generating
                     </Button>
                   </Link>
                 ) : (
                   <Link href="/pricing">
-                    <Button variant="outline">
+                    <Button variant="outline" className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                       <Star className="w-4 h-4 mr-2" />
                       View Pricing
                     </Button>
@@ -604,6 +604,7 @@ function PersonasContent() {
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectedPersona(null)}
+                  className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                 >
                   ✕
                 </Button>
@@ -683,17 +684,17 @@ function PersonasContent() {
 
               <div className="mt-8 pt-6 border-t border-primary-700">
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="flex-1">
+                  <Button className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                     <Download className="w-4 h-4 mr-2" />
                     Export Persona
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button variant="outline" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                     <Edit2 className="w-4 h-4 mr-2" />
                     Edit Persona
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="flex-1"
+                    className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                     onClick={() => setSelectedPersona(null)}
                   >
                     Close
