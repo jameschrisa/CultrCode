@@ -11,6 +11,7 @@ import { PsychographicSlider } from '@/components/ui/HeroPsychographicSlider'
 import { AudioTextArea } from '@/components/ui/AudioTextArea'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
+import { PersonaCard } from '@/components/PersonaCard'
 import Link from 'next/link'
 
 interface BaseSelection {
@@ -1202,117 +1203,52 @@ function GeneratePersonaContent() {
 
             {showResult && (
               <div className="space-y-6">
+                <PersonaCard 
+                  persona={personaData} 
+                  showGenerateButton={true}
+                  onImageGenerated={(imageUrl) => {
+                    // Update persona data with the generated image
+                    setPersonaData(prev => ({
+                      ...prev,
+                      profilePicture: {
+                        url: imageUrl,
+                        prompt: '',
+                        generatedAt: new Date().toISOString(),
+                        cached: true
+                      }
+                    }))
+                  }}
+                />
+                
+                {/* Psychographic Adjustments Summary */}
+                {Object.values(personaData.psychographics).filter(val => val !== 3).length > 0 && (
+                  <Card className="glass-card">
+                    <CardContent className="p-6">
+                      <h5 className="font-semibold text-primary-50 mb-3">Psychographic Adjustments Applied</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                        {Object.entries(personaData.psychographics)
+                          .filter(([_, value]) => value !== 3)
+                          .map(([factorId, value]) => {
+                            const factor = psychographicFactors.find(f => f.id === factorId)
+                            if (!factor) return null
+                            return (
+                              <div key={factorId} className="flex justify-between items-center">
+                                <span className="text-primary-300">{factor.label}:</span>
+                                <span className="text-accent-400 font-medium">
+                                  {factor.tickLabels[value - 1]}
+                                </span>
+                              </div>
+                            )
+                          })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                
+                {/* Action Buttons */}
                 <Card className="glass-card">
-                  <CardHeader>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-20 h-20 bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                        <User className="w-10 h-10 text-accent-400" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="flex items-center space-x-2 mb-2">
-                          <span className="text-primary-50">{personaData.name}</span>
-                        </CardTitle>
-                        <div className="text-sm text-primary-400">
-                          Generated from {personaData.baseSelection.type} • {new Date().toLocaleDateString()}
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Values</h5>
-                          <div className="flex flex-wrap gap-2">
-                            {personaData.generatedInsights.values.map((value, index) => (
-                              <span key={index} className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">
-                                {value}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Personality</h5>
-                          <div className="flex flex-wrap gap-2">
-                            {personaData.generatedInsights.personality.map((trait, index) => (
-                              <span key={index} className="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-sm">
-                                {trait}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Demographics</h5>
-                          <div className="space-y-1 text-sm">
-                            <div><span className="text-primary-400">Age:</span> <span className="text-primary-200">{personaData.generatedInsights.demographics.ageRange}</span></div>
-                            <div><span className="text-primary-400">Location:</span> <span className="text-primary-200">{personaData.generatedInsights.demographics.location}</span></div>
-                            <div><span className="text-primary-400">Income:</span> <span className="text-primary-200">{personaData.generatedInsights.demographics.income}</span></div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Interests</h5>
-                          <div className="flex flex-wrap gap-2">
-                            {personaData.generatedInsights.interests.map((interest, index) => (
-                              <span key={index} className="px-3 py-1 bg-success-500/20 text-success-300 rounded-full text-sm">
-                                {interest}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Communication</h5>
-                          <div className="flex flex-wrap gap-2">
-                            {personaData.generatedInsights.communication.map((channel, index) => (
-                              <span key={index} className="px-3 py-1 bg-warning-500/20 text-warning-300 rounded-full text-sm">
-                                {channel}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h5 className="font-semibold text-primary-50 mb-2">Buying Motivations</h5>
-                          <div className="flex flex-wrap gap-2">
-                            {personaData.generatedInsights.buyingMotivations.map((motivation, index) => (
-                              <span key={index} className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
-                                {motivation}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Psychographic Adjustments Summary */}
-                    {Object.values(personaData.psychographics).filter(val => val !== 3).length > 0 && (
-                      <div className="mt-6 pt-6 border-t border-primary-700/50">
-                        <h5 className="font-semibold text-primary-50 mb-3">Psychographic Adjustments Applied</h5>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                          {Object.entries(personaData.psychographics)
-                            .filter(([_, value]) => value !== 3)
-                            .map(([factorId, value]) => {
-                              const factor = psychographicFactors.find(f => f.id === factorId)
-                              if (!factor) return null
-                              return (
-                                <div key={factorId} className="flex justify-between items-center">
-                                  <span className="text-primary-300">{factor.label}:</span>
-                                  <span className="text-accent-400 font-medium">
-                                    {factor.tickLabels[value - 1]}
-                                  </span>
-                                </div>
-                              )
-                            })}
-                        </div>
-                      </div>
-                    )}
-                    
-                    <div className="flex space-x-4 mt-8 pt-6 border-t border-primary-700">
+                  <CardContent className="p-6">
+                    <div className="flex flex-wrap gap-4">
                       <Button variant="outline" size="sm" onClick={savePersona} className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                         <Save className="w-4 h-4 mr-2" />
                         Save Persona

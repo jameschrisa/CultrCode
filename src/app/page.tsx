@@ -165,18 +165,18 @@ export default function Home() {
                       variants={itemVariants}
                       className="text-4xl lg:text-6xl xl:text-7xl font-black text-primary-50 leading-[0.9] tracking-tight"
                     >
-                      Creator Brand
+                      Stop Guessing.
                       <motion.span 
                         variants={itemVariants}
                         className="gradient-text block"
                       >
-                        Intelligence Suite
+                        Start Dominating.
                       </motion.span>
                       <motion.span 
                         variants={itemVariants}
                         className="text-primary-300 text-2xl lg:text-3xl xl:text-4xl font-medium block mt-4"
                       >
-                        5 Tools. One Platform. Unstoppable Growth.
+                        Know Your Audience. Spot Trends Early. Scale Faster.
                       </motion.span>
                     </motion.h1>
                     
@@ -184,8 +184,8 @@ export default function Home() {
                       variants={itemVariants}
                       className="text-lg lg:text-xl xl:text-2xl text-primary-300 leading-relaxed font-light"
                     >
-                      Everything creator brands need to dominate their niche: AI audience segmentation, trend intelligence, 
-                      micro-community discovery, geographic targeting, and AI-generated personas—all in one platform.
+                      The only platform that tells you exactly who wants your products, what trends to ride next, and where your biggest opportunities hide. 
+                      Turn creator intuition into data-driven dominance.
                     </motion.p>
 
                     <motion.div 
@@ -565,38 +565,32 @@ export default function Home() {
                       {
                         image: "/images/group 1.png",
                         title: "Content Creator Collectives",
-                        caption: "Multi-creator teams using AI segmentation to identify shared audience overlaps and cross-promotional opportunities across platforms.",
-                        highlight: "15+ creator collectives"
+                        caption: "Multi-creator teams using AI segmentation to identify shared audience overlaps and cross-promotional opportunities across platforms."
                       },
                       {
                         image: "/images/group 2.png", 
                         title: "Brand Strategy Teams",
-                        caption: "Marketing teams leveraging trend intelligence and community insights to position creator brands ahead of cultural shifts.",
-                        highlight: "300+ brand strategists"
+                        caption: "Marketing teams leveraging trend intelligence and community insights to position creator brands ahead of cultural shifts."
                       },
                       {
                         image: "/images/group 3.png",
                         title: "Creative Studio Partners",
-                        caption: "Production teams and creative agencies using hyperlocal data to create regionally-targeted content that resonates deeply.",
-                        highlight: "50+ creative studios"
+                        caption: "Production teams and creative agencies using hyperlocal data to create regionally-targeted content that resonates deeply."
                       },
                       {
                         image: "/images/group 4.png",
                         title: "Growth-Focused Entrepreneurs",
-                        caption: "Solo creators and small teams using the complete suite to validate ideas, spot trends, and scale systematically.",
-                        highlight: "500+ entrepreneurs"
+                        caption: "Solo creators and small teams using the complete suite to validate ideas, spot trends, and scale systematically."
                       },
                       {
                         image: "/images/group 5.png",
                         title: "Community-Driven Brands",
-                        caption: "Teams building authentic communities using micro-community discovery to find their tribe and create meaningful connections.",
-                        highlight: "200+ community brands"
+                        caption: "Teams building authentic communities using micro-community discovery to find their tribe and create meaningful connections."
                       },
                       {
                         image: "/images/group 6.png",
                         title: "Data-Driven Creators",
-                        caption: "Analytics-focused creators combining persona generation with segmentation data to optimize content strategy and conversion rates.",
-                        highlight: "100+ data creators"
+                        caption: "Analytics-focused creators combining persona generation with segmentation data to optimize content strategy and conversion rates."
                       }
                     ].map((group, index) => (
                       <motion.div
@@ -614,11 +608,6 @@ export default function Home() {
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/20 to-transparent" />
-                          <div className="absolute top-4 right-4">
-                            <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-xs font-medium backdrop-blur-sm">
-                              {group.highlight}
-                            </span>
-                          </div>
                         </div>
                         
                         <div className="p-6 space-y-3">

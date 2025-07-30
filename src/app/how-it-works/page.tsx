@@ -275,36 +275,30 @@ export default function HowItWorks() {
                   <Card className="glass-card border-accent-500/20">
                     <CardContent className="p-8">
                       {step.number === 1 && (
-                        <OptimizedImage
-                          {...getImageWithAttribution('howItWorks.planning')}
-                          aspectRatio="wide"
-                          width={600}
-                          height={400}
+                        <SimpleImage
+                          src="/images/UX-segmentation.png"
+                          alt="AI Audience Segmentation Interface"
                           className="w-full rounded-xl"
                         />
                       )}
                       {step.number === 2 && (
-                        <OptimizedImage
-                          {...getImageWithAttribution('howItWorks.analysis')}
-                          aspectRatio="wide"
-                          width={600}
-                          height={400}
+                        <SimpleImage
+                          src="/images/UX-microcommunities.png"
+                          alt="Micro-Community Discovery Dashboard"
                           className="w-full rounded-xl"
                         />
                       )}
                       {step.number === 3 && (
-                        <div className="aspect-video bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-xl flex items-center justify-center">
-                          <div className="text-6xl opacity-50">
-                            {step.icon}
-                          </div>
-                        </div>
+                        <SimpleImage
+                          src="/images/UX-trends.png"
+                          alt="Emerging Trends Intelligence Platform"
+                          className="w-full rounded-xl"
+                        />
                       )}
                       {step.number === 4 && (
-                        <OptimizedImage
-                          {...getImageWithAttribution('howItWorks.success')}
-                          aspectRatio="wide"
-                          width={600}
-                          height={400}
+                        <SimpleImage
+                          src="/images/UX-personas.png"
+                          alt="Generated Personas Dashboard"
                           className="w-full rounded-xl"
                         />
                       )}
