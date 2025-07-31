@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
-import { ChevronLeft, Menu, X, ChevronDown, Target, TrendingUp, Users, MapPin, Star } from 'lucide-react'
+import { ChevronLeft, Menu, X, ChevronDown, Target, TrendingUp, Users, Star } from 'lucide-react'
 import { HiSparkles } from 'react-icons/hi'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
@@ -102,13 +102,6 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
       icon: <TrendingUp className="w-5 h-5" />,
       href: isPremiumUser ? '/trends' : '/solutions',
       badge: isPremiumUser ? 'Active' : 'Premium'
-    },
-    {
-      name: 'Hyperlocal Analysis',
-      description: 'Geographic targeting with ZIP code precision',
-      icon: <MapPin className="w-5 h-5" />,
-      href: '/solutions',
-      badge: 'Coming Soon'
     }
   ]
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, UserCheck, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight, Brain } from 'lucide-react'
+import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight, Brain } from 'lucide-react'
 import { HiSparkles } from 'react-icons/hi'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
 import { Button } from '@/components/ui/HeroButton'
@@ -270,52 +270,6 @@ function DashboardContent() {
                 </div>
               </div>
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {canAccessPremium() && (
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = '/advanced-segmentation'}
-                  className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                  size="sm"
-                >
-                  <Target className="w-4 h-4 mr-2" />
-                  <span className="hidden sm:inline">Advanced Segmentation</span>
-                  <span className="sm:hidden">Segmentation</span>
-                </Button>
-              )}
-              {canAccessPremium() && (
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = '/microcommunities'}
-                  className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                  size="sm"
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  <span className="hidden sm:inline">Explore Microcommunities</span>
-                  <span className="sm:hidden">Communities</span>
-                </Button>
-              )}
-              <Button
-                variant="outline"
-                onClick={() => window.location.href = '/trends'}
-                className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                size="sm"
-              >
-                <Activity className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Monitor Emerging Trends</span>
-                <span className="sm:hidden">Trends</span>
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => window.location.href = '/personas'}
-                className="w-full text-sm rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                size="sm"
-              >
-                <UserCheck className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Generated Personas</span>
-                <span className="sm:hidden">Personas</span>
-              </Button>
-            </div>
           </div>
 
           {/* Desktop Header Layout */}
@@ -337,45 +291,62 @@ function DashboardContent() {
                   </div>
                 </div>
               )}
-              <div className="flex flex-wrap gap-3">
-                {canAccessPremium() && (
-                  <Button
-                    variant="outline"
-                    onClick={() => window.location.href = '/advanced-segmentation'}
-                    className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                  >
-                    <Target className="w-4 h-4 mr-2" />
-                    Advanced Segmentation
-                  </Button>
-                )}
-                {canAccessPremium() && (
-                  <Button
-                    variant="outline"
-                    onClick={() => window.location.href = '/microcommunities'}
-                    className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                  >
-                    <Users className="w-4 h-4 mr-2" />
-                    Explore Microcommunities
-                  </Button>
-                )}
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = '/trends'}
-                  className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                >
-                  <Activity className="w-4 h-4 mr-2" />
-                  Monitor Emerging Trends
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = '/personas'}
-                  className="rounded-lg hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
-                >
-                  <UserCheck className="w-4 h-4 mr-2" />
-                  Generated Personas
-                </Button>
-              </div>
             </div>
+          </div>
+
+          {/* Tool Access Buttons - Single Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {canAccessPremium() && (
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/advanced-segmentation'}
+                className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
+              >
+                <Target className="w-5 h-5 text-accent-400" />
+                <div className="text-left">
+                  <div className="font-medium text-primary-50">Advanced Segmentation</div>
+                  <div className="text-xs text-primary-400">Hyperlocal targeting</div>
+                </div>
+              </Button>
+            )}
+            
+            {canAccessPremium() && (
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/microcommunities'}
+                className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-brand-500/20 hover:border-brand-400 transition-all duration-300"
+              >
+                <Users className="w-5 h-5 text-brand-400" />
+                <div className="text-left">
+                  <div className="font-medium text-primary-50">Micro-Communities</div>
+                  <div className="text-xs text-primary-400">135+ niche communities</div>
+                </div>
+              </Button>
+            )}
+            
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = '/trends'}
+              className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-success-500/20 hover:border-success-400 transition-all duration-300"
+            >
+              <TrendingUp className="w-5 h-5 text-success-400" />
+              <div className="text-left">
+                <div className="font-medium text-primary-50">Emerging Trends</div>
+                <div className="text-xs text-primary-400">Creator economy insights</div>
+              </div>
+            </Button>
+            
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = '/personas'}
+              className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-400 transition-all duration-300"
+            >
+              <Brain className="w-5 h-5 text-purple-400" />
+              <div className="text-left">
+                <div className="font-medium text-primary-50">Generated Personas</div>
+                <div className="text-xs text-primary-400">AI-powered personas</div>
+              </div>
+            </Button>
           </div>
 
           {/* Stats */}

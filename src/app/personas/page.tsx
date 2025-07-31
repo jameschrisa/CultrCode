@@ -65,6 +65,7 @@ function PersonasContent() {
   const [savedPersonas, setSavedPersonas] = useState<SavedPersona[]>([])
   const [samplePersonas, setSamplePersonas] = useState<SamplePersona[]>([])
   const [selectedPersona, setSelectedPersona] = useState<SavedPersona | null>(null)
+  const [showSamplePersonas, setShowSamplePersonas] = useState(true)
 
   // Mock communities data (since we can't access the database directly)
   const mockCommunities = [
@@ -234,6 +235,125 @@ function PersonasContent() {
     return ['Trend-conscious', 'Early adopter', 'Curious']
   }
 
+  const handleDeletePersona = (personaId: string) => {
+    // Show confirmation dialog
+    if (window.confirm('Are you sure you want to delete this persona? This action cannot be undone.')) {
+      // Remove persona from the list
+      setSavedPersonas(prev => prev.filter(persona => persona.id !== personaId))
+      
+      // Close modal if the deleted persona is currently selected
+      if (selectedPersona && selectedPersona.id === personaId) {
+        setSelectedPersona(null)
+      }
+      
+      // In a real app, this would also make an API call to delete from the database
+      console.log(`Deleted persona with ID: ${personaId}`)
+    }
+  }
+
+  const handleViewSamplePersona = (samplePersona: SamplePersona) => {
+    // Generate realistic goals and pain points based on persona source
+    const generateGoalsAndPainPoints = (persona: SamplePersona) => {
+      const goalSets = {
+        segment: [
+          'Achieve professional recognition',
+          'Build a successful career',
+          'Maintain work-life balance',
+          'Develop expertise in their field'
+        ],
+        community: [
+          'Connect with like-minded individuals',
+          'Share knowledge and experiences',
+          'Build meaningful relationships',
+          'Contribute to community growth'
+        ],
+        trend: [
+          'Stay ahead of emerging trends',
+          'Influence others in their network',
+          'Discover new opportunities',
+          'Be recognized as an early adopter'
+        ]
+      }
+
+      const painPointSets = {
+        segment: [
+          'Information overload from multiple sources',
+          'Difficulty finding reliable recommendations',
+          'Time constraints affecting decisions',
+          'Balancing quality with budget limitations'
+        ],
+        community: [
+          'Finding authentic community connections',
+          'Managing time across multiple interests',
+          'Avoiding overwhelming social commitments',
+          'Maintaining privacy while being social'
+        ],
+        trend: [
+          'Fear of missing out on opportunities',
+          'Difficulty validating new trends',
+          'Information fatigue from constant updates',
+          'Pressure to maintain trendsetter reputation'
+        ]
+      }
+
+      const interestSets = {
+        segment: [
+          'Professional development',
+          'Industry insights',
+          'Quality products and services',
+          'Networking opportunities'
+        ],
+        community: [
+          'Community events and meetups',
+          'Collaborative projects',
+          'Shared hobbies and interests',
+          'Social causes and volunteering'
+        ],
+        trend: [
+          'Emerging technologies',
+          'Cultural movements',
+          'Innovation and startups',
+          'Future predictions and forecasting'
+        ]
+      }
+
+      return {
+        goals: goalSets[persona.source] || goalSets.segment,
+        painPoints: painPointSets[persona.source] || painPointSets.segment,
+        interests: interestSets[persona.source] || interestSets.segment
+      }
+    }
+
+    const { goals, painPoints, interests } = generateGoalsAndPainPoints(samplePersona)
+
+    // Convert sample persona to saved persona format for the modal
+    const convertedPersona: SavedPersona = {
+      id: samplePersona.id,
+      name: samplePersona.name,
+      description: samplePersona.description,
+      category: samplePersona.category,
+      source: samplePersona.source,
+      sourceData: samplePersona.sourceData,
+      confidence: samplePersona.confidence,
+      createdAt: new Date().toISOString(),
+      lastModified: new Date().toISOString(),
+      values: samplePersona.values,
+      personality: samplePersona.personality,
+      interests: interests,
+      painPoints: painPoints,
+      goals: goals,
+      demographics: {
+        ageRange: samplePersona.demographics.ageRange,
+        location: samplePersona.source === 'trend' ? 'Urban centers' : samplePersona.source === 'community' ? 'Community-focused areas' : 'Mixed urban/suburban',
+        income: samplePersona.source === 'trend' ? '$30K-$120K' : samplePersona.source === 'community' ? '$35K-$90K' : '$40K-$100K'
+      },
+      psychographics: {
+        sampleFactor: 3
+      }
+    }
+    setSelectedPersona(convertedPersona)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
       <Header />
@@ -300,17 +420,50 @@ function PersonasContent() {
           </div>
         </motion.div>
 
+        {/* Show Sample Personas Button (when hidden) */}
+        {!showSamplePersonas && canAccessPremium() && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-center py-8"
+          >
+            <Button
+              variant="outline"
+              onClick={() => setShowSamplePersonas(true)}
+              className="px-6 py-3 border-accent-500/30 text-accent-400 hover:text-accent-300 hover:border-accent-400 rounded-xl transition-all duration-300"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Show Sample Personas
+            </Button>
+          </motion.div>
+        )}
+
         {/* Sample Personas Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="space-y-6"
-        >
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-primary-100">Sample Personas</h2>
-            <div className="text-sm text-primary-400">Generated from random data sources</div>
-          </div>
+        {showSamplePersonas && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-6"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-primary-100">Sample Personas</h2>
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-primary-400">Generated from random data sources</div>
+                {canAccessPremium() && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowSamplePersonas(false)}
+                    className="text-primary-400 hover:text-primary-200 border-primary-600 hover:border-primary-400 rounded-xl transition-all duration-300"
+                    title="Hide sample personas"
+                  >
+                    Hide Samples
+                  </Button>
+                )}
+              </div>
+            </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {samplePersonas.map((persona, index) => (
@@ -320,21 +473,26 @@ function PersonasContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="glass-card hover:border-accent-500/50 transition-all duration-300 h-full">
+                <Card className="glass-card hover:border-accent-500/50 transition-all duration-300 h-full relative">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-3 flex-1">
                         <div className="w-12 h-12 bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-full flex items-center justify-center">
                           {persona.source === 'segment' && <Target className="w-6 h-6 text-accent-400" />}
                           {persona.source === 'community' && <Users className="w-6 h-6 text-brand-400" />}
                           {persona.source === 'trend' && <TrendingUp className="w-6 h-6 text-success-400" />}
                         </div>
-                        <div>
-                          <CardTitle className="text-lg text-primary-100">{persona.name}</CardTitle>
-                          <div className="text-sm text-primary-400">{persona.category}</div>
+                        <div className="text-left flex-1">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <CardTitle className="text-lg text-primary-100 text-left">{persona.name}</CardTitle>
+                            <span className="px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-sm">
+                              SAMPLE
+                            </span>
+                          </div>
+                          <div className="text-sm text-primary-400 text-left">{persona.category}</div>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="flex-shrink-0 ml-4">
                         <div className="px-2 py-1 bg-success-500/20 text-success-400 rounded text-xs font-medium">
                           {persona.confidence}% match
                         </div>
@@ -378,7 +536,7 @@ function PersonasContent() {
                     </div>
                     
                     <div className="pt-4 border-t border-primary-700/50">
-                      <Button variant="outline" size="sm" className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
+                      <Button variant="outline" size="sm" className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300" onClick={() => handleViewSamplePersona(persona)}>
                         <Eye className="w-4 h-4 mr-2" />
                         View Full Persona
                       </Button>
@@ -389,6 +547,7 @@ function PersonasContent() {
             ))}
           </div>
         </motion.div>
+        )}
 
         {/* Saved Personas Section */}
         <motion.div
@@ -441,16 +600,16 @@ function PersonasContent() {
                   <Card className="glass-card hover:border-accent-500/50 transition-all duration-300 h-full">
                     <CardHeader className="pb-4">
                       <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-3 flex-1">
                           <div className="w-12 h-12 bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-full flex items-center justify-center">
                             <Brain className="w-6 h-6 text-accent-400" />
                           </div>
-                          <div>
-                            <CardTitle className="text-lg text-primary-100">{persona.name}</CardTitle>
-                            <div className="text-sm text-primary-400">{persona.category}</div>
+                          <div className="text-left flex-1">
+                            <CardTitle className="text-lg text-primary-100 text-left">{persona.name}</CardTitle>
+                            <div className="text-sm text-primary-400 text-left">{persona.category}</div>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <div className="flex-shrink-0 ml-4">
                           <Tag variant="success" size="sm">
                             {persona.confidence}% match
                           </Tag>
@@ -491,11 +650,27 @@ function PersonasContent() {
                           <Eye className="w-3 h-3 mr-1" />
                           View
                         </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1 rounded-xl hover:shadow-lg hover:shadow-brand-500/20 transition-all duration-300 text-brand-400 hover:text-brand-300 border-brand-400/50"
+                          onClick={() => window.location.href = `/personas/chat/${persona.id}`}
+                          title="Chat with persona"
+                        >
+                          <MessageCircle className="w-3 h-3 mr-1" />
+                          Chat
+                        </Button>
                         <Button variant="outline" size="sm" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
                           <Edit2 className="w-3 h-3 mr-1" />
                           Edit
                         </Button>
-                        <Button variant="outline" size="sm" className="text-red-400 hover:text-red-300 border-red-400/50 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-red-400 hover:text-red-300 border-red-400/50 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+                          onClick={() => handleDeletePersona(persona.id)}
+                          title="Delete persona"
+                        >
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </div>

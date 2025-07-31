@@ -153,17 +153,19 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
         {topMatches.slice(0, 3).map((match, index) => (
           <Card key={match.segment.id} className="border-0 hover:border-accent-500/30 transition-all cursor-pointer hover:bg-white/[0.08] group">
             <CardHeader className="pb-3">
-              <div className="flex items-center justify-between mb-3">
-                <div className="px-3 py-1 rounded-xl text-xs font-bold bg-accent-500 text-primary-950">
-                  {match.segment.tier}
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="px-3 py-1 rounded-xl text-xs font-bold bg-accent-500 text-primary-950 inline-block mb-3">
+                    {match.segment.tier}
+                  </div>
+                  <CardTitle className="text-xl text-primary-50 group-hover:text-white transition-colors text-left">
+                    {match.segment.name}
+                  </CardTitle>
                 </div>
-                <div className={cn("px-4 py-2 rounded-xl text-sm font-bold border", getMatchScoreColor(match.matchScore))}>
+                <div className={cn("px-4 py-2 rounded-xl text-sm font-bold border ml-4 flex-shrink-0", getMatchScoreColor(match.matchScore))}>
                   {formatPercentage(match.matchScore)} match
                 </div>
               </div>
-              <CardTitle className="text-xl text-primary-50 group-hover:text-white transition-colors">
-                {match.segment.name}
-              </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-primary-300 mb-4 line-clamp-3 leading-relaxed group-hover:text-primary-200 transition-colors">
@@ -229,21 +231,21 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
                   {/* Left Column - Basic Info */}
                   <div className="space-y-6">
                     <div className="flex items-start justify-between">
-                      <div className="flex-1">
+                      <div className="flex-1 text-left">
                         <div className="flex items-center space-x-3 mb-3">
                           <span className="text-3xl font-bold text-accent-400">#{index + 1}</span>
                           <div className="px-3 py-1 rounded-xl text-xs font-bold bg-accent-500 text-primary-950">
                             {match.segment.tier}
                           </div>
                         </div>
-                        <h4 className="text-2xl font-bold text-primary-50 mb-2 group-hover:text-white transition-colors">
+                        <h4 className="text-2xl font-bold text-primary-50 mb-2 group-hover:text-white transition-colors text-left">
                           {match.segment.name}
                         </h4>
-                        <p className="text-base text-accent-300 font-medium">
+                        <p className="text-base text-accent-300 font-medium text-left">
                           {match.segment.lifestyle}
                         </p>
                       </div>
-                      <div className={cn("px-5 py-3 rounded-2xl text-xl font-bold border", getMatchScoreColor(match.matchScore))}>
+                      <div className={cn("px-5 py-3 rounded-2xl text-xl font-bold border ml-4 flex-shrink-0", getMatchScoreColor(match.matchScore))}>
                         {formatPercentage(match.matchScore)}
                       </div>
                     </div>

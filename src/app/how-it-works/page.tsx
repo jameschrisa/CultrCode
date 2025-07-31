@@ -29,7 +29,7 @@ export default function HowItWorks() {
         "Instant demographic matching",
         "Free registration required"
       ],
-      visual: "form-input"
+      visual: "Segmentation Tool Interface"
     },
     {
       number: 2,
@@ -42,7 +42,7 @@ export default function HowItWorks() {
         "Community behavior insights",
         "Cultural authenticity guides"
       ],
-      visual: "ai-processing"
+      visual: "Community Discovery Dashboard"
     },
     {
       number: 3,
@@ -55,7 +55,7 @@ export default function HowItWorks() {
         "Virality prediction scoring",
         "Market timing insights"
       ],
-      visual: "map-visualization"
+      visual: "Trends Intelligence Platform"
     },
     {
       number: 4,
@@ -68,7 +68,7 @@ export default function HowItWorks() {
         "Engagement rate analysis",
         "Authentic creator matching"
       ],
-      visual: "results-dashboard"
+      visual: "Persona Generation Tool"
     }
   ]
 
@@ -304,7 +304,7 @@ export default function HowItWorks() {
                       )}
                       <div className="mt-4 text-center">
                         <div className="text-sm text-primary-400 uppercase tracking-wide">
-                          {step.visual.replace('-', ' ')}
+                          {step.visual}
                         </div>
                       </div>
                     </CardContent>

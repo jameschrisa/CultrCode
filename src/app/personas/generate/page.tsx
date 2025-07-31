@@ -8,10 +8,13 @@ import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { PsychographicSlider } from '@/components/ui/HeroPsychographicSlider'
+import { CollapsiblePsychographicTile } from '@/components/ui/CollapsiblePsychographicTile'
 import { AudioTextArea } from '@/components/ui/AudioTextArea'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
 import { PersonaCard } from '@/components/PersonaCard'
+import { PersonaChatProfileGenerator } from '@/lib/personaChatProfileGenerator'
+import { PersonaDatabase } from '@/lib/personaDatabase'
 import Link from 'next/link'
 
 interface BaseSelection {
@@ -261,18 +264,36 @@ function GeneratePersonaContent() {
     }))
   }
 
-  const savePersona = () => {
-    // In a real app, this would save to a database
-    const personaToSave = {
-      ...personaData,
-      id: `persona-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      lastModified: new Date().toISOString()
+  const savePersona = async () => {
+    try {
+      if (!user) {
+        alert('Please log in to save personas')
+        return
+      }
+
+      // Generate chat personality profile
+      const chatPersonality = PersonaChatProfileGenerator.generateChatProfile(personaData)
+      
+      // Prepare complete persona data with chat capabilities
+      const personaToSave = {
+        ...personaData,
+        id: `persona-${Date.now()}`,
+        chatPersonality,
+        createdAt: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        isActive: true
+      }
+      
+      // Save to database with full chat functionality
+      const personaId = await PersonaDatabase.savePersona(user.id, personaToSave)
+      
+      alert(`Persona "${personaData.name}" saved successfully with chat capabilities enabled!`)
+      console.log('Saved persona with chat profile:', personaId)
+      
+    } catch (error) {
+      console.error('Error saving persona:', error)
+      alert('Failed to save persona. Please try again.')
     }
-    
-    // For now, just show success message
-    alert(`Persona "${personaData.name}" saved successfully!`)
-    console.log('Saving persona:', personaToSave)
   }
 
   const exportPersona = () => {
@@ -999,17 +1020,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Values &amp; Lifestyle</h4>
                 </div>
-                {psychographicFactors.filter(f => ['sustainabilityImportance', 'convenienceOrientation', 'luxuryAffinity'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {psychographicFactors.filter(f => ['sustainabilityImportance', 'convenienceOrientation', 'luxuryAffinity'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Personality Traits */}
@@ -1020,17 +1042,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Personality Traits</h4>
                 </div>
-                {psychographicFactors.filter(f => ['adventurousness', 'brandLoyalty'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['adventurousness', 'brandLoyalty'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Social Status & Aspirations */}
@@ -1041,17 +1064,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Social Status &amp; Aspirations</h4>
                 </div>
-                {psychographicFactors.filter(f => ['prestigeSeeking', 'belongingNeed'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['prestigeSeeking', 'belongingNeed'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Risk & Innovation */}
@@ -1062,17 +1086,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Risk Tolerance &amp; Innovation</h4>
                 </div>
-                {psychographicFactors.filter(f => ['riskTolerance', 'innovationAdoption'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['riskTolerance', 'innovationAdoption'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Emotional Motivations */}
@@ -1083,17 +1108,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Emotional Motivations</h4>
                 </div>
-                {psychographicFactors.filter(f => ['emotionalDriver', 'nostalgiaInfluence'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['emotionalDriver', 'nostalgiaInfluence'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Purchase Behavior */}
@@ -1104,17 +1130,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Purchase Behavior</h4>
                 </div>
-                {psychographicFactors.filter(f => ['priceSensitivity', 'researchDepth'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['priceSensitivity', 'researchDepth'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Social Influences */}
@@ -1125,17 +1152,18 @@ function GeneratePersonaContent() {
                   </div>
                   <h4 className="text-lg font-semibold text-primary-100">Social Influences</h4>
                 </div>
-                {psychographicFactors.filter(f => ['socialMediaInfluence', 'expertOpinionValue'].includes(f.id)).map(factor => (
-                  <PsychographicSlider
-                    key={factor.id}
-                    label={factor.label}
-                    description={factor.description}
-                    value={personaData.psychographics[factor.id] || 3}
-                    onChange={(value) => updatePsychographic(factor.id, value)}
-                    tickLabels={factor.tickLabels}
-                    className="p-4 bg-primary-900/20 rounded-xl border border-primary-700/50"
-                  />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {psychographicFactors.filter(f => ['socialMediaInfluence', 'expertOpinionValue'].includes(f.id)).map(factor => (
+                    <CollapsiblePsychographicTile
+                      key={factor.id}
+                      label={factor.label}
+                      description={factor.description}
+                      value={personaData.psychographics[factor.id] || 3}
+                      onChange={(value) => updatePsychographic(factor.id, value)}
+                      tickLabels={factor.tickLabels}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -1217,6 +1245,10 @@ function GeneratePersonaContent() {
                         cached: true
                       }
                     }))
+                  }}
+                  onStartChat={(persona) => {
+                    // Navigate to chat page
+                    window.location.href = `/personas/chat/${persona.id || 'new'}`
                   }}
                 />
                 

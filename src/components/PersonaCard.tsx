@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { User, RefreshCw, Download, Sparkles, AlertCircle } from 'lucide-react'
+import { User, RefreshCw, Download, Sparkles, AlertCircle, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/HeroButton'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
 import ProfilePictureGenerator, { ProfilePictureOptions } from '@/lib/profilePictureGenerator'
@@ -15,6 +15,8 @@ interface PersonaCardProps {
   onImageGenerated?: (imageUrl: string) => void
   className?: string
   preferredService?: 'dalle' | 'midjourney'
+  onStartChat?: (persona: PersonaData) => void
+  showChatButton?: boolean
 }
 
 export default function PersonaCard({ 
@@ -22,7 +24,9 @@ export default function PersonaCard({
   showGenerateButton = true, 
   onImageGenerated,
   className = '',
-  preferredService = 'midjourney' 
+  preferredService = 'midjourney',
+  onStartChat,
+  showChatButton = true
 }: PersonaCardProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
@@ -282,6 +286,17 @@ export default function PersonaCard({
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-3 pt-4 border-t border-primary-700/50">
+          {showChatButton && onStartChat && (
+            <Button
+              size="sm"
+              onClick={() => onStartChat(persona)}
+              className="bg-brand-500 hover:bg-brand-600 text-white"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Chat with {persona.name}
+            </Button>
+          )}
+          
           {showGenerateButton && (
             <Button
               size="sm"

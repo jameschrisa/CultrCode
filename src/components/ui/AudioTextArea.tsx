@@ -137,16 +137,16 @@ export const AudioTextArea = forwardRef<AudioTextAreaRef, AudioTextAreaProps>(({
               size="sm"
               onClick={toggleAudioRecorder}
               className={`
-                absolute top-3 right-3 p-2 rounded-lg
-                transition-all duration-300
+                absolute top-3 right-3 p-3 rounded-xl border-2
+                transition-all duration-300 font-medium
                 ${showAudioRecorder 
-                  ? 'bg-accent-500/20 text-accent-400 shadow-lg shadow-accent-500/20' 
-                  : 'hover:bg-primary-700/50 text-primary-400 hover:text-accent-400'
+                  ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/30 hover:bg-red-600 hover:border-red-600' 
+                  : 'bg-accent-500 text-white border-accent-500 shadow-lg shadow-accent-500/30 hover:bg-accent-600 hover:border-accent-600 hover:shadow-accent-500/40'
                 }
               `}
-              title="Toggle audio recording"
+              title={showAudioRecorder ? "Close audio recording" : "Start audio recording"}
             >
-              {showAudioRecorder ? <X className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+              {showAudioRecorder ? <X className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </Button>
           )}
         </div>
