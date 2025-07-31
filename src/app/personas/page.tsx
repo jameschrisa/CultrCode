@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Brain, Users, Target, TrendingUp, Plus, Sparkles, Eye, Download, Edit2, Trash2, ArrowRight, BookOpen, Star } from 'lucide-react'
+import { Brain, Users, Target, TrendingUp, Plus, Sparkles, Eye, Download, Edit2, Trash2, ArrowRight, BookOpen, Star, MessageCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
 import { Button } from '@/components/ui/HeroButton'
 import { Tag } from '@/components/ui/Tag'
