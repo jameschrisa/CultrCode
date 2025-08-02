@@ -1,5 +1,6 @@
 import { PersonaData, PersonaDBRecord, PersonaChatMessage, PersonaChatSession } from '@/types/personas'
 import { PersonaChatProfileGenerator } from './personaChatProfileGenerator'
+import { mockDB } from './mockDatabase'
 
 /**
  * Database service for persona management with chat functionality
@@ -83,10 +84,13 @@ export class PersonaDatabase {
         chatEnabled: true
       }
       
-      // In a real implementation, save to database
-      // await database.personas.insert(dbRecord)
-      console.log('Saving persona to database:', dbRecord)
+      // Save to mock database (replace with real database in production)
+      const success = await mockDB.savePersona(dbRecord)
+      if (!success) {
+        throw new Error('Failed to save persona to database')
+      }
       
+      console.log('Saved persona to database:', dbRecord.id)
       return dbRecord.id
     } catch (error) {
       console.error('Error saving persona:', error)
@@ -99,12 +103,10 @@ export class PersonaDatabase {
    */
   static async getPersona(personaId: string): Promise<PersonaDBRecord | null> {
     try {
-      // In a real implementation, fetch from database
-      // const persona = await database.personas.findById(personaId)
-      
-      // Mock implementation - return null for now
-      console.log('Fetching persona:', personaId)
-      return null
+      // Fetch from mock database (replace with real database in production)
+      const persona = await mockDB.getPersona(personaId)
+      console.log('Fetched persona:', personaId, persona ? 'found' : 'not found')
+      return persona
     } catch (error) {
       console.error('Error fetching persona:', error)
       return null
@@ -116,11 +118,10 @@ export class PersonaDatabase {
    */
   static async getUserPersonas(userId: string): Promise<PersonaDBRecord[]> {
     try {
-      // In a real implementation, fetch from database
-      // const personas = await database.personas.findByUserId(userId)
-      
-      console.log('Fetching personas for user:', userId)
-      return []
+      // Fetch from mock database (replace with real database in production)
+      const personas = await mockDB.getUserPersonas(userId)
+      console.log('Fetched personas for user:', userId, `${personas.length} found`)
+      return personas
     } catch (error) {
       console.error('Error fetching user personas:', error)
       return []
@@ -137,11 +138,11 @@ export class PersonaDatabase {
         lastModified: new Date().toISOString()
       }
       
-      // In a real implementation, update database
-      // await database.personas.update(personaId, updateData)
+      // Update in mock database (replace with real database in production)
+      const success = await mockDB.updatePersona(personaId, updateData)
       
-      console.log('Updating persona:', personaId, updateData)
-      return true
+      console.log('Updated persona:', personaId, success ? 'success' : 'failed')
+      return success
     } catch (error) {
       console.error('Error updating persona:', error)
       return false
@@ -153,11 +154,11 @@ export class PersonaDatabase {
    */
   static async deletePersona(personaId: string): Promise<boolean> {
     try {
-      // In a real implementation, delete from database
-      // await database.personas.delete(personaId)
+      // Delete from mock database (replace with real database in production)
+      const success = await mockDB.deletePersona(personaId)
       
-      console.log('Deleting persona:', personaId)
-      return true
+      console.log('Deleted persona:', personaId, success ? 'success' : 'failed')
+      return success
     } catch (error) {
       console.error('Error deleting persona:', error)
       return false

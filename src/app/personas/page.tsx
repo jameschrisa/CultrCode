@@ -660,10 +660,6 @@ function PersonasContent() {
                           <MessageCircle className="w-3 h-3 mr-1" />
                           Chat
                         </Button>
-                        <Button variant="outline" size="sm" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
-                          <Edit2 className="w-3 h-3 mr-1" />
-                          Edit
-                        </Button>
                         <Button 
                           variant="outline" 
                           size="sm" 
@@ -859,17 +855,36 @@ function PersonasContent() {
 
               <div className="mt-8 pt-6 border-t border-primary-700">
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
-                    <Download className="w-4 h-4 mr-2" />
-                    Export Persona
-                  </Button>
-                  <Button variant="outline" className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                    onClick={() => {
+                      const personaId = selectedPersona.id
+                      setSelectedPersona(null)
+                      window.location.href = `/personas/edit/${personaId}`
+                    }}
+                  >
                     <Edit2 className="w-4 h-4 mr-2" />
                     Edit Persona
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                    className="flex-1 rounded-xl hover:shadow-lg hover:shadow-brand-500/20 transition-all duration-300 text-brand-400 hover:text-brand-300 border-brand-400/50"
+                    onClick={() => {
+                      setSelectedPersona(null)
+                      window.location.href = `/personas/chat/${selectedPersona.id}`
+                    }}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat with Persona
+                  </Button>
+                  <Button className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export Persona
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
                     onClick={() => setSelectedPersona(null)}
                   >
                     Close
