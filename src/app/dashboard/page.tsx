@@ -622,7 +622,12 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="lg" className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-accent-500/20">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      onClick={() => window.location.href = '/segments'}
+                      className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-accent-500/20"
+                    >
                       Explore All Segments →
                     </Button>
                   </CardContent>
@@ -637,7 +642,7 @@ function DashboardContent() {
                 className="mb-8"
               >
                 <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border-2 border-brand-500/20"
-                      onClick={() => window.location.href = '/communities'}>
+                      onClick={() => window.location.href = '/microcommunities'}>
                   {/* Enhanced gradient background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-500/8 via-transparent to-brand-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-500/5 to-transparent opacity-50" />
@@ -681,7 +686,12 @@ function DashboardContent() {
                       </div>
                     </div>
 
-                    <Button variant="outline" size="lg" className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/20">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      onClick={() => window.location.href = '/microcommunities'}
+                      className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/20"
+                    >
                       Explore All Communities →
                     </Button>
                   </CardContent>
