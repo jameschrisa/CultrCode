@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/HeroButton'
 import { Tag } from '@/components/ui/Tag'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
 import Link from 'next/link'
@@ -61,7 +61,15 @@ interface SamplePersona {
 }
 
 function PersonasContent() {
-  const { canAccessPremium } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [savedPersonas, setSavedPersonas] = useState<SavedPersona[]>([])
   const [samplePersonas, setSamplePersonas] = useState<SamplePersona[]>([])
   const [selectedPersona, setSelectedPersona] = useState<SavedPersona | null>(null)

@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 
 interface Solution {
   id: string
@@ -29,7 +29,15 @@ interface Solution {
 }
 
 function SolutionsContent() {
-  const { canAccessPremium } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null)
 
   const handleSolutionAction = (solution: Solution) => {
@@ -451,7 +459,7 @@ function SolutionsContent() {
                 <Button 
                   size="lg" 
                   className="px-8"
-                  onClick={() => window.location.href = canAccessPremium() ? '/segments' : '/auth/login'}
+                  onClick={() => window.location.href = canAccessPremium() ? '/segments' : '/sign-in'}
                 >
                   <Rocket className="w-5 h-5 mr-2" />
                   {canAccessPremium() ? 'Go to Segments' : 'Start Free Analysis'}

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Shield, AlertTriangle } from 'lucide-react'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { Permission } from '@/types/auth'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
@@ -20,19 +20,40 @@ export function ProtectedRoute({
   children, 
   requireAuth = true, 
   requiredPermission,
-  fallbackUrl = '/login' 
+  fallbackUrl = '/sign-in' 
 }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading, hasPermission, user } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
   const router = useRouter()
 
+  // Helper function to check permissions
+  const hasPermission = (permission: Permission): boolean => {
+    if (!user) return false
+    
+    // Get user metadata for permissions
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    
+    switch (permission) {
+      case 'view_premium_reports':
+        return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+      case 'admin_access':
+        return publicMetadata?.role === 'admin'
+      case 'basic_access':
+        return true // All authenticated users have basic access
+      default:
+        return false
+    }
+  }
+
   useEffect(() => {
-    if (!isLoading && requireAuth && !isAuthenticated) {
+    if (isLoaded && requireAuth && !isSignedIn) {
       router.push(fallbackUrl)
     }
-  }, [isLoading, requireAuth, isAuthenticated, router, fallbackUrl])
+  }, [isLoaded, requireAuth, isSignedIn, router, fallbackUrl])
 
   // Show loading spinner while checking auth
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
@@ -44,7 +65,7 @@ export function ProtectedRoute({
   }
 
   // Check if authentication is required
-  if (requireAuth && !isAuthenticated) {
+  if (requireAuth && !isSignedIn) {
     return null // Will redirect via useEffect
   }
 
@@ -96,10 +117,10 @@ export function ProtectedRoute({
           {user && (
             <div className="pt-4 border-t border-primary-700/50">
               <p className="text-sm text-primary-400">
-                Logged in as: <span className="text-primary-300">{user.email}</span>
+                Logged in as: <span className="text-primary-300">{user.primaryEmailAddress?.emailAddress}</span>
               </p>
               <p className="text-xs text-primary-500">
-                Current plan: {user.subscriptionTier}
+                Current plan: {(user.publicMetadata as any)?.subscriptionTier || 'free'}
               </p>
             </div>
           )}

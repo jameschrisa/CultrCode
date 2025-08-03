@@ -8,13 +8,22 @@ import { FaInstagram, FaTiktok, FaYoutube, FaLinkedin, FaTwitter } from 'react-i
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { nanoInfluencers, NanoInfluencer } from '@/data/nanoInfluencers'
 import { cn, formatNumber } from '@/lib/utils'
 import Link from 'next/link'
 
 export default function NanoInfluencersPage() {
-  const { isAuthenticated, user, isLoading, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedPlatform, setSelectedPlatform] = useState<string>('all')
@@ -25,10 +34,10 @@ export default function NanoInfluencersPage() {
   const [influencers, setInfluencers] = useState<NanoInfluencer[]>(nanoInfluencers)
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login')
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in')
     }
-  }, [isAuthenticated, isLoading, router])
+  }, [isSignedIn, isLoaded, router])
 
   // Filter influencers based on search and filters
   const filteredInfluencers = influencers.filter(influencer => {
@@ -85,7 +94,7 @@ export default function NanoInfluencersPage() {
   // Get unique niches for filter
   const allNiches = Array.from(new Set(nanoInfluencers.flatMap(inf => inf.niche)))
 
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-accent-400"></div>
@@ -93,7 +102,7 @@ export default function NanoInfluencersPage() {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return null
   }
 

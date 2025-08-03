@@ -6,12 +6,12 @@ import { HiSparkles } from 'react-icons/hi'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar'
 
 export default function TrendsPage() {
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn } = useAuth(); const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
 
   const trendCategories = [
     {

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { User, Mail, Lock, Eye, EyeOff, UserPlus, AlertCircle, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { RegisterData } from '@/types/auth'
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ interface RegisterFormProps {
 }
 
 export function RegisterForm({ onSuccess, redirectTo }: RegisterFormProps) {
-  const { register, isLoading } = useAuth()
+  const { register, isLoaded } = useAuth()
   const [formData, setFormData] = useState<RegisterData>({
     name: '',
     email: '',
@@ -224,9 +224,9 @@ export function RegisterForm({ onSuccess, redirectTo }: RegisterFormProps) {
               type="submit"
               className="w-full bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700"
               size="lg"
-              disabled={isLoading}
+              disabled={isLoaded}
             >
-              {isLoading ? (
+              {isLoaded ? (
                 <div className="flex items-center">
                   <div className="w-5 h-5 border-2 border-primary-200 border-t-transparent rounded-full animate-spin mr-2" />
                   Creating account...
@@ -243,7 +243,7 @@ export function RegisterForm({ onSuccess, redirectTo }: RegisterFormProps) {
           <div className="text-center pt-4 border-t border-primary-700/50">
             <p className="text-primary-400">
               Already have an account?{' '}
-              <Link href="/login" className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
+              <Link href="/sign-in" className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
                 Sign in
               </Link>
             </p>

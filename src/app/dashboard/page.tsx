@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/HeroButton'
 import { Tag } from '@/components/ui/Tag'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { formatPercentage } from '@/lib/utils'
 import { SegmentMatch, UserInputs } from '@/types/segments'
 import { ReportViewer } from '@/components/ReportViewer'
@@ -18,7 +18,15 @@ import { reportsService, SavedReport } from '@/lib/reportsService'
 import { CardDetailsModal } from '@/components/CardDetailsModal'
 
 function DashboardContent() {
-  const { user, canAccessPremium } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [savedReports, setSavedReports] = useState<SavedReport[]>([])
   const [loading, setLoading] = useState(true)
   const [viewingReport, setViewingReport] = useState<SavedReport | null>(null)
@@ -254,7 +262,7 @@ function DashboardContent() {
           <div className="block lg:hidden mb-6">
             <div className="text-center mb-4">
               <h1 className="text-2xl sm:text-3xl font-bold text-primary-50 mb-2">
-                Welcome back, {user?.name}! 👋
+                Welcome back, {user?.firstName || 'Creator'}! 👋
               </h1>
               <p className="text-primary-300 text-sm sm:text-base">
                 Explore trending micro-communities and manage your cultural intelligence reports
@@ -276,7 +284,7 @@ function DashboardContent() {
           <div className="hidden lg:flex items-center justify-between mb-6">
             <div>
               <h1 className="text-4xl font-bold text-primary-50 mb-2">
-                Welcome back, {user?.name}! 👋
+                Welcome back, {user?.firstName || 'Creator'}! 👋
               </h1>
               <p className="text-primary-300 text-lg">
                 Explore trending micro-communities and manage your cultural intelligence reports

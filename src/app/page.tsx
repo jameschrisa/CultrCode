@@ -17,7 +17,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { getImageWithAttribution } from '@/lib/imageConfig'
 import { SegmentMatch, UserInputs } from '@/types/segments'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { 
   pageVariants, 
@@ -37,12 +37,21 @@ export default function Home() {
   const [segmentMatches, setSegmentMatches] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { isAuthenticated, canAccessPremium, isLoading } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const router = useRouter()
 
   // Handle URL parameters and premium user redirection
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
+    if (isLoaded && isSignedIn) {
       // Check if user should go directly to finder (after registration/login)
       if (typeof window !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search)
@@ -66,12 +75,12 @@ export default function Home() {
         sessionStorage.removeItem('stay_on_main')
       }
     }
-  }, [isAuthenticated, canAccessPremium, isLoading, router])
+  }, [isSignedIn, canAccessPremium, isLoaded, router])
 
   const handleStartFinder = () => {
-    if (!isAuthenticated) {
+    if (!isSignedIn) {
       // Redirect to registration page for non-authenticated users
-      router.push('/register?redirect=segmentation')
+      router.push('/sign-up?redirect=segmentation')
     } else {
       setCurrentView('finder')
     }

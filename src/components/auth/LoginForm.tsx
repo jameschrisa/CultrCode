@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { LoginCredentials } from '@/types/auth'
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
-  const { login, isLoading, getPostLoginRedirect } = useAuth()
+  const { login, isLoaded, getPostLoginRedirect } = useAuth()
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
     password: ''
@@ -135,9 +135,9 @@ export function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
               type="submit"
               className="w-full bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700"
               size="lg"
-              disabled={isLoading}
+              disabled={isLoaded}
             >
-              {isLoading ? (
+              {isLoaded ? (
                 <div className="flex items-center">
                   <div className="w-5 h-5 border-2 border-primary-200 border-t-transparent rounded-full animate-spin mr-2" />
                   Signing in...
@@ -154,7 +154,7 @@ export function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
           <div className="text-center pt-4 border-t border-primary-700/50">
             <p className="text-primary-400">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
+              <Link href="/sign-up" className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
                 Sign up
               </Link>
             </p>

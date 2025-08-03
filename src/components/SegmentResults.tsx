@@ -12,7 +12,7 @@ import { PremiumUpgrade } from '@/components/PremiumUpgrade'
 import { LaunchStrategyReport } from '@/components/LaunchStrategyReport'
 import { BasicStrategyReport } from '@/components/BasicStrategyReport'
 import { PremiumInsightsGenerator } from '@/lib/premiumInsightsGenerator'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { GISMap } from '@/components/gis/GISMap'
 import { reportsService } from '@/lib/reportsService'
 
@@ -23,7 +23,7 @@ interface SegmentResultsProps {
 }
 
 export function SegmentResults({ matches, userInputs, onSegmentSelect }: SegmentResultsProps) {
-  const { canAccessPremium, isAuthenticated, canSaveReport, getUsageStats, user } = useAuth()
+  const { canAccessPremium, isSignedIn, canSaveReport, getUsageStats, user } = useAuth()
   const [showPremiumUpgrade, setShowPremiumUpgrade] = useState(false)
   const [showPremiumReport, setShowPremiumReport] = useState(false)
   const [showBasicReport, setShowBasicReport] = useState(false)
@@ -68,7 +68,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
   }
 
   const handleSaveReport = async (match: SegmentMatch, reportType: 'basic' | 'premium') => {
-    if (!isAuthenticated || !user) {
+    if (!isSignedIn || !user) {
       alert('Please log in to save reports')
       return
     }
@@ -133,7 +133,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
         </p>
         
         {/* Usage Stats for Standard Users */}
-        {isAuthenticated && user?.subscriptionTier === 'standard' && (
+        {isSignedIn && user?.subscriptionTier === 'standard' && (
           <div className="inline-flex items-center px-4 py-2 bg-accent-500/10 border border-accent-500/20 rounded-lg text-sm">
             <Users className="w-4 h-4 mr-2 text-accent-400" />
             <span className="text-accent-300">
@@ -352,7 +352,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
                             Basic Strategy
                             <ChevronRight className="w-4 h-4 ml-2" />
                           </Button>
-                          {isAuthenticated && canSaveReport() && (
+                          {isSignedIn && canSaveReport() && (
                             <Button
                               variant="ghost"
                               size="sm"
@@ -375,7 +375,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
                             <Crown className="w-4 h-4 mr-2" />
                             {canAccessPremium() ? 'View Premium Report' : 'Unlock Premium Report'}
                           </Button>
-                          {isAuthenticated && canAccessPremium() && canSaveReport() && (
+                          {isSignedIn && canAccessPremium() && canSaveReport() && (
                             <Button
                               variant="ghost"
                               size="sm"
@@ -427,7 +427,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
       )}
 
       {/* Premium User CTA - Show saved reports link */}
-      {canAccessPremium() && isAuthenticated && (
+      {canAccessPremium() && isSignedIn && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

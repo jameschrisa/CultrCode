@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Crown, Sparkles, TrendingUp, Users, Target, Zap, Lock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 
 interface PremiumFormSectionProps {
   title: string

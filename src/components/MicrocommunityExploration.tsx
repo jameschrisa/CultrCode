@@ -10,14 +10,22 @@ import { Button } from '@/components/ui/Button'
 import { MicroCommunity, CommunityCategory, CommunitySize, Platform } from '@/types/segments'
 import { allMicroCommunities } from '@/data/allMicroCommunities'
 import { cn, formatNumber } from '@/lib/utils'
-import { useAuth } from '@/contexts/AuthContext'
+import { useUser } from '@clerk/nextjs'
 
 interface MicrocommunityExplorationProps {
   className?: string
 }
 
 export function MicrocommunityExploration({ className }: MicrocommunityExplorationProps) {
-  const { user, canAccessPremium } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<CommunityCategory | 'all'>('all')
   const [selectedSize, setSelectedSize] = useState<CommunitySize | 'all'>('all')

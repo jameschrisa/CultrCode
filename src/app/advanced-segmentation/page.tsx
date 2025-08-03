@@ -9,12 +9,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
 import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { SegmentMatch, UserInputs } from '@/types/segments'
 import Link from 'next/link'
 
 export default function AdvancedSegmentationPage() {
-  const { isAuthenticated, user, isLoading, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const router = useRouter()
   const [results, setResults] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
@@ -30,14 +39,14 @@ export default function AdvancedSegmentationPage() {
   }
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login')
-    } else if (!isLoading && isAuthenticated && !canAccessPremium()) {
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in')
+    } else if (isLoaded && isSignedIn && !canAccessPremium()) {
       router.push('/pricing')
     }
-  }, [isAuthenticated, isLoading, canAccessPremium, router])
+  }, [isSignedIn, isLoaded, canAccessPremium, router])
 
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full animate-spin" />
@@ -45,7 +54,7 @@ export default function AdvancedSegmentationPage() {
     )
   }
 
-  if (!isAuthenticated || !canAccessPremium()) {
+  if (!isSignedIn || !canAccessPremium()) {
     return null // Will redirect
   }
 

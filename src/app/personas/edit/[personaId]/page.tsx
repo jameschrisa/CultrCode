@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCa
 import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 
 interface EditablePersona {
   id: string
@@ -49,7 +49,15 @@ interface FormSection {
 function PersonaEditContent() {
   const params = useParams()
   const router = useRouter()
-  const { canAccessPremium } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const personaId = params.personaId as string
   
   const [persona, setPersona] = useState<EditablePersona | null>(null)

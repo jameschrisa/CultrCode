@@ -4,16 +4,16 @@ import { useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { LoginForm } from '@/components/auth/LoginForm'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 function LoginPageContent() {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
+    if (isLoaded && !isSignedIn) {
       const redirect = searchParams.get('redirect')
       if (redirect === 'segmentation') {
         router.push('/?finder=true')
@@ -21,9 +21,9 @@ function LoginPageContent() {
         router.push('/')
       }
     }
-  }, [isAuthenticated, isLoading, router, searchParams])
+  }, [isSignedIn, isLoaded, router, searchParams])
 
-  if (isLoading) {
+  if (isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full animate-spin" />
@@ -31,7 +31,7 @@ function LoginPageContent() {
     )
   }
 
-  if (isAuthenticated) {
+  if (isSignedIn) {
     return null // Will redirect
   }
 

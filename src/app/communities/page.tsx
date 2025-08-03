@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCa
 import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 
 interface Community {
   id: number
@@ -27,7 +27,7 @@ interface Category {
 }
 
 function CommunitiesContent() {
-  const { canAccessPremium } = useAuth()
+  const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
   const [communities, setCommunities] = useState<Community[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)

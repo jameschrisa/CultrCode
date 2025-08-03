@@ -4,11 +4,11 @@ import { useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { RegisterForm } from '@/components/auth/RegisterForm'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 function RegisterPageContent() {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -17,7 +17,7 @@ function RegisterPageContent() {
   const isPremiumPlan = selectedPlan && selectedPlan !== 'free-discovery'
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
+    if (isLoaded && !isSignedIn) {
       const redirect = searchParams.get('redirect')
       if (redirect === 'segmentation') {
         router.push('/?finder=true')
@@ -28,9 +28,9 @@ function RegisterPageContent() {
         router.push('/')
       }
     }
-  }, [isAuthenticated, isLoading, router, searchParams, isPremiumPlan, selectedPlan, planPrice])
+  }, [isSignedIn, isLoaded, router, searchParams, isPremiumPlan, selectedPlan, planPrice])
 
-  if (isLoading) {
+  if (isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full animate-spin" />
@@ -38,7 +38,7 @@ function RegisterPageContent() {
     )
   }
 
-  if (isAuthenticated) {
+  if (isSignedIn) {
     return null // Will redirect
   }
 

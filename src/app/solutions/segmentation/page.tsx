@@ -6,12 +6,21 @@ import { HiSparkles } from 'react-icons/hi'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar'
 
 export default function SegmentationPage() {
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
 
   const benefits = [
     {
@@ -135,7 +144,7 @@ export default function SegmentationPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href={isAuthenticated ? "/" : "/register"}>
+              <Link href={isSignedIn ? "/" : "/sign-up"}>
                 <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
                   <Zap className="w-5 h-5 mr-2" />
                   Start Free Analysis
@@ -326,7 +335,7 @@ export default function SegmentationPage() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href={isAuthenticated ? "/" : "/register"}>
+                  <Link href={isSignedIn ? "/" : "/sign-up"}>
                     <Button size="xl" className="px-12">
                       <Target className="w-5 h-5 mr-2" />
                       Start Free Analysis

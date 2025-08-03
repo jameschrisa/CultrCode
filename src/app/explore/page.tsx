@@ -7,7 +7,7 @@ import { HiSparkles } from 'react-icons/hi'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 
 interface MicroCommunity {
   id: string
@@ -27,7 +27,7 @@ interface MicroCommunity {
 }
 
 export default function ExplorePage() {
-  const { canAccessPremium } = useAuth()
+  const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')

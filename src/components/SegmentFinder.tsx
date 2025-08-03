@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { UserInputs, SegmentMatch, TargetCity } from '@/types/segments'
 import { SegmentMatcher } from '@/lib/segmentMatcher'
 import { cn } from '@/lib/utils'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { CitySelector } from '@/components/CitySelector'
 import { PremiumFormSection } from '@/components/PremiumFormSection'
 import { AudioTextArea } from '@/components/ui/AudioTextArea'
@@ -24,7 +24,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   const [currentStep, setCurrentStep] = useState(0)
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState<SegmentMatch[]>([])
-  const { canGenerateReport, incrementReportGeneration, getUsageStats, user, isAuthenticated } = useAuth()
+  const { canGenerateReport, incrementReportGeneration, getUsageStats, user, isSignedIn } = useAuth()
   
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<UserInputs>({
     defaultValues: {
@@ -61,7 +61,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   const hasHyperlocalAccess = (user?.subscriptionTier === 'standard' || user?.subscriptionTier === 'pro' || user?.subscriptionTier === 'enterprise') || isPremiumMode
 
   // Require authentication for segmentation tool access
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return (
       <div className="max-w-2xl mx-auto text-center space-y-6">
         <motion.div

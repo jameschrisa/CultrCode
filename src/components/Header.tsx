@@ -8,8 +8,7 @@ import { HiSparkles } from 'react-icons/hi'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/contexts/AuthContext'
-import { AuthButton } from '@/components/auth/AuthButton'
+import { useAuth, useUser, UserButton } from '@clerk/nextjs'
 
 interface HeaderProps {
   showBackButton?: boolean
@@ -23,7 +22,16 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
-  const { isAuthenticated, user, canAccessPremium } = useAuth()
+  const { isSignedIn } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
 
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) {
@@ -208,23 +216,31 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                   </Link>
                 </div>
               )}
-              {!isAuthenticated && (
+              {!isSignedIn && (
                 <div className="space-y-3 pt-3 border-t border-white/10">
-                  <Link href="/login">
+                  <Link href="/sign-in">
                     <Button variant="ghost" size="sm" className="w-full justify-start">
                       Sign In
                     </Button>
                   </Link>
-                  <Link href="/register">
+                  <Link href="/sign-up">
                     <Button variant="primary" size="sm" className="w-full">
                       Get Started
                     </Button>
                   </Link>
                 </div>
               )}
-              {isAuthenticated && (
-                <div className="pt-3 border-t border-white/10">
-                  <AuthButton />
+              {isSignedIn && (
+                <div className="pt-3 border-t border-white/10 flex justify-center">
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10",
+                        userButtonPopoverCard: "bg-primary-800 border-primary-600",
+                        userButtonPopoverActionButton: "text-primary-200 hover:bg-primary-700"
+                      }
+                    }}
+                  />
                 </div>
               )}
             </motion.div>
@@ -325,17 +341,26 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                   <Link href="/pricing" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">Pricing</Link>
                 </>
               )}
-              {isAuthenticated ? (
-                <AuthButton />
+              {isSignedIn ? (
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10",
+                      userButtonPopoverCard: "bg-primary-800/95 backdrop-blur-xl border-primary-600",
+                      userButtonPopoverActionButton: "text-primary-200 hover:bg-primary-700",
+                      userButtonPopoverActionButtonText: "text-primary-200"
+                    }
+                  }}
+                />
               ) : (
                 <div className="flex items-center bg-white/5 rounded-lg border border-white/10 overflow-hidden">
-                  <Link href="/login">
+                  <Link href="/sign-in">
                     <Button variant="ghost" size="sm" className="rounded-none border-0 hover:bg-white/10">
                       Sign In
                     </Button>
                   </Link>
                   <div className="w-px h-8 bg-white/10" />
-                  <Link href="/register">
+                  <Link href="/sign-up">
                     <Button variant="primary" size="sm" className="rounded-none border-0">
                       Get Started
                     </Button>

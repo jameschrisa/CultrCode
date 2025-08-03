@@ -11,11 +11,11 @@ import { Header } from '@/components/Header'
 import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'
 import { SimpleImage } from '@/components/ui/SimpleImage'
 import { getImageWithAttribution } from '@/lib/imageConfig'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export default function HowItWorks() {
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn } = useAuth(); const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
   
   const steps = [
     {
@@ -160,15 +160,15 @@ export default function HowItWorks() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                {!isAuthenticated ? (
+                {!isSignedIn ? (
                   <>
-                    <Link href="/register">
+                    <Link href="/sign-up">
                       <Button size="lg" className="px-8">
                         <HiSparkles className="w-5 h-5 mr-2" />
                         Get Started
                       </Button>
                     </Link>
-                    <Link href="/login">
+                    <Link href="/sign-in">
                       <Button variant="outline" size="lg" className="px-8">
                         Sign In
                       </Button>
@@ -176,7 +176,7 @@ export default function HowItWorks() {
                   </>
                 ) : (
                   <>
-                    <Link href={canAccessPremium() ? "/dashboard" : "/register?redirect=segmentation"}>
+                    <Link href={canAccessPremium() ? "/dashboard" : "/sign-up?redirect=segmentation"}>
                       <Button size="lg" className="px-8">
                         <HiSparkles className="w-5 h-5 mr-2" />
                         {canAccessPremium() ? "Go to Dashboard" : "Start Free Analysis"}
@@ -430,15 +430,15 @@ export default function HowItWorks() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  {!isAuthenticated ? (
+                  {!isSignedIn ? (
                     <>
-                      <Link href="/register?redirect=segmentation">
+                      <Link href="/sign-up?redirect=segmentation">
                         <Button size="xl" className="px-12">
                           <Zap className="w-5 h-5 mr-2" />
                           Start Free Analysis
                         </Button>
                       </Link>
-                      <Link href="/login">
+                      <Link href="/sign-in">
                         <Button variant="outline" size="xl" className="px-12">
                           Sign In
                           <ArrowRight className="w-5 h-5 ml-2" />
@@ -447,7 +447,7 @@ export default function HowItWorks() {
                     </>
                   ) : (
                     <>
-                      <Link href={canAccessPremium() ? "/dashboard" : "/register?redirect=segmentation"}>
+                      <Link href={canAccessPremium() ? "/dashboard" : "/sign-up?redirect=segmentation"}>
                         <Button size="xl" className="px-12">
                           <Zap className="w-5 h-5 mr-2" />
                           {canAccessPremium() ? "Go to Dashboard" : "Start Free Analysis"}

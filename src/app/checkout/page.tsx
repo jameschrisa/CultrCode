@@ -6,11 +6,11 @@ import { motion } from 'framer-motion'
 import { Crown, Shield, CheckCircle, CreditCard, Lock, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 function CheckoutPageContent() {
-  const { user, isAuthenticated, isLoading } = useAuth()
+  const { user, isSignedIn, isLoaded } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -19,10 +19,10 @@ function CheckoutPageContent() {
   const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push(`/register?plan=${selectedPlan}&price=${planPrice}`)
+    if (!isLoaded && !isSignedIn) {
+      router.push(`/sign-up?plan=${selectedPlan}&price=${planPrice}`)
     }
-  }, [isAuthenticated, isLoading, router, selectedPlan, planPrice])
+  }, [isSignedIn, isLoaded, router, selectedPlan, planPrice])
 
   const handlePayment = async () => {
     setIsProcessing(true)
@@ -40,7 +40,7 @@ function CheckoutPageContent() {
     }
   }
 
-  if (isLoading) {
+  if (isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full animate-spin" />
@@ -48,7 +48,7 @@ function CheckoutPageContent() {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return null // Will redirect
   }
 

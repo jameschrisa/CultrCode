@@ -7,11 +7,11 @@ import { HiSparkles } from 'react-icons/hi'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export default function PersonasPage() {
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn } = useAuth(); const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
@@ -174,7 +174,7 @@ export default function PersonasPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {!canAccessPremium ? (
-                <Link href="/register?plan=premium">
+                <Link href="/sign-up?plan=premium">
                   <Button size="xl" className="px-12">
                     <Star className="w-5 h-5 mr-2" />
                     Unlock Premium Features
@@ -467,7 +467,7 @@ export default function PersonasPage() {
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   {!canAccessPremium ? (
-                    <Link href="/register?plan=premium">
+                    <Link href="/sign-up?plan=premium">
                       <Button size="xl" className="px-12">
                         <Star className="w-5 h-5 mr-2" />
                         Upgrade to Premium

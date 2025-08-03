@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { AuthProvider } from '@/contexts/AuthContext'
+import { ClerkProvider } from '@clerk/nextjs'
 import { HeroUIProvider } from '@heroui/react'
 import './globals.css'
 
@@ -81,11 +81,11 @@ export default function RootLayout({
         <link rel="preload" href="/images/hero.png" as="image" type="image/png" />
       </head>
       <body className={`${inter.className} antialiased mobile-safe-area custom-scrollbar`}>
-        <HeroUIProvider>
-          <AuthProvider>
+        <ClerkProvider>
+          <HeroUIProvider>
             {children}
-          </AuthProvider>
-        </HeroUIProvider>
+          </HeroUIProvider>
+        </ClerkProvider>
       </body>
     </html>
   )

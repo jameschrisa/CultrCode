@@ -12,12 +12,12 @@ import { Header } from '@/components/Header'
 import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'
 import { SimpleImage } from '@/components/ui/SimpleImage'
 import { getImageWithAttribution } from '@/lib/imageConfig'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly')
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn, canAccessPremium } = useAuth()
 
   const plans = [
     {
@@ -549,7 +549,7 @@ export default function Pricing() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  {!isAuthenticated ? (
+                  {!isSignedIn ? (
                     <>
                       <Link href="/register">
                         <Button size="xl" className="px-12">

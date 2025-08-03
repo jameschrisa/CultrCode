@@ -8,13 +8,22 @@ import { FaReddit, FaTiktok, FaYoutube, FaDiscord, FaInstagram, FaLinkedin } fro
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { emergingTrends, EmergingTrend } from '@/data/emergingTrends'
 import { cn, formatNumber } from '@/lib/utils'
 import Link from 'next/link'
 
 export default function TrendsPage() {
-  const { isAuthenticated, user, isLoading, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -23,10 +32,10 @@ export default function TrendsPage() {
   const [trends, setTrends] = useState<EmergingTrend[]>(emergingTrends)
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login')
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in')
     }
-  }, [isAuthenticated, isLoading, router])
+  }, [isSignedIn, isLoaded, router])
 
   // Filter trends based on search and filters
   const filteredTrends = trends.filter(trend => {
@@ -70,7 +79,7 @@ export default function TrendsPage() {
     return 'text-green-400'
   }
 
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-accent-400"></div>
@@ -78,7 +87,7 @@ export default function TrendsPage() {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return null
   }
 

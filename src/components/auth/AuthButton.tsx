@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
 import { LogIn, LogOut, User, Crown, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export function AuthButton() {
-  const { isAuthenticated, user, logout, isAdmin, canAccessPremium } = useAuth()
+  const { isSignedIn, user, logout, isAdmin, canAccessPremium } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 })
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -38,17 +38,17 @@ export function AuthButton() {
     }
   }, [showDropdown])
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return (
       <div className="flex items-center bg-white/5 rounded-lg border border-white/10 overflow-hidden">
-        <Link href="/login">
+        <Link href="/sign-in">
           <Button variant="ghost" size="sm" className="rounded-none border-0 hover:bg-white/10">
             <LogIn className="w-4 h-4 mr-2" />
             Sign In
           </Button>
         </Link>
         <div className="w-px h-8 bg-white/10" />
-        <Link href="/register">
+        <Link href="/sign-up">
           <Button variant="primary" size="sm" className="rounded-none border-0">
             Get Started
           </Button>
