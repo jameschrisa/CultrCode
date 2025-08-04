@@ -52,7 +52,9 @@ export function CardDetailsModal({
     }
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | undefined) => {
+    if (!status) return 'bg-accent-500/20 text-accent-400 border-accent-500/30'
+    
     switch (status.toLowerCase()) {
       case 'hot': case 'viral': return 'bg-red-500/20 text-red-400 border-red-500/30'
       case 'growing': case 'rising': return 'bg-orange-500/20 text-orange-400 border-orange-500/30'

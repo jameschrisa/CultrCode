@@ -13,12 +13,14 @@ import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'
 import { SimpleImage } from '@/components/ui/SimpleImage'
 import { getImageWithAttribution } from '@/lib/imageConfig'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { useCheckout } from '@/hooks/useCheckout'
 import Link from 'next/link'
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly')
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
+  const { createCheckoutSession, loading } = useCheckout()
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
@@ -26,6 +28,36 @@ export default function Pricing() {
     const publicMetadata = user.publicMetadata as any
     const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
     return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
+
+  // Map plan names to Stripe price IDs (you'll replace these with real IDs from Stripe)
+  const getPriceId = (planName: string) => {
+    const priceIds = {
+      'community-explorer': 'price_1234567890', // Replace with real Stripe price ID
+      'trend-navigator': 'price_1234567891',    // Replace with real Stripe price ID
+      'cultural-intelligence': 'price_1234567892' // Replace with real Stripe price ID
+    }
+    return priceIds[planName.toLowerCase().replace(' ', '-') as keyof typeof priceIds]
+  }
+
+  const handlePlanSelect = async (plan: any) => {
+    const planKey = plan.name.toLowerCase().replace(' ', '-')
+    const priceId = getPriceId(plan.name)
+    
+    if (!priceId) {
+      if (plan.name === 'Cultural Intelligence') {
+        // Enterprise plan - redirect to contact sales
+        window.location.href = 'mailto:sales@cultrcode.com?subject=Cultural Intelligence Plan Inquiry'
+        return
+      }
+      console.error('No price ID found for plan:', plan.name)
+      return
+    }
+
+    await createCheckoutSession({
+      planName: planKey,
+      priceId: priceId
+    })
   }
 
   const plans = [
@@ -299,25 +331,16 @@ export default function Pricing() {
                           {plan.cta}
                         </Button>
                       </Link>
-                    ) : plan.name === 'Cultural Intelligence' ? (
+                    ) : (
                       <Button
                         variant={plan.ctaVariant}
-                        className="w-full"
+                        className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
                         size="lg"
-                        onClick={() => window.location.href = 'mailto:sales@cultrcode.com?subject=Cultural Intelligence Plan Inquiry'}
+                        onClick={() => handlePlanSelect(plan)}
+                        disabled={loading}
                       >
-                        {plan.cta}
+                        {loading ? 'Processing...' : plan.cta}
                       </Button>
-                    ) : (
-                      <Link href={`/register?plan=${plan.name.toLowerCase().replace(' ', '-')}&price=${billingCycle === 'monthly' ? plan.price.monthly : plan.price.annual}`}>
-                        <Button
-                          variant={plan.ctaVariant}
-                          className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
-                          size="lg"
-                        >
-                          {plan.cta}
-                        </Button>
-                      </Link>
                     )}
                   </CardContent>
                 </Card>

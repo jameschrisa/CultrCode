@@ -144,7 +144,9 @@ export default function ExplorePage() {
     return matchesSearch && matchesCategory && matchesStatus
   })
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | undefined) => {
+    if (!status) return 'bg-accent-500/20 text-accent-400 border-accent-500/30'
+    
     switch (status) {
       case 'Emerging': return 'bg-accent-500/20 text-accent-400 border-accent-500/30'
       case 'Rising': return 'bg-orange-500/20 text-orange-400 border-orange-500/30'

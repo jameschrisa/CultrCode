@@ -62,7 +62,9 @@ export default function TrendsPage() {
     return iconMap[platform] || <Activity className="w-4 h-4" />
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | undefined) => {
+    if (!status) return 'text-gray-400 bg-gray-500/10 border-gray-500/20'
+    
     const colorMap = {
       'emerging': 'text-blue-400 bg-blue-500/10 border-blue-500/20',
       'rising': 'text-green-400 bg-green-500/10 border-green-500/20',

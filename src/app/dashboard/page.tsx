@@ -663,7 +663,7 @@ function DashboardContent() {
                       {/* Image Section */}
                       <div className="w-full lg:w-2/5 h-48 lg:h-full relative">
                         <img
-                          src="/images/microcommunities.png"
+                          src="/images/micro-communites.png"
                           alt="Micro-Communities"
                           className="w-full h-full object-cover rounded-l-lg"
                         />
