@@ -46,14 +46,14 @@ export async function POST(req: NextRequest) {
   }
 
   // Handle the webhook
-  const eventType = evt.type
+  const eventType = (evt as any).type
   
   console.log(`Webhook received: ${eventType}`)
 
   switch (eventType) {
     case 'user.created':
       // Handle user creation
-      const newUser = evt.data
+      const newUser = (evt as any).data
       console.log('New user created:', newUser.id)
       
       // Here you can sync user data to your database if needed
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
       
     case 'user.updated':
       // Handle user updates
-      const updatedUser = evt.data
+      const updatedUser = (evt as any).data
       console.log('User updated:', updatedUser.id)
       
       // Sync any user metadata changes to your database
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       
     case 'user.deleted':
       // Handle user deletion
-      const deletedUser = evt.data
+      const deletedUser = (evt as any).data
       console.log('User deleted:', deletedUser.id)
       
       // Clean up user data from your database

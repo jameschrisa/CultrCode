@@ -23,7 +23,18 @@ interface SegmentResultsProps {
 }
 
 export function SegmentResults({ matches, userInputs, onSegmentSelect }: SegmentResultsProps) {
-  const { canAccessPremium, isSignedIn, canSaveReport, getUsageStats, user } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper functions for usage tracking and permissions (simplified for now)
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
+  const canSaveReport = () => true // For now, all users can save reports
+  const getUsageStats = () => ({ reportsGenerated: 0, savedReports: 0 }) // Placeholder
   const [showPremiumUpgrade, setShowPremiumUpgrade] = useState(false)
   const [showPremiumReport, setShowPremiumReport] = useState(false)
   const [showBasicReport, setShowBasicReport] = useState(false)
@@ -74,7 +85,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
     }
 
     if (!canSaveReport()) {
-      const { subscriptionTier } = user
+      const subscriptionTier = (user?.publicMetadata as any)?.subscriptionTier || 'free'
       if (subscriptionTier === 'free') {
         alert('Upgrade to Standard or Pro to save reports')
       } else if (subscriptionTier === 'standard') {
@@ -133,7 +144,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
         </p>
         
         {/* Usage Stats for Standard Users */}
-        {isSignedIn && user?.subscriptionTier === 'standard' && (
+        {isSignedIn && ((user?.publicMetadata as any)?.subscriptionTier === 'standard') && (
           <div className="inline-flex items-center px-4 py-2 bg-accent-500/10 border border-accent-500/20 rounded-lg text-sm">
             <Users className="w-4 h-4 mr-2 text-accent-400" />
             <span className="text-accent-300">

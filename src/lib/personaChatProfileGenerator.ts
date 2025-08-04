@@ -14,13 +14,13 @@ export class PersonaChatProfileGenerator {
     const insights = persona.generatedInsights
     
     return {
-      communicationStyle: this.generateCommunicationStyle(psychographics),
-      decisionMaking: this.generateDecisionMaking(psychographics),
-      socialBehavior: this.generateSocialBehavior(psychographics, insights),
-      conversationPreferences: this.generateConversationPreferences(psychographics, insights),
-      emotionalProfile: this.generateEmotionalProfile(psychographics, insights),
-      buyingBehavior: this.generateBuyingBehavior(psychographics, insights),
-      contextualBehavior: this.generateContextualBehavior(psychographics)
+      communicationStyle: this.generateCommunicationStyle(psychographics) as any,
+      decisionMaking: this.generateDecisionMaking(psychographics) as any,
+      socialBehavior: this.generateSocialBehavior(psychographics, insights) as any,
+      conversationPreferences: this.generateConversationPreferences(psychographics, insights) as any,
+      emotionalProfile: this.generateEmotionalProfile(psychographics, insights) as any,
+      buyingBehavior: this.generateBuyingBehavior(psychographics, insights) as any,
+      contextualBehavior: this.generateContextualBehavior(psychographics) as any
     }
   }
   

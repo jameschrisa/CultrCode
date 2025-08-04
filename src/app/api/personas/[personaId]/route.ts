@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { PersonaDatabase } from '@/lib/personaDatabase'
 import { PersonaDBRecord } from '@/types/personas'
 import { initializeSeedData } from '@/lib/seedData'
+import { auth } from '@clerk/nextjs/server'
 
 // GET /api/personas/[personaId] - Get a specific persona
 export async function GET(
@@ -20,7 +21,7 @@ export async function GET(
     }
 
     // For demo purposes, skip ownership verification
-    // In production, verify that persona.userId matches session.user.id
+    // In production, verify that persona.userId matches userId
 
     return NextResponse.json({ persona })
   } catch (error) {
@@ -52,7 +53,7 @@ export async function PUT(
     }
 
     // For demo purposes, skip ownership verification
-    // In production, verify that existingPersona.userId matches session.user.id
+    // In production, verify that existingPersona.userId matches userId
 
     // Prepare update data
     const updates: Partial<PersonaDBRecord> = {
@@ -102,8 +103,8 @@ export async function DELETE(
   { params }: { params: { personaId: string } }
 ) {
   try {
-    const session = await getServerSession()
-    if (!session?.user?.id) {
+    const { userId } = await auth()
+    if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -115,7 +116,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Persona not found' }, { status: 404 })
     }
 
-    if (existingPersona.userId !== session.user.id) {
+    if (existingPersona.userId !== userId) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

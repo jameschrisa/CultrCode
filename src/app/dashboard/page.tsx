@@ -572,136 +572,156 @@ function DashboardContent() {
             ))}
           </div>
 
-            {/* Navigation Cards */}
-            <div className="mt-8">
-              {/* Segments Navigation Card - Enhanced Macro Card */}
+            {/* Navigation Cards - New Image-Based Layout */}
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Segments Navigation Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-8"
               >
-                <Card className="glass-card hover:border-accent-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-accent-500/10 border-2 border-accent-500/20"
+                <Card className="glass-card hover:border-accent-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-accent-500/10 border border-accent-500/20"
                       onClick={() => window.location.href = '/segments'}>
-                  {/* Enhanced gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-500/8 via-transparent to-accent-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-500/5 to-transparent opacity-50" />
-                  
-                  <CardContent className="p-10 relative z-10">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center space-x-5">
-                        <div className="w-20 h-20 bg-gradient-to-br from-accent-500/25 to-accent-600/30 rounded-xl flex items-center justify-center group-hover:from-accent-500/35 group-hover:to-accent-600/40 transition-all duration-300 shadow-lg">
-                          <Target className="w-10 h-10 text-accent-300 group-hover:text-accent-200 transition-colors duration-300" />
-                        </div>
-                        <div>
-                          <div className="flex items-center space-x-2 mb-1">
-                            <h3 className="text-2xl font-bold text-primary-50 group-hover:text-accent-100 transition-colors duration-300">CultrCode Segments</h3>
-                            <div className="px-2 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full">
-                              <span className="text-xs font-medium text-accent-300">CORE</span>
+                  <CardContent className="p-0 relative z-10">
+                    <div className="flex flex-col lg:flex-row h-full">
+                      {/* Image Section */}
+                      <div className="w-full lg:w-2/5 h-48 lg:h-full relative">
+                        <img
+                          src="/images/segments.png"
+                          alt="Segments"
+                          className="w-full h-full object-cover rounded-l-lg"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary-900/60 lg:to-primary-900/80" />
+                      </div>
+                      
+                      {/* Content Section */}
+                      <div className="flex-1 p-6 lg:p-8">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-accent-100 transition-colors duration-300">
+                              CultrCode Segments
+                            </h3>
+                            <div className="px-3 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full">
+                              <span className="text-xs font-medium text-accent-300">Core</span>
                             </div>
                           </div>
-                          <p className="text-primary-300 text-base font-medium">48 precision audience segments</p>
                         </div>
-                      </div>
-                      <ArrowUpRight className="w-6 h-6 text-primary-500 group-hover:text-accent-300 group-hover:scale-110 transition-all duration-300" />
-                    </div>
-                    
-                    <p className="text-primary-400 text-sm mb-6 leading-relaxed">
-                      Explore our comprehensive framework of audience segments built specifically for creator brands. 
-                      Discover your ideal customers across 4 tiers of engagement.
-                    </p>
+                        
+                        <p className="text-primary-300 text-sm lg:text-base font-medium mb-4">
+                          48 precision audience segments
+                        </p>
+                        
+                        <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                          Explore our comprehensive framework of audience segments built specifically for creator brands. 
+                          Discover your ideal customers across 4 tiers of engagement.
+                        </p>
 
-                    <div className="grid grid-cols-4 gap-4 mb-6">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-red-400 mb-1">9</div>
-                        <div className="text-xs text-primary-500">Brand Evangelists</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-orange-400 mb-1">15</div>
-                        <div className="text-xs text-primary-500">Early Believers</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-400 mb-1">12</div>
-                        <div className="text-xs text-primary-500">Quality Seekers</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-400 mb-1">12</div>
-                        <div className="text-xs text-primary-500">Micro-Segments</div>
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-red-400 mb-1">9</div>
+                            <div className="text-xs text-primary-500">Brand Evangelists</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-orange-400 mb-1">15</div>
+                            <div className="text-xs text-primary-500">Early Believers</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-blue-400 mb-1">12</div>
+                            <div className="text-xs text-primary-500">Quality Seekers</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-purple-400 mb-1">12</div>
+                            <div className="text-xs text-primary-500">Micro-Segments</div>
+                          </div>
+                        </div>
+
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={(e) => {e.stopPropagation(); window.location.href = '/segments'}}
+                          className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-accent-500/20 text-sm"
+                        >
+                          Explore All Segments →
+                        </Button>
                       </div>
                     </div>
-
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      onClick={() => window.location.href = '/segments'}
-                      className="w-full group-hover:border-accent-400 group-hover:text-accent-300 group-hover:bg-accent-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-accent-500/20"
-                    >
-                      Explore All Segments →
-                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Communities Navigation Card - Enhanced Macro Card */}
+              {/* Micro-Communities Navigation Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="mb-8"
               >
-                <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border-2 border-brand-500/20"
+                <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border border-brand-500/20"
                       onClick={() => window.location.href = '/microcommunities'}>
-                  {/* Enhanced gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-500/8 via-transparent to-brand-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-500/5 to-transparent opacity-50" />
-                  
-                  <CardContent className="p-10 relative z-10">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center space-x-5">
-                        <div className="w-20 h-20 bg-gradient-to-br from-brand-500/25 to-brand-600/30 rounded-xl flex items-center justify-center group-hover:from-brand-500/35 group-hover:to-brand-600/40 transition-all duration-300 shadow-lg">
-                          <Users className="w-10 h-10 text-brand-300 group-hover:text-brand-200 transition-colors duration-300" />
+                  <CardContent className="p-0 relative z-10">
+                    <div className="flex flex-col lg:flex-row h-full">
+                      {/* Image Section */}
+                      <div className="w-full lg:w-2/5 h-48 lg:h-full relative">
+                        <img
+                          src="/images/microcommunities.png"
+                          alt="Micro-Communities"
+                          className="w-full h-full object-cover rounded-l-lg"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary-900/60 lg:to-primary-900/80" />
+                      </div>
+                      
+                      {/* Content Section */}
+                      <div className="flex-1 p-6 lg:p-8">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300">
+                              Micro-Communities
+                            </h3>
+                            <div className="px-3 py-1 bg-brand-500/20 border border-brand-500/30 rounded-full">
+                              <span className="text-xs font-medium text-brand-300">Premium</span>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300 mb-2">Micro-Communities</h3>
-                          <Tag variant="primary" size="sm">PREMIUM</Tag>
-                          <p className="text-primary-300 text-base font-medium">135+ niche communities</p>
+                        
+                        <p className="text-primary-300 text-sm lg:text-base font-medium mb-4">
+                          135+ niche communities
+                        </p>
+                        
+                        <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                          Discover where your audience naturally gathers. Find active communities across 8 major categories 
+                          with detailed engagement and growth metrics.
+                        </p>
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 gap-3 mb-6">
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-green-400 mb-1">24</div>
+                            <div className="text-xs text-primary-500">Very High Engagement</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-accent-400 mb-1">18</div>
+                            <div className="text-xs text-primary-500">Exploding Growth</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-brand-400 mb-1">8</div>
+                            <div className="text-xs text-primary-500">Major Categories</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-lg lg:text-2xl font-bold text-purple-400 mb-1">50M+</div>
+                            <div className="text-xs text-primary-500">Total Members</div>
+                          </div>
                         </div>
-                      </div>
-                      <ArrowUpRight className="w-6 h-6 text-primary-500 group-hover:text-brand-300 group-hover:scale-110 transition-all duration-300" />
-                    </div>
-                    
-                    <p className="text-primary-400 text-sm mb-6 leading-relaxed">
-                      Discover where your audience naturally gathers. Find active communities across 8 major categories 
-                      with detailed engagement and growth metrics.
-                    </p>
 
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-green-400 mb-1">24</div>
-                        <div className="text-xs text-primary-500">Very High Engagement</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-accent-400 mb-1">18</div>
-                        <div className="text-xs text-primary-500">Exploding Growth</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-brand-400 mb-1">8</div>
-                        <div className="text-xs text-primary-500">Major Categories</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-400 mb-1">50M+</div>
-                        <div className="text-xs text-primary-500">Total Members</div>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={(e) => {e.stopPropagation(); window.location.href = '/microcommunities'}}
+                          className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/20 text-sm"
+                        >
+                          Explore All Communities →
+                        </Button>
                       </div>
                     </div>
-
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      onClick={() => window.location.href = '/microcommunities'}
-                      className="w-full group-hover:border-brand-400 group-hover:text-brand-300 group-hover:bg-brand-500/10 transition-all duration-300 font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-500/20"
-                    >
-                      Explore All Communities →
-                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>

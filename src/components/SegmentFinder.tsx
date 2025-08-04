@@ -24,7 +24,13 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   const [currentStep, setCurrentStep] = useState(0)
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState<SegmentMatch[]>([])
-  const { canGenerateReport, incrementReportGeneration, getUsageStats, user, isSignedIn } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper functions for usage tracking (simplified for now)
+  const canGenerateReport = () => true // For now, all users can generate reports
+  const incrementReportGeneration = () => {} // No-op for now
+  const getUsageStats = () => ({ reportsGenerated: 0, savedReports: 0 }) // Placeholder
   
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<UserInputs>({
     defaultValues: {
@@ -58,7 +64,13 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   })
 
   // Determine if user has access to hyperlocal features
-  const hasHyperlocalAccess = (user?.subscriptionTier === 'standard' || user?.subscriptionTier === 'pro' || user?.subscriptionTier === 'enterprise') || isPremiumMode
+  const hasHyperlocalAccess = () => {
+    if (isPremiumMode) return true
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
 
   // Require authentication for segmentation tool access
   if (!isSignedIn) {
@@ -125,7 +137,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     icon: <MapPin className="w-5 h-5" />
   }
 
-  const steps = hasHyperlocalAccess ? [...baseSteps, hyperlocalStep] : baseSteps
+  const steps = hasHyperlocalAccess() ? [...baseSteps, hyperlocalStep] : baseSteps
 
   const categoryOptions = [
     { value: 'beauty-skincare', label: 'Beauty & Skincare', icon: <Palette className="w-4 h-4" /> },
@@ -195,7 +207,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   const onSubmit = async (data: UserInputs) => {
     // Check if user can generate a report
     if (!canGenerateReport()) {
-      alert(`${user?.subscriptionTier === 'standard' ? 'Standard users can generate only 1 report. Upgrade to Pro for unlimited reports.' : 'Report generation limit reached.'}`)
+      alert('Report generation limit reached.')
       return
     }
 
@@ -238,7 +250,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
         return watchedValues.primaryPlatform && watchedValues.followingSize && watchedValues.launchBudget
       case 3:
         // Hyperlocal step - optional but if enabled, must have at least 1 city
-        if (hasHyperlocalAccess) {
+        if (hasHyperlocalAccess()) {
           return !watchedValues.hyperlocalEnabled || (watchedValues.targetCities?.length || 0) > 0
         }
         return true
@@ -275,7 +287,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   return (
     <div className="w-full max-w-3xl mx-auto">
       {/* Usage Warning for Standard Users */}
-      {user?.subscriptionTier === 'standard' && (
+      {user && (user.publicMetadata as any)?.subscriptionTier === 'standard' && (
         <div className="mb-6 p-4 bg-accent-500/10 border border-accent-500/20 rounded-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -292,7 +304,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
       )}
 
       {/* Hyperlocal Feature Preview for Free Users */}
-      {user?.subscriptionTier === 'free' && (
+      {user && ((user.publicMetadata as any)?.subscriptionTier || 'free') === 'free' && (
         <div className="mb-6 p-6 bg-gradient-to-r from-accent-500/10 to-brand-500/10 border border-accent-500/20 rounded-lg">
           <div className="flex items-start space-x-4">
             <div className="p-3 bg-accent-500/20 rounded-xl">
@@ -614,7 +626,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                       "Optimize content strategy for community preferences",
                       "Discover emerging format trends in your niche"
                     ]}
-                    isEnabled={user?.subscriptionTier !== 'free'}
+                    isEnabled={((user?.publicMetadata as any)?.subscriptionTier || 'free') !== 'free'}
                     onUpgrade={() => window.location.href = '/pricing'}
                   >
                     <div>
@@ -681,7 +693,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                       "Discover emerging trends before they go mainstream",
                       "Advanced personality-community fit analysis"
                     ]}
-                    isEnabled={user?.subscriptionTier === 'pro' || user?.subscriptionTier === 'enterprise'}
+                    isEnabled={((user?.publicMetadata as any)?.subscriptionTier === 'pro' || (user?.publicMetadata as any)?.subscriptionTier === 'enterprise')}
                     onUpgrade={() => window.location.href = '/pricing'}
                   >
                     <div className="space-y-6">
@@ -868,14 +880,14 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
               )}
 
               {/* Step 3: Hyperlocal Targeting (Premium Users Only) */}
-              {currentStep === 3 && hasHyperlocalAccess && (
+              {currentStep === 3 && hasHyperlocalAccess() && (
                 <div className="space-y-8">
                   {/* Premium Feature Badge */}
                   <div className="flex items-center justify-center mb-8">
                     <div className="flex items-center px-6 py-3 bg-gradient-to-r from-accent-500/20 to-brand-500/20 border border-accent-500/30 rounded-full">
                       <Star className="w-5 h-5 mr-2 text-accent-400" />
                       <span className="text-accent-300 font-semibold">
-                        {user?.subscriptionTier === 'standard' ? 'Standard' : 'Premium'} Feature
+                        {((user?.publicMetadata as any)?.subscriptionTier === 'standard') ? 'Standard' : 'Premium'} Feature
                       </span>
                     </div>
                   </div>

@@ -8,10 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCa
 import { Button } from '@/components/ui/HeroButton'
 import { Header } from '@/components/Header'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { PersonaData, PersonaChatMessage, PersonaChatSession } from '@/types/personas'
 import { PersonaConversationEngine, PersonaChatProfileGenerator } from '@/lib/personaChatProfileGenerator'
-import { PersonaDatabase } from '@/lib/personaDatabase'
 import Link from 'next/link'
 
 interface ChatMessage {
@@ -24,7 +23,8 @@ interface ChatMessage {
 function PersonaChatContent() {
   const params = useParams()
   const router = useRouter()
-  const { user } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
   const personaId = params.personaId as string
   
   const [persona, setPersona] = useState<PersonaData | null>(null)

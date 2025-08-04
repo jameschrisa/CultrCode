@@ -53,4 +53,5 @@ export type Permission =
   | 'view_premium_reports'
   | 'admin_access'
   | 'manage_users'
-  | 'view_analytics';
+  | 'view_analytics'
+  | 'basic_access';

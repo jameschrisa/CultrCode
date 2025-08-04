@@ -108,7 +108,16 @@ const segmentUpdates = [
 ]
 
 function AdvancedAnalysisContent() {
-  const { canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [currentView, setCurrentView] = useState<'form' | 'results'>('form')
   const [segmentMatches, setSegmentMatches] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)

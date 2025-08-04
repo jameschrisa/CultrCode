@@ -12,7 +12,16 @@ import { ProfileAvatar } from '@/components/ui/ProfileAvatar'
 import Link from 'next/link'
 
 export default function InfluencersPage() {
-  const { isAuthenticated, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
   const [selectedPlatform, setSelectedPlatform] = useState('all')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')

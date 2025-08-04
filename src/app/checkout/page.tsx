@@ -10,7 +10,8 @@ import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 function CheckoutPageContent() {
-  const { user, isSignedIn, isLoaded } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -128,7 +129,7 @@ function CheckoutPageContent() {
               Complete Your Subscription
             </h1>
             <p className="text-primary-300">
-              Welcome {user?.name}! You&apos;re just one step away from unlocking cultural intelligence.
+              Welcome {user?.firstName || 'there'}! You&apos;re just one step away from unlocking cultural intelligence.
             </p>
           </motion.div>
 
@@ -234,7 +235,7 @@ function CheckoutPageContent() {
                         Billing Email
                       </label>
                       <div className="w-full px-4 py-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200">
-                        {user?.email}
+                        {user?.emailAddresses[0]?.emailAddress}
                       </div>
                     </div>
                   </div>

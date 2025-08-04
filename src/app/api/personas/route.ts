@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { PersonaDatabase } from '@/lib/personaDatabase'
 import { PersonaData } from '@/types/personas'
 import { initializeSeedData } from '@/lib/seedData'
+import { auth } from '@clerk/nextjs/server'
 
 // GET /api/personas - Get all personas for the authenticated user
 export async function GET(request: NextRequest) {
@@ -9,9 +10,10 @@ export async function GET(request: NextRequest) {
     // Initialize seed data if needed
     await initializeSeedData()
     
-    // For demo purposes, use a default user ID
-    // In production, this would come from session authentication
-    const userId = 'demo-user'
+    const { userId } = await auth()
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
     
     const personas = await PersonaDatabase.getUserPersonas(userId)
     return NextResponse.json({ personas })
@@ -25,11 +27,13 @@ export async function GET(request: NextRequest) {
 // POST /api/personas - Create a new persona
 export async function POST(request: NextRequest) {
   try {
-    // For demo purposes, use a default user ID
-    // In production, this would come from session authentication
-    const userId = 'demo-user'
+    const { userId } = await auth()
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
-    const personaData: PersonaData = await request.json()
+    const body = await request.json()
+    const personaData: PersonaData = body.persona || body
 
     // Validate required fields
     if (!personaData.name || !personaData.baseSelection?.type) {

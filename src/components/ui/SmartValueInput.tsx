@@ -202,7 +202,7 @@ export function SmartValueInput({
                 >
                   <div className="flex items-center space-x-2">
                     <Plus className="w-3 h-3 text-accent-400" />
-                    <span>Add "<span className="text-accent-300">{value}</span>"</span>
+                    <span>Add &ldquo;<span className="text-accent-300">{value}</span>&rdquo;</span>
                   </div>
                 </button>
               )}

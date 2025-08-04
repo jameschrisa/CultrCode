@@ -56,7 +56,8 @@ export function PremiumFormSection({
   isEnabled = false,
   onUpgrade
 }: PremiumFormSectionProps) {
-  const { user, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
   const [showDetails, setShowDetails] = useState(false)
   const config = tierConfig[tier]
 

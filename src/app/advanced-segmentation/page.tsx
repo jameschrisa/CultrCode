@@ -220,7 +220,7 @@ export default function AdvancedSegmentationPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-primary-50 mb-2">
-                    You&apos;re using {user?.subscriptionTier === 'enterprise' ? 'Enterprise' : user?.subscriptionTier === 'pro' ? 'Pro' : 'Standard'} features
+                    You&apos;re using {(user?.publicMetadata as any)?.subscriptionTier === 'enterprise' ? 'Enterprise' : (user?.publicMetadata as any)?.subscriptionTier === 'premium' ? 'Premium' : 'Free'} features
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-primary-300">
                     <div>

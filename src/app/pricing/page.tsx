@@ -17,7 +17,16 @@ import Link from 'next/link'
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly')
-  const { isSignedIn, canAccessPremium } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    if (!user) return false
+    const publicMetadata = user.publicMetadata as any
+    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
+    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+  }
 
   const plans = [
     {
@@ -281,7 +290,7 @@ export default function Pricing() {
                     </div>
                     
                     {plan.name === 'Free Discovery' ? (
-                      <Link href="/register">
+                      <Link href="/sign-up">
                         <Button
                           variant={plan.ctaVariant}
                           className="w-full"
@@ -551,13 +560,13 @@ export default function Pricing() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   {!isSignedIn ? (
                     <>
-                      <Link href="/register">
+                      <Link href="/sign-up">
                         <Button size="xl" className="px-12">
                           <Zap className="w-5 h-5 mr-2" />
                           Get Started
                         </Button>
                       </Link>
-                      <Link href="/login">
+                      <Link href="/sign-in">
                         <Button variant="outline" size="xl" className="px-12">
                           Sign In
                         </Button>

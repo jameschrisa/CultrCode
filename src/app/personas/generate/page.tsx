@@ -14,7 +14,7 @@ import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
 import { PersonaCard } from '@/components/PersonaCard'
 import { PersonaChatProfileGenerator } from '@/lib/personaChatProfileGenerator'
-import { PersonaDatabase } from '@/lib/personaDatabase'
+import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
 interface BaseSelection {
@@ -58,6 +58,7 @@ interface PsychographicFactor {
 }
 
 function GeneratePersonaContent() {
+  const { user } = useUser()
   const [currentStep, setCurrentStep] = useState(0)
   const [personaData, setPersonaData] = useState<PersonaData>({
     name: '',
@@ -284,8 +285,24 @@ function GeneratePersonaContent() {
         isActive: true
       }
       
-      // Save to database with full chat functionality
-      const personaId = await PersonaDatabase.savePersona(user.id, personaToSave)
+      // Save to database with full chat functionality via API
+      const response = await fetch('/api/personas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          persona: personaToSave
+        })
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to save persona')
+      }
+      
+      const result = await response.json()
+      const personaId = result.id
       
       alert(`Persona "${personaData.name}" saved successfully with chat capabilities enabled!`)
       console.log('Saved persona with chat profile:', personaId)
