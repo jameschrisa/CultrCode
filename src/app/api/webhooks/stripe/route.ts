@@ -82,11 +82,13 @@ export async function POST(req: NextRequest) {
       }
 
       case 'invoice.payment_failed': {
-        const invoice = event.data.object as Stripe.Invoice
-        const subscriptionId = typeof invoice.subscription === 'string' ? invoice.subscription : null
+        const invoice = event.data.object as any // Use any to bypass type checking
+        const subscriptionId = invoice.subscription
         
         if (subscriptionId) {
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+          const subscription = await stripe.subscriptions.retrieve(
+            typeof subscriptionId === 'string' ? subscriptionId : subscriptionId.id
+          )
           const userId = subscription.metadata?.userId
 
           if (userId) {
