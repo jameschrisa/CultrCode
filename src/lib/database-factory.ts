@@ -42,7 +42,7 @@ export async function getCommunityDatabase(): Promise<DatabaseInterface> {
       console.log('🐘 Using PostgreSQL database')
       return await getPostgresDatabase()
     } catch (error) {
-      console.warn('⚠️  PostgreSQL connection failed, falling back to SQLite:', error.message)
+      console.warn('⚠️  PostgreSQL connection failed, falling back to SQLite:', error instanceof Error ? error.message : String(error))
       
       // Fallback to SQLite in development if PostgreSQL fails
       if (!isProduction) {
@@ -84,7 +84,7 @@ export async function checkDatabaseHealth(): Promise<{
     return {
       type: 'unknown' as any,
       connected: false,
-      error: error.message
+      error: error instanceof Error ? error.message : String(error)
     }
   }
 }
