@@ -1,8 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PersonaDatabase } from '@/lib/personaDatabase'
-import { PersonaDBRecord } from '@/types/personas'
-import { initializeSeedData } from '@/lib/seedData'
-import { auth } from '@clerk/nextjs/server'
 
 // Mark this route as dynamic to prevent build-time execution
 export const runtime = 'nodejs'
@@ -14,6 +10,10 @@ export async function GET(
   { params }: { params: { personaId: string } }
 ) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { PersonaDatabase } = await import('@/lib/personaDatabase')
+    const { initializeSeedData } = await import('@/lib/seedData')
+    
     // Initialize seed data if needed
     await initializeSeedData()
     

@@ -1,8 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PersonaDatabase } from '@/lib/personaDatabase'
-import { PersonaData } from '@/types/personas'
-import { initializeSeedData } from '@/lib/seedData'
-import { auth } from '@clerk/nextjs/server'
 
 // Mark this route as dynamic to prevent build-time execution
 export const runtime = 'nodejs'
@@ -11,6 +7,11 @@ export const dynamic = 'force-dynamic'
 // GET /api/personas - Get all personas for the authenticated user
 export async function GET(request: NextRequest) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { PersonaDatabase } = await import('@/lib/personaDatabase')
+    const { initializeSeedData } = await import('@/lib/seedData')
+    const { auth } = await import('@clerk/nextjs/server')
+    
     // Initialize seed data if needed
     await initializeSeedData()
     
@@ -31,13 +32,18 @@ export async function GET(request: NextRequest) {
 // POST /api/personas - Create a new persona
 export async function POST(request: NextRequest) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { PersonaDatabase } = await import('@/lib/personaDatabase')
+    const { PersonaData } = await import('@/types/personas')
+    const { auth } = await import('@clerk/nextjs/server')
+    
     const { userId } = await auth()
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const body = await request.json()
-    const personaData: PersonaData = body.persona || body
+    const personaData = body.persona || body
 
     // Validate required fields
     if (!personaData.name || !personaData.baseSelection?.type) {

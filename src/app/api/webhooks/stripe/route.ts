@@ -1,17 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { stripe } from '@/lib/stripe'
-import { clerkClient } from '@clerk/nextjs/server'
-import Stripe from 'stripe'
 
 // Mark this route as dynamic to prevent build-time execution
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
-
 export async function POST(req: NextRequest) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { stripe } = await import('@/lib/stripe')
+    const { clerkClient } = await import('@clerk/nextjs/server')
+    const Stripe = (await import('stripe')).default
+    
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
     const body = await req.text()
     const headersList = headers()
     const signature = headersList.get('stripe-signature')!
