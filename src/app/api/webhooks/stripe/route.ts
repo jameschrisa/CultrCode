@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
 
         if (userId && planName) {
           // Update Clerk user metadata with subscription info
-          await clerkClient().users.updateUser(userId, {
+          const client = await clerkClient()
+          await client.users.updateUser(userId, {
             publicMetadata: {
               subscriptionTier: planName,
               subscriptionStatus: 'active',
@@ -49,7 +50,8 @@ export async function POST(req: NextRequest) {
 
         if (userId) {
           const status = subscription.status
-          await clerkClient().users.updateUser(userId, {
+          const client = await clerkClient()
+          await client.users.updateUser(userId, {
             publicMetadata: {
               subscriptionStatus: status,
               subscriptionId: subscription.id
@@ -66,7 +68,8 @@ export async function POST(req: NextRequest) {
 
         if (userId) {
           // Downgrade user to free tier
-          await clerkClient().users.updateUser(userId, {
+          const client = await clerkClient()
+          await client.users.updateUser(userId, {
             publicMetadata: {
               subscriptionTier: 'free',
               subscriptionStatus: 'cancelled',
@@ -88,7 +91,8 @@ export async function POST(req: NextRequest) {
 
           if (userId) {
             // Mark as past due but don't immediately cancel
-            await clerkClient().users.updateUser(userId, {
+            const client = await clerkClient()
+            await client.users.updateUser(userId, {
               publicMetadata: {
                 subscriptionStatus: 'past_due'
               }
