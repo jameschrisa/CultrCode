@@ -40,6 +40,10 @@ export async function PUT(
   { params }: { params: { personaId: string } }
 ) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { PersonaDatabase } = await import('@/lib/personaDatabase')
+    const { PersonaDBRecord } = await import('@/types/personas')
+    
     const personaId = params.personaId
     const updateData = await request.json()
 
@@ -107,6 +111,10 @@ export async function DELETE(
   { params }: { params: { personaId: string } }
 ) {
   try {
+    // Dynamically import to prevent build-time execution
+    const { PersonaDatabase } = await import('@/lib/personaDatabase')
+    const { auth } = await import('@clerk/nextjs/server')
+    
     const { userId } = await auth()
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
