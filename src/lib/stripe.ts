@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js'
 
 // Server-side Stripe instance
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-10-28.acacia',
+  apiVersion: '2025-07-30.basil',
   appInfo: {
     name: 'CultrCode',
     version: '1.0.0',
