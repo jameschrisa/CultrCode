@@ -4,6 +4,10 @@ import { PersonaData } from '@/types/personas'
 import { initializeSeedData } from '@/lib/seedData'
 import { auth } from '@clerk/nextjs/server'
 
+// Mark this route as dynamic to prevent build-time execution
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 // GET /api/personas - Get all personas for the authenticated user
 export async function GET(request: NextRequest) {
   try {

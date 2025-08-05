@@ -4,6 +4,10 @@ import { stripe } from '@/lib/stripe'
 import { clerkClient } from '@clerk/nextjs/server'
 import Stripe from 'stripe'
 
+// Mark this route as dynamic to prevent build-time execution
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
 export async function POST(req: NextRequest) {

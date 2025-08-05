@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { stripe, STRIPE_PRICE_IDS, PRODUCTS } from '@/lib/stripe'
 
+// Mark this route as dynamic to prevent build-time execution
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: NextRequest) {
   try {
     const { userId } = await auth()
