@@ -37,7 +37,7 @@ export default function PaymentCancelled() {
                   Payment Cancelled
                 </CardTitle>
                 <p className="text-primary-300">
-                  No worries! Your subscription wasn't processed. You can try again anytime.
+                  No worries! Your subscription wasn&apos;t processed. You can try again anytime.
                 </p>
               </CardHeader>
               

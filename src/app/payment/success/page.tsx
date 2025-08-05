@@ -75,7 +75,7 @@ export default function PaymentSuccess() {
                   🎉 Welcome to {planName}!
                 </CardTitle>
                 <p className="text-primary-300">
-                  Your subscription is now active. Let's unlock the power of cultural intelligence.
+                  Your subscription is now active. Let&apos;s unlock the power of cultural intelligence.
                 </p>
               </CardHeader>
               
@@ -107,7 +107,7 @@ export default function PaymentSuccess() {
                 {/* Next Steps */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-primary-100">
-                    What's Next?
+                    What&apos;s Next?
                   </h3>
                   <div className="grid gap-4">
                     <Link href="/dashboard">
