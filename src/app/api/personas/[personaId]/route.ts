@@ -42,7 +42,6 @@ export async function PUT(
   try {
     // Dynamically import to prevent build-time execution
     const { PersonaDatabase } = await import('@/lib/personaDatabase')
-    const { PersonaDBRecord } = await import('@/types/personas')
     
     const personaId = params.personaId
     const updateData = await request.json()
@@ -63,8 +62,8 @@ export async function PUT(
     // For demo purposes, skip ownership verification
     // In production, verify that existingPersona.userId matches userId
 
-    // Prepare update data
-    const updates: Partial<PersonaDBRecord> = {
+    // Prepare update data (using any to avoid type import issues)
+    const updates: any = {
       name: updateData.name,
       description: updateData.description,
       values: updateData.values || existingPersona.values,
