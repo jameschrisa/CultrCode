@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const headersList = headers()
     const signature = headersList.get('stripe-signature')!
 
-    let event: Stripe.Event
+    let event: any
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     // Handle the event
     switch (event.type) {
       case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session
+        const session = event.data.object as any
         const userId = session.metadata?.userId
         const planName = session.metadata?.planName
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription
+        const subscription = event.data.object as any
         const userId = subscription.metadata?.userId
 
         if (userId) {
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       }
 
       case 'customer.subscription.deleted': {
-        const subscription = event.data.object as Stripe.Subscription
+        const subscription = event.data.object as any
         const userId = subscription.metadata?.userId
 
         if (userId) {
