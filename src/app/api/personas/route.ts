@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
   try {
     // Dynamically import to prevent build-time execution
     const { PersonaDatabase } = await import('@/lib/personaDatabase')
-    const { PersonaData } = await import('@/types/personas')
     const { auth } = await import('@clerk/nextjs/server')
     
     const { userId } = await auth()
