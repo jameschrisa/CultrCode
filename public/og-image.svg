@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#1a1b23"/>
+  <rect x="80" y="80" width="1040" height="470" rx="40" fill="url(#gradient)"/>
+  
+  <!-- Logo -->
+  <path d="M600 200L680 315L600 430L520 315L600 200Z" fill="white"/>
+  <circle cx="600" cy="315" r="20" fill="#1a1b23"/>
+  
+  <!-- Text -->
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="white">CultrCode™</text>
+  <text x="600" y="570" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#d1d5db">Market Intelligence for Creators & Challenger Brands</text>
+  
+  <defs>
+    <linearGradient id="gradient" x1="80" y1="80" x2="1120" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+</svg>
