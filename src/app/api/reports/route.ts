@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
+// Mark this route as dynamic to prevent static generation
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 // In a real app, this would be a database
 // For now, we'll simulate with file storage or database
 interface SavedReport {

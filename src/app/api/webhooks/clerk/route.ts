@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 
+// Mark this route as dynamic to prevent static generation
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET
 
 export async function POST(req: NextRequest) {
