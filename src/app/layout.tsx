@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
+import { dark } from '@clerk/themes'
 import { HeroUIProvider } from '@heroui/react'
 import './globals.css'
 
@@ -81,7 +82,70 @@ export default function RootLayout({
         <link rel="preload" href="/images/hero.png" as="image" type="image/png" />
       </head>
       <body className={`${inter.className} antialiased mobile-safe-area custom-scrollbar`}>
-        <ClerkProvider>
+        <ClerkProvider 
+          appearance={{
+            baseTheme: dark,
+            variables: {
+              colorPrimary: '#8B5CF6', // Your accent color
+              colorBackground: '#0F172A', // Your primary-900
+              colorInputBackground: '#1E293B', // Your primary-800
+              colorInputText: '#F8FAFC', // Your primary-50
+              colorText: '#F8FAFC', // Your primary-50
+              colorTextSecondary: '#CBD5E1', // Your primary-300
+              colorShimmer: '#334155', // Your primary-700
+              borderRadius: '0.5rem',
+            },
+            elements: {
+              formButtonPrimary: {
+                backgroundColor: '#8B5CF6',
+                '&:hover': {
+                  backgroundColor: '#7C3AED',
+                },
+              },
+              card: {
+                backgroundColor: '#1E293B',
+                border: '1px solid #334155',
+              },
+              headerTitle: {
+                color: '#F8FAFC',
+              },
+              headerSubtitle: {
+                color: '#CBD5E1',
+              },
+              socialButtonsBlockButton: {
+                backgroundColor: '#334155',
+                border: '1px solid #475569',
+                color: '#F8FAFC',
+                '&:hover': {
+                  backgroundColor: '#475569',
+                },
+              },
+              dividerLine: {
+                backgroundColor: '#334155',
+              },
+              dividerText: {
+                color: '#CBD5E1',
+              },
+              formFieldLabel: {
+                color: '#CBD5E1',
+              },
+              formFieldInput: {
+                backgroundColor: '#334155',
+                border: '1px solid #475569',
+                color: '#F8FAFC',
+                '&:focus': {
+                  border: '1px solid #8B5CF6',
+                },
+              },
+              footerActionLink: {
+                color: '#8B5CF6',
+                '&:hover': {
+                  color: '#7C3AED',
+                },
+              },
+            }
+          }}
+        >
           <HeroUIProvider>
             {children}
           </HeroUIProvider>
