@@ -93,6 +93,7 @@ export default function RootLayout({
               colorText: '#F8FAFC', // Your primary-50
               colorTextSecondary: '#CBD5E1', // Your primary-300
               colorShimmer: '#334155', // Your primary-700
+              colorNeutral: '#CBD5E1', // Additional neutral text color
               borderRadius: '0.5rem',
             },
             elements: {
@@ -141,6 +142,32 @@ export default function RootLayout({
                 color: '#8B5CF6',
                 '&:hover': {
                   color: '#7C3AED',
+                },
+              },
+              footerActionText: {
+                color: '#CBD5E1',
+              },
+              footer: {
+                '& > div': {
+                  color: '#CBD5E1',
+                },
+              },
+              alternativeMethodsBlockButton: {
+                backgroundColor: '#334155',
+                border: '1px solid #475569',
+                color: '#F8FAFC',
+                '&:hover': {
+                  backgroundColor: '#475569',
+                },
+              },
+              // Catch-all for any remaining text elements
+              rootBox: {
+                color: '#F8FAFC',
+                '& *': {
+                  color: '#F8FAFC !important',
+                },
+                '& a': {
+                  color: '#8B5CF6 !important',
                 },
               },
             }
