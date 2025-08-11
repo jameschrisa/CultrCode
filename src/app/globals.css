@@ -408,4 +408,75 @@
       min-width: 44px;
     }
   }
+  
+  /* Clerk UI Overrides - Force light text on dark backgrounds */
+  
+  /* Target Clerk footer elements specifically */
+  .cl-footerAction,
+  .cl-footerAction p,
+  .cl-footerAction span,
+  .cl-footerAction div {
+    color: #CBD5E1 !important;
+  }
+  
+  .cl-footerActionLink {
+    color: #8B5CF6 !important;
+  }
+  
+  .cl-footerActionLink:hover {
+    color: #7C3AED !important;
+  }
+  
+  /* Additional fallbacks */
+  .cl-main .cl-footer,
+  .cl-main .cl-footer p,
+  .cl-main .cl-footer span,
+  .cl-main .cl-footer div {
+    color: #CBD5E1 !important;
+  }
+  
+  .cl-main .cl-footer a {
+    color: #8B5CF6 !important;
+  }
+  
+  .cl-main .cl-footer a:hover {
+    color: #7C3AED !important;
+  }
+  
+  /* More aggressive targeting */
+  [data-clerk-theme] {
+    color: #F8FAFC !important;
+  }
+  
+  [data-clerk-theme] p {
+    color: #CBD5E1 !important;
+  }
+  
+  [data-clerk-theme] a {
+    color: #8B5CF6 !important;
+  }
+  
+  [data-clerk-theme] button {
+    color: #F8FAFC !important;
+  }
+  
+  /* Target specific text that appears in the footer */
+  [class*="cl-"] span,
+  [class*="cl-"] p,
+  [class*="cl-"] div {
+    color: #CBD5E1 !important;
+  }
+  
+  /* If all else fails - nuclear option */
+  body * {
+    color: inherit;
+  }
+  
+  .clerk-loaded * {
+    color: #F8FAFC !important;
+  }
+  
+  .clerk-loaded a {
+    color: #8B5CF6 !important;
+  }
 }

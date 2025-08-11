@@ -160,6 +160,19 @@ export default function RootLayout({
                   backgroundColor: '#475569',
                 },
               },
+              // More specific footer targeting
+              footerAction: {
+                color: '#CBD5E1',
+                '& > p': {
+                  color: '#CBD5E1 !important',
+                },
+                '& > div': {
+                  color: '#CBD5E1 !important',
+                },
+              },
+              footerPages: {
+                color: '#CBD5E1',
+              },
               // Catch-all for any remaining text elements
               rootBox: {
                 color: '#F8FAFC',
@@ -168,6 +181,12 @@ export default function RootLayout({
                 },
                 '& a': {
                   color: '#8B5CF6 !important',
+                },
+                '& p': {
+                  color: '#CBD5E1 !important',
+                },
+                '& span': {
+                  color: '#CBD5E1 !important',
                 },
               },
             }
