@@ -498,129 +498,6 @@ function DashboardContent() {
           </div>
         </motion.div>
 
-        {/* New Segments */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-12"
-        >
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-primary-50 mb-2">Explore Your Audience</h2>
-            <p className="text-primary-400">Discover segments and communities to target for your next launch</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                name: "Digital Nomad Families",
-                match: "94%",
-                potential: "High",
-                description: "Remote-working families traveling while educating children digitally",
-                tags: ["Remote Work", "Family", "Travel"],
-                status: "Hot",
-                icon: <Users className="w-6 h-6" />
-              },
-              {
-                name: "Micro-Mobility Enthusiasts",
-                match: "87%",
-                potential: "Medium",
-                description: "Urban commuters passionate about e-scooters, e-bikes, and sustainable transport",
-                tags: ["Urban", "Sustainability", "Tech"],
-                status: "Growing",
-                icon: <Bike className="w-6 h-6" />
-              },
-              {
-                name: "Plant-Based Gamers",
-                match: "91%",
-                potential: "High",
-                description: "Gaming community focused on plant-based nutrition and ethical gaming habits",
-                tags: ["Gaming", "Wellness", "Plant-Based"],
-                status: "Emerging",
-                icon: <Gamepad2 className="w-6 h-6" />
-              }
-            ].map((segment, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
-              >
-                <Card className="border-0 hover:border-accent-500/30 transition-all group h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 bg-accent-500/20 rounded-full flex items-center justify-center text-accent-400">
-                        {segment.icon}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm font-bold text-accent-400">{segment.match} match</div>
-                        <div className="text-xs text-primary-400">{segment.potential} potential</div>
-                      </div>
-                    </div>
-                    
-                    <div className="mb-3">
-                      <div className={`inline-flex px-2 py-1 rounded-full text-xs font-bold ${
-                        segment.status === 'Hot' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                        segment.status === 'Growing' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
-                        'bg-accent-500/20 text-accent-400 border border-accent-500/30'
-                      }`}>
-                        {segment.status}
-                      </div>
-                    </div>
-                    
-                    <h3 className="font-bold text-primary-50 text-lg mb-3 group-hover:text-white transition-colors">
-                      {segment.name}
-                    </h3>
-                    
-                    <p className="text-sm text-primary-300 leading-relaxed mb-4 group-hover:text-primary-200 transition-colors">
-                      {segment.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {segment.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded-md text-xs font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    {canAccessPremium() && (
-                      <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="flex-1 text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                          onClick={() => handleViewDetails(segment, 'segment')}
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          View Details
-                        </Button>
-                        <Button 
-                          variant={pinnedItems.segments.has(segment.name) ? "primary" : "outline"} 
-                          size="sm" 
-                          className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                          onClick={() => handlePin(segment.name, 'segment')}
-                        >
-                          <Pin className={`w-4 h-4 mr-2 ${pinnedItems.segments.has(segment.name) ? 'fill-current' : ''}`} />
-                          {pinnedItems.segments.has(segment.name) ? 'Pinned' : 'Pin Segment'}
-                        </Button>
-                      </div>
-                    )}
-                    
-                    {!canAccessPremium() && (
-                      <Button variant="outline" size="sm" className="w-full rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
-                        <Crown className="w-4 h-4 mr-2" />
-                        Unlock with Premium
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
 
             {/* Navigation Cards - New Image-Based Layout */}
             <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -630,9 +507,9 @@ function DashboardContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <Card className="glass-card hover:border-accent-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-accent-500/10 border border-accent-500/20"
+                <Card className="glass-card hover:border-accent-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-accent-500/10 border border-accent-500/20 h-[400px]"
                       onClick={() => window.location.href = '/segments'}>
-                  <CardContent className="p-0 relative z-10">
+                  <CardContent className="p-0 relative z-10 h-full">
                     <div className="flex flex-col lg:flex-row h-full">
                       {/* Image Section */}
                       <div className="w-full lg:w-2/5 h-48 lg:h-full relative">
@@ -645,23 +522,18 @@ function DashboardContent() {
                       </div>
                       
                       {/* Content Section */}
-                      <div className="flex-1 p-6 lg:p-8">
+                      <div className="flex-1 p-6 lg:p-8 flex flex-col">
                         <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-accent-100 transition-colors duration-300">
-                              CultrCode Segments
-                            </h3>
-                            <div className="px-3 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full">
-                              <span className="text-xs font-medium text-accent-300">Core</span>
-                            </div>
-                          </div>
+                          <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-accent-100 transition-colors duration-300">
+                            CultrCode Segments
+                          </h3>
                         </div>
                         
                         <p className="text-primary-300 text-sm lg:text-base font-medium mb-4">
                           48 precision audience segments
                         </p>
                         
-                        <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                        <p className="text-primary-400 text-sm mb-6 leading-relaxed flex-1">
                           Explore our comprehensive framework of audience segments built specifically for creator brands. 
                           Discover your ideal customers across 4 tiers of engagement.
                         </p>
@@ -706,9 +578,9 @@ function DashboardContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border border-brand-500/20"
+                <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border border-brand-500/20 h-[400px]"
                       onClick={() => window.location.href = '/microcommunities'}>
-                  <CardContent className="p-0 relative z-10">
+                  <CardContent className="p-0 relative z-10 h-full">
                     <div className="flex flex-col lg:flex-row h-full">
                       {/* Image Section */}
                       <div className="w-full lg:w-2/5 h-48 lg:h-full relative">
@@ -721,29 +593,24 @@ function DashboardContent() {
                       </div>
                       
                       {/* Content Section */}
-                      <div className="flex-1 p-6 lg:p-8">
+                      <div className="flex-1 p-6 lg:p-8 flex flex-col">
                         <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300">
-                              Micro-Communities
-                            </h3>
-                            <div className="px-3 py-1 bg-brand-500/20 border border-brand-500/30 rounded-full">
-                              <span className="text-xs font-medium text-brand-300">Premium</span>
-                            </div>
-                          </div>
+                          <h3 className="text-xl lg:text-2xl font-bold text-primary-50 group-hover:text-brand-100 transition-colors duration-300">
+                            Micro-Communities
+                          </h3>
                         </div>
                         
                         <p className="text-primary-300 text-sm lg:text-base font-medium mb-4">
                           135+ niche communities
                         </p>
                         
-                        <p className="text-primary-400 text-sm mb-6 leading-relaxed">
+                        <p className="text-primary-400 text-sm mb-6 leading-relaxed flex-1">
                           Discover where your audience naturally gathers. Find active communities across 8 major categories 
                           with detailed engagement and growth metrics.
                         </p>
 
                         {/* Stats Grid */}
-                        <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
                           <div className="text-center">
                             <div className="text-lg lg:text-2xl font-bold text-green-400 mb-1">24</div>
                             <div className="text-xs text-primary-500">Very High Engagement</div>
@@ -779,128 +646,110 @@ function DashboardContent() {
         </motion.div>
 
         
-        {/* Emerging Trends */}
+        {/* Emerging Trends Summary Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.3 }}
           className="mb-12"
         >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-primary-50">Emerging Trends</h2>
-            <Button variant="outline" size="sm" className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              View All Trends
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Silent Walking",
-                virality: "89",
-                growth: "+342%",
-                description: "Mindful walking without music or podcasts, focusing on present-moment awareness",
-                tags: ["Wellness", "Mindfulness", "Urban"],
-                status: "Peak",
-                icon: <Footprints className="w-6 h-6" />
-              },
-              {
-                name: "Micro-Dosing Productivity",
-                virality: "76",
-                growth: "+198%", 
-                description: "Breaking work into 15-minute focused bursts for enhanced creativity and output",
-                tags: ["Productivity", "Work", "Focus"],
-                status: "Growing",
-                icon: <Clock className="w-6 h-6" />
-              },
-              {
-                name: "Regenerative Beauty",
-                virality: "83",
-                growth: "+267%",
-                description: "Beauty products that actively restore skin barrier and environmental damage",
-                tags: ["Beauty", "Health", "Sustainability"],
-                status: "Emerging",
-                icon: <Leaf className="w-6 h-6" />
-              }
-            ].map((trend, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-              >
-                <Card className="glass-card hover:border-accent-500/50 transition-all duration-200 cursor-pointer">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-accent-500/20 rounded-lg flex items-center justify-center">
-                          {trend.icon}
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-primary-50 mb-1">{trend.name}</h3>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-sm text-accent-400">{trend.virality} virality</span>
-                            <span className="text-xs text-primary-400">•</span>
-                            <span className="text-sm text-success-400">{trend.growth}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        trend.status === 'Peak' ? 'bg-red-500/20 text-red-400' :
-                        trend.status === 'Growing' ? 'bg-orange-500/20 text-orange-400' :
-                        'bg-blue-500/20 text-blue-400'
-                      }`}>
-                        {trend.status}
-                      </span>
-                    </div>
-                    
-                    <p className="text-sm text-primary-300 mb-4 leading-relaxed">
-                      {trend.description}
+          <Card className="glass-card hover:border-success-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.01] shadow-lg hover:shadow-success-500/10 border border-success-500/20"
+                onClick={() => window.location.href = '/trends'}>
+            <CardContent className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-16 h-16 bg-success-500/20 rounded-xl flex items-center justify-center">
+                    <TrendingUp className="w-8 h-8 text-success-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl lg:text-3xl font-bold text-primary-50 group-hover:text-success-100 transition-colors duration-300">
+                      Emerging Trends
+                    </h2>
+                    <p className="text-primary-300 text-lg">
+                      Real-time cultural movement intelligence
                     </p>
+                  </div>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={(e) => {e.stopPropagation(); window.location.href = '/trends'}}
+                  className="group-hover:border-success-400 group-hover:text-success-300 group-hover:bg-success-500/10 transition-all duration-300 rounded-xl hover:shadow-lg hover:shadow-success-500/20"
+                >
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  View All Trends
+                </Button>
+              </div>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {trend.tags.map((tag, tagIndex) => (
-                        <span 
-                          key={tagIndex}
-                          className="text-xs px-2 py-1 bg-primary-700/50 text-primary-300 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              {/* Top 3 Trending Summary */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Footprints className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">Silent Walking</h3>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-red-400 font-medium">89 virality</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">+342%</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full">
+                    Peak
+                  </span>
+                </div>
+                
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Leaf className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">Regenerative Beauty</h3>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-blue-400 font-medium">83 virality</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">+267%</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full">
+                    Emerging
+                  </span>
+                </div>
+                
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Clock className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">Micro-Dosing Productivity</h3>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-orange-400 font-medium">76 virality</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">+198%</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-orange-500/20 text-orange-400 rounded-full">
+                    Growing
+                  </span>
+                </div>
+              </div>
 
-                    <div className="flex space-x-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                        onClick={() => handleViewDetails({
-                          name: trend.name,
-                          description: trend.description,
-                          virality: trend.virality,
-                          growth: trend.growth,
-                          tags: trend.tags,
-                          icon: trend.icon
-                        }, 'trend')}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        View Details
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                        onClick={() => handlePin(trend.name, 'trend')}
-                      >
-                        <BookmarkPlus className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+              {/* Overall Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-primary-700/30">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-success-400 mb-1">156</div>
+                  <div className="text-xs text-primary-400">Active Trends</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-accent-400 mb-1">24</div>
+                  <div className="text-xs text-primary-400">Peak Virality</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-brand-400 mb-1">12</div>
+                  <div className="text-xs text-primary-400">Categories</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-400 mb-1">89%</div>
+                  <div className="text-xs text-primary-400">Avg Growth</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Communities Section - Only for non-premium users */}
