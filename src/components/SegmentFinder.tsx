@@ -11,6 +11,7 @@ import { UserInputs, SegmentMatch, TargetCity } from '@/types/segments'
 import { SegmentMatcher } from '@/lib/segmentMatcher'
 import { cn } from '@/lib/utils'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { canAccessFeature } from '@/lib/subscription'
 import { CitySelector } from '@/components/CitySelector'
 import { PremiumFormSection } from '@/components/PremiumFormSection'
 import { AudioTextArea } from '@/components/ui/AudioTextArea'
@@ -67,9 +68,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   const hasHyperlocalAccess = () => {
     if (isPremiumMode) return true
     if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return canAccessFeature(user, 'hasAdvancedFeatures')
   }
 
   // Require authentication for segmentation tool access
@@ -693,7 +692,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                       "Discover emerging trends before they go mainstream",
                       "Advanced personality-community fit analysis"
                     ]}
-                    isEnabled={((user?.publicMetadata as any)?.subscriptionTier === 'pro' || (user?.publicMetadata as any)?.subscriptionTier === 'enterprise')}
+                    isEnabled={canAccessFeature(user, 'canAccessAdvancedSegmentation')}
                     onUpgrade={() => window.location.href = '/pricing'}
                   >
                     <div className="space-y-6">
