@@ -47,7 +47,7 @@ export default function Pricing() {
   const handlePlanSelect = async (plan: any) => {
     // Handle Enterprise plan immediately without loading state
     if (plan.name === 'Enterprise') {
-      window.location.href = 'mailto:sales@cultrcode.com?subject=Enterprise Plan Inquiry'
+      window.location.href = '/sales'
       return
     }
     
