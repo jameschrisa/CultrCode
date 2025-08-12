@@ -91,11 +91,27 @@ export async function POST(req: NextRequest) {
       url: session.url 
     })
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Stripe checkout error:', error)
-    return NextResponse.json(
-      { error: 'Failed to create checkout session' },
-      { status: 500 }
-    )
+    
+    // Return detailed error information for debugging
+    const errorMessage = error.message || 'Unknown error'
+    const errorType = error.type || 'unknown'
+    const errorCode = error.code || 'unknown'
+    
+    return NextResponse.json({
+      error: 'Failed to create checkout session',
+      details: {
+        message: errorMessage,
+        type: errorType,
+        code: errorCode,
+        stripeError: error.type === 'StripeError',
+        env: {
+          hasStripeSecret: !!process.env.STRIPE_SECRET_KEY,
+          hasAppUrl: !!process.env.NEXT_PUBLIC_APP_URL,
+          appUrl: process.env.NEXT_PUBLIC_APP_URL
+        }
+      }
+    }, { status: 500 })
   }
 }

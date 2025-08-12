@@ -38,11 +38,26 @@ export const useCheckout = () => {
       const responseData = await response.json()
       console.log('Checkout response:', responseData)
       
-      const { sessionId, url, error, debug } = responseData
+      const { sessionId, url, error, debug, details } = responseData
 
       if (!response.ok) {
-        console.error('Checkout API error:', { status: response.status, error, debug })
-        throw new Error(error || `Server error: ${response.status}`)
+        console.error('Checkout API error:', { 
+          status: response.status, 
+          error, 
+          debug, 
+          details,
+          fullResponse: responseData 
+        })
+        
+        // Show detailed error to user for debugging
+        let userMessage = error || `Server error: ${response.status}`
+        if (details?.message) {
+          userMessage += `\n\nDetails: ${details.message}`
+          if (details.type) userMessage += `\nType: ${details.type}`
+          if (details.code) userMessage += `\nCode: ${details.code}`
+        }
+        
+        throw new Error(userMessage)
       }
 
       if (error) {
