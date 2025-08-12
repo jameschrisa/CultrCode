@@ -18,10 +18,11 @@ import Link from 'next/link'
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly')
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
   // Updated with real Stripe pricing - v2
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
-  const { createCheckoutSession, loading } = useCheckout()
+  const { createCheckoutSession } = useCheckout()
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
@@ -42,23 +43,34 @@ export default function Pricing() {
   }
 
   const handlePlanSelect = async (plan: any) => {
+    // Handle Enterprise plan immediately without loading state
+    if (plan.name === 'Enterprise') {
+      window.location.href = 'mailto:sales@cultrcode.com?subject=Enterprise Plan Inquiry'
+      return
+    }
+    
     const planKey = plan.name.toLowerCase().replace(/\s+/g, '-')
     const priceId = getPriceId(plan.name)
     
-    if (!priceId) {
-      if (plan.name === 'Enterprise') {
-        // Enterprise plan - redirect to contact sales
-        window.location.href = 'mailto:sales@cultrcode.com?subject=Enterprise Plan Inquiry'
+    try {
+      setLoadingPlan(plan.name) // Set loading for this specific plan
+      
+      if (!priceId) {
+        console.error('No price ID found for plan:', plan.name)
+        alert('No pricing information found for this plan. Please try again later.')
         return
       }
-      console.error('No price ID found for plan:', plan.name)
-      return
-    }
 
-    await createCheckoutSession({
-      planName: planKey,
-      priceId: priceId
-    })
+      await createCheckoutSession({
+        planName: planKey,
+        priceId: priceId
+      })
+    } catch (error) {
+      console.error('Plan selection error:', error)
+      alert('Failed to start checkout. Please try again.')
+    } finally {
+      setLoadingPlan(null) // Reset loading state
+    }
   }
 
   const plans = [
@@ -338,9 +350,9 @@ export default function Pricing() {
                         className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
                         size="lg"
                         onClick={() => handlePlanSelect(plan)}
-                        disabled={loading}
+                        disabled={loadingPlan === plan.name}
                       >
-                        {loading ? 'Processing...' : plan.cta}
+                        {loadingPlan === plan.name ? 'Processing...' : plan.cta}
                       </Button>
                     )}
                   </CardContent>
