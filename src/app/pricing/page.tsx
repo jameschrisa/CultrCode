@@ -14,6 +14,7 @@ import { SimpleImage } from '@/components/ui/SimpleImage'
 import { getImageWithAttribution } from '@/lib/imageConfig'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { useCheckout } from '@/hooks/useCheckout'
+import { getSubscriptionAccess, getSubscriptionTier } from '@/lib/subscription'
 import Link from 'next/link'
 
 export default function Pricing() {
@@ -24,12 +25,13 @@ export default function Pricing() {
   const { user } = useUser()
   const { createCheckoutSession } = useCheckout()
   
+  // Get current user's subscription information
+  const currentTier = user ? getSubscriptionTier(user) : 'free'
+  const subscriptionAccess = user ? getSubscriptionAccess(user) : null
+  
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'trend-navigator' || subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return subscriptionAccess?.hasAdvancedFeatures || false
   }
 
   // Map plan names to Stripe price IDs 
@@ -70,6 +72,43 @@ export default function Pricing() {
       alert('Failed to start checkout. Please try again.')
     } finally {
       setLoadingPlan(null) // Reset loading state
+    }
+  }
+
+  // Function to determine button content and behavior based on user's current tier
+  const getButtonProps = (plan: any) => {
+    const planKey = plan.name.toLowerCase().replace(/\s+/g, '-')
+    
+    // If user has this tier or higher, show "Current Plan" or "Manage"
+    if (currentTier === planKey) {
+      return {
+        text: 'Current Plan',
+        disabled: true,
+        variant: 'outline' as const,
+        onClick: null
+      }
+    }
+    
+    // If user has a higher tier, show "Downgrade" (disabled)  
+    const tierOrder = ['free', 'community-explorer', 'trend-navigator', 'enterprise']
+    const currentIndex = tierOrder.indexOf(currentTier)
+    const planIndex = tierOrder.indexOf(planKey)
+    
+    if (currentIndex > planIndex && currentIndex > 0) {
+      return {
+        text: 'Downgrade',
+        disabled: true,
+        variant: 'outline' as const,
+        onClick: null
+      }
+    }
+    
+    // Otherwise show upgrade option
+    return {
+      text: plan.cta,
+      disabled: false,
+      variant: plan.ctaVariant,
+      onClick: () => handlePlanSelect(plan)
     }
   }
 
@@ -344,17 +383,20 @@ export default function Pricing() {
                           {plan.cta}
                         </Button>
                       </Link>
-                    ) : (
-                      <Button
-                        variant={plan.ctaVariant}
-                        className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
-                        size="lg"
-                        onClick={() => handlePlanSelect(plan)}
-                        disabled={loadingPlan === plan.name}
-                      >
-                        {loadingPlan === plan.name ? 'Processing...' : plan.cta}
-                      </Button>
-                    )}
+                    ) : (() => {
+                      const buttonProps = getButtonProps(plan)
+                      return (
+                        <Button
+                          variant={buttonProps.variant}
+                          className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
+                          size="lg"
+                          onClick={buttonProps.onClick}
+                          disabled={buttonProps.disabled || loadingPlan === plan.name}
+                        >
+                          {loadingPlan === plan.name ? 'Processing...' : buttonProps.text}
+                        </Button>
+                      )
+                    })()}
                   </CardContent>
                 </Card>
               </motion.div>

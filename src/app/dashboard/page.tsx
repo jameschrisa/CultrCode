@@ -16,16 +16,17 @@ import { ReportViewer } from '@/components/ReportViewer'
 import { ReportManagement } from '@/components/ReportManagement'
 import { reportsService, SavedReport } from '@/lib/reportsService'
 import { CardDetailsModal } from '@/components/CardDetailsModal'
+import { getSubscriptionAccess } from '@/lib/subscription'
 
 function DashboardContent() {
   const { user } = useUser()
   
+  // Get subscription access information
+  const subscriptionAccess = user ? getSubscriptionAccess(user) : null
+  
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return subscriptionAccess?.hasAdvancedFeatures || false
   }
   const [savedReports, setSavedReports] = useState<SavedReport[]>([])
   const [loading, setLoading] = useState(true)
@@ -264,6 +265,16 @@ function DashboardContent() {
               <h1 className="text-2xl sm:text-3xl font-bold text-primary-50 mb-2">
                 Welcome back, {user?.firstName || 'Creator'}! 👋
               </h1>
+              {subscriptionAccess && subscriptionAccess.displayName !== 'Free' && (
+                <div className="flex justify-center mb-3">
+                  <div className="inline-flex items-center px-3 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full">
+                    <Crown className="w-4 h-4 text-accent-400 mr-2" />
+                    <span className="text-accent-300 text-sm font-semibold">
+                      {subscriptionAccess.displayName}
+                    </span>
+                  </div>
+                </div>
+              )}
               <p className="text-primary-300 text-sm sm:text-base">
                 Explore trending micro-communities and manage your cultural intelligence reports
               </p>
@@ -283,9 +294,19 @@ function DashboardContent() {
           {/* Desktop Header Layout */}
           <div className="hidden lg:flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-primary-50 mb-2">
-                Welcome back, {user?.firstName || 'Creator'}! 👋
-              </h1>
+              <div className="flex items-center gap-4 mb-2">
+                <h1 className="text-4xl font-bold text-primary-50">
+                  Welcome back, {user?.firstName || 'Creator'}! 👋
+                </h1>
+                {subscriptionAccess && subscriptionAccess.displayName !== 'Free' && (
+                  <div className="inline-flex items-center px-4 py-2 bg-accent-500/20 border border-accent-500/30 rounded-full">
+                    <Crown className="w-5 h-5 text-accent-400 mr-2" />
+                    <span className="text-accent-300 font-semibold">
+                      {subscriptionAccess.displayName}
+                    </span>
+                  </div>
+                )}
+              </div>
               <p className="text-primary-300 text-lg">
                 Explore trending micro-communities and manage your cultural intelligence reports
               </p>
