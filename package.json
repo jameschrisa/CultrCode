@@ -21,6 +21,7 @@
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.23",
     "@clerk/nextjs": "^6.28.1",
+    "@clerk/themes": "^2.4.6",
     "@heroui/react": "^2.8.1",
     "@phosphor-icons/react": "^2.1.10",
     "@stripe/stripe-js": "^7.8.0",
