@@ -37,11 +37,11 @@ export default function Pricing() {
       'trend-navigator': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',    // $69.00/month
       'enterprise': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
     }
-    return priceIds[planName.toLowerCase().replace(' ', '-') as keyof typeof priceIds]
+    return priceIds[planName.toLowerCase().replace(/\s+/g, '-') as keyof typeof priceIds]
   }
 
   const handlePlanSelect = async (plan: any) => {
-    const planKey = plan.name.toLowerCase().replace(' ', '-')
+    const planKey = plan.name.toLowerCase().replace(/\s+/g, '-')
     const priceId = getPriceId(plan.name)
     
     if (!priceId) {
