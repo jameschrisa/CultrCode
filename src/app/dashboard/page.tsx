@@ -649,13 +649,12 @@ function DashboardContent() {
             </div>
         </motion.div>
 
-        
         {/* Emerging Trends Summary Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mb-12"
+          className="mt-12 mb-12"
         >
           <Card className="glass-card hover:border-success-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.01] shadow-lg hover:shadow-success-500/10 border border-success-500/20"
                 onClick={() => window.location.href = '/trends'}>
@@ -756,134 +755,6 @@ function DashboardContent() {
           </Card>
         </motion.div>
 
-        {/* Communities Section - Only for non-premium users */}
-        {!canAccessPremium() && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mb-12"
-          >
-            <h2 className="text-2xl font-bold text-primary-50 mb-6">Trending Micro-Communities Feed</h2>
-            
-            <div className="text-center py-8">
-              <p className="text-primary-400">Communities content coming soon...</p>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Saved Reports - Only for non-premium users */}
-        {!canAccessPremium() && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <h2 className="text-2xl font-bold text-primary-50 mb-6">Saved Reports</h2>
-            
-            {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="animate-spin w-6 h-6 border-2 border-accent-500 border-t-transparent rounded-full"></div>
-              </div>
-            ) : savedReports.length === 0 ? (
-              <Card className="glass-card">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Activity className="w-8 h-8 text-primary-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-primary-300 mb-2">No Reports Yet</h3>
-                  <p className="text-primary-500 mb-4">Start by generating your first audience analysis report</p>
-                  <Button 
-                    variant="outline"
-                    onClick={() => window.location.href = '/analysis'}
-                    className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                  >
-                    Generate Report
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-8">
-                {savedReports.map((report, index) => (
-                  <motion.div
-                    key={report.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Card className="glass-card hover:border-accent-500/50 transition-all duration-200">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-3 mb-3">
-                              <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                                report.reportType === 'premium' 
-                                  ? 'bg-accent-500/20 text-accent-400 border-accent-500/30'
-                                  : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
-                              }`}>
-                                {report.reportType === 'premium' ? 'Premium' : 'Basic'}
-                              </div>
-                              <span className="text-xs text-primary-400">
-                                {formatDate(report.createdAt)}
-                              </span>
-                            </div>
-                            
-                            <h3 className="text-lg font-semibold text-primary-50 mb-2">
-                              Analysis Report
-                            </h3>
-                            
-                            <div className="flex items-center space-x-4 text-sm text-primary-300 mb-4">
-                              <span>Top Match: <span className="text-success-400 font-medium">92%</span></span>
-                              <span>•</span>
-                              <span>
-                                {report.segmentMatch ? 1 : 0} segments analyzed
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <div className="flex space-x-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setViewingReport(report)}
-                              className="rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
-                            >
-                              <Eye className="w-4 h-4 mr-2" />
-                              View
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => deleteReport(report.id)}
-                              className="text-red-400 border-red-500/30 hover:bg-red-500/10 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* Report Management - Only for non-premium users */}
-        {!canAccessPremium() && savedReports.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-8"
-          >
-            <ReportManagement
-              reports={savedReports}
-              onReportsUpdated={loadSavedReports}
-            />
-          </motion.div>
-        )}
       </div>
 
       {/* Report Viewer Modal */}
