@@ -10,7 +10,7 @@ const nextConfig = {
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY || 'sk_test_default',
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || '/sign-in',
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || '/sign-up',
-    // Add Stripe defaults to prevent build errors (temporarily)
+    // Stripe configuration (real keys set in Vercel environment variables)
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_default',
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || 'sk_test_default',
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || 'whsec_default',

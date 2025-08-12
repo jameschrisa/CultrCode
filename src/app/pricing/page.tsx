@@ -27,15 +27,15 @@ export default function Pricing() {
     if (!user) return false
     const publicMetadata = user.publicMetadata as any
     const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return subscriptionTier === 'trend-navigator' || subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
   }
 
-  // Map plan names to Stripe price IDs (you'll replace these with real IDs from Stripe)
+  // Map plan names to Stripe price IDs 
   const getPriceId = (planName: string) => {
     const priceIds = {
-      'community-explorer': 'price_1234567890', // Replace with real Stripe price ID
-      'trend-navigator': 'price_1234567891',    // Replace with real Stripe price ID
-      'cultural-intelligence': 'price_1234567892' // Replace with real Stripe price ID
+      'community-explorer': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
+      'trend-navigator': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',    // $69.00/month
+      'enterprise': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
     }
     return priceIds[planName.toLowerCase().replace(' ', '-') as keyof typeof priceIds]
   }
@@ -45,9 +45,9 @@ export default function Pricing() {
     const priceId = getPriceId(plan.name)
     
     if (!priceId) {
-      if (plan.name === 'Cultural Intelligence') {
+      if (plan.name === 'Enterprise') {
         // Enterprise plan - redirect to contact sales
-        window.location.href = 'mailto:sales@cultrcode.com?subject=Cultural Intelligence Plan Inquiry'
+        window.location.href = 'mailto:sales@cultrcode.com?subject=Enterprise Plan Inquiry'
         return
       }
       console.error('No price ID found for plan:', plan.name)
@@ -83,7 +83,7 @@ export default function Pricing() {
     },
     {
       name: 'Community Explorer',
-      price: { monthly: 49, annual: 49 },
+      price: { monthly: 29.99, annual: 29.99 },
       description: 'Access to 25+ micro-communities and trend analysis',
       features: [
         { name: 'Everything in Free', included: true },
@@ -103,9 +103,9 @@ export default function Pricing() {
       badge: 'Perfect for creators'
     },
     {
-      name: 'Premium',
-      price: { monthly: 79, annual: 59 },
-      description: 'Full access to 100+ micro-communities and predictive intelligence',
+      name: 'Trend Navigator',
+      price: { monthly: 69.00, annual: 69.00 },
+      description: 'Advanced trend prediction and cultural movement tracking',
       features: [
         { name: 'Everything in Community Explorer', included: true },
         { name: 'Full 100+ micro-community access', included: true },
@@ -124,11 +124,11 @@ export default function Pricing() {
       badge: 'Most Popular'
     },
     {
-      name: 'Cultural Intelligence',
-      price: { monthly: 'Custom', annual: 'Custom' },
-      description: 'Advanced cultural intelligence for teams and agencies',
+      name: 'Enterprise',
+      price: { monthly: 649.00, annual: 649.00 },
+      description: 'Complete cultural intelligence platform with custom solutions',
       features: [
-        { name: 'Everything in Premium', included: true },
+        { name: 'Everything in Trend Navigator', included: true },
         { name: 'Multi-brand community analysis', included: true },
         { name: 'Team collaboration features', included: true },
         { name: 'Custom trend tracking', included: true },
@@ -287,7 +287,7 @@ export default function Pricing() {
                           ${billingCycle === 'monthly' ? plan.price.monthly : plan.price.annual}
                           {plan.price.monthly > 0 && (
                             <span className="text-lg font-normal text-primary-400">
-                              {plan.name === 'Standard Report' ? '' : '/month'}
+                              /month
                             </span>
                           )}
                         </>
@@ -444,11 +444,11 @@ export default function Pricing() {
                         <span className="text-primary-200">{feature.standard}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-primary-400">Premium:</span>
+                        <span className="text-primary-400">Trend Navigator:</span>
                         <span className="text-accent-300">{feature.pro}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-primary-400">Cultural Intel:</span>
+                        <span className="text-primary-400">Enterprise:</span>
                         <span className="text-brand-300">{feature.enterprise}</span>
                       </div>
                     </div>
