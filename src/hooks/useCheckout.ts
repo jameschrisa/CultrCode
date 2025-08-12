@@ -20,6 +20,8 @@ export const useCheckout = () => {
 
     try {
       setLoading(true)
+      
+      console.log('Starting checkout with:', { priceId, planName })
 
       // Create checkout session
       const response = await fetch('/api/checkout', {
@@ -33,7 +35,15 @@ export const useCheckout = () => {
         }),
       })
 
-      const { sessionId, url, error } = await response.json()
+      const responseData = await response.json()
+      console.log('Checkout response:', responseData)
+      
+      const { sessionId, url, error, debug } = responseData
+
+      if (!response.ok) {
+        console.error('Checkout API error:', { status: response.status, error, debug })
+        throw new Error(error || `Server error: ${response.status}`)
+      }
 
       if (error) {
         throw new Error(error)
