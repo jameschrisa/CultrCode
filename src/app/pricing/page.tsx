@@ -18,6 +18,7 @@ import Link from 'next/link'
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly')
+  // Updated with real Stripe pricing - v2
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
   const { createCheckoutSession, loading } = useCheckout()
