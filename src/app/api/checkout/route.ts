@@ -78,10 +78,8 @@ export async function POST(req: NextRequest) {
       },
       allow_promotion_codes: true, // Enable discount codes
       billing_address_collection: 'required',
-      payment_method_types: ['card'],
-      invoice_creation: {
-        enabled: true
-      }
+      payment_method_types: ['card']
+      // Note: invoice_creation is automatic for subscription mode
     })
     
     console.log('Stripe session created successfully:', { sessionId: session.id, url: session.url })
