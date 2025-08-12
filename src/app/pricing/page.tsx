@@ -85,7 +85,7 @@ export default function Pricing() {
         text: 'Current Plan',
         disabled: true,
         variant: 'outline' as const,
-        onClick: null
+        onClick: undefined
       }
     }
     
@@ -99,7 +99,7 @@ export default function Pricing() {
         text: 'Downgrade',
         disabled: true,
         variant: 'outline' as const,
-        onClick: null
+        onClick: undefined
       }
     }
     

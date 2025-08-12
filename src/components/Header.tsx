@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth, useUser, UserButton } from '@clerk/nextjs'
+import { getSubscriptionAccess } from '@/lib/subscription'
 
 interface HeaderProps {
   showBackButton?: boolean
@@ -25,12 +26,17 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
   const { isSignedIn } = useAuth()
   const { user } = useUser()
   
+  // Get subscription access information
+  const subscriptionAccess = user ? getSubscriptionAccess(user) : null
+  
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return subscriptionAccess?.hasAdvancedFeatures || false
+  }
+  
+  // Check if user has any paid subscription (Community Explorer or higher)
+  const hasPaidSubscription = () => {
+    return subscriptionAccess && subscriptionAccess.displayName !== 'Free'
   }
 
   const handleMouseEnter = () => {
@@ -80,7 +86,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
     }
   }, [])
 
-  const isPremiumUser = canAccessPremium()
+  const isPremiumUser = hasPaidSubscription()
   
   const solutions = [
     {
