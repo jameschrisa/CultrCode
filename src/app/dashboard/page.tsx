@@ -175,7 +175,12 @@ function DashboardContent() {
   }
 
   const handleStatCardClick = (type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports') => {
-    if (!canAccessPremium()) return
+    // Check specific access permissions based on feature type
+    if (type === 'segments' && !subscriptionAccess?.canAccessAdvancedSegmentation) return
+    if (type === 'trends' && !subscriptionAccess?.canAccessTrendAnalysis) return  
+    if (type === 'communities' && !subscriptionAccess?.canAccessMicrocommunities) return
+    if (type === 'personas' && !subscriptionAccess?.canAccessPersonas) return
+    if (type === 'reports' && !subscriptionAccess?.canAccessAnalytics) return
     
     let title = ''
     let items: string[] = []
@@ -325,7 +330,7 @@ function DashboardContent() {
 
           {/* Tool Access Buttons - Single Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {canAccessPremium() && (
+            {subscriptionAccess?.canAccessAdvancedSegmentation && (
               <Button
                 variant="outline"
                 onClick={() => window.location.href = '/advanced-segmentation'}
@@ -339,7 +344,22 @@ function DashboardContent() {
               </Button>
             )}
             
-            {canAccessPremium() && (
+            {/* Basic Segments for Community Explorer */}
+            {subscriptionAccess?.hasBasicFeatures && !subscriptionAccess?.canAccessAdvancedSegmentation && (
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/segments'}
+                className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
+              >
+                <Target className="w-5 h-5 text-accent-400" />
+                <div className="text-left">
+                  <div className="font-medium text-primary-50">Segments</div>
+                  <div className="text-xs text-primary-400">Audience targeting</div>
+                </div>
+              </Button>
+            )}
+            
+            {subscriptionAccess?.canAccessMicrocommunities && (
               <Button
                 variant="outline"
                 onClick={() => window.location.href = '/microcommunities'}
@@ -353,29 +373,35 @@ function DashboardContent() {
               </Button>
             )}
             
-            <Button
-              variant="outline"
-              onClick={() => window.location.href = '/trends'}
-              className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-success-500/20 hover:border-success-400 transition-all duration-300"
-            >
-              <TrendingUp className="w-5 h-5 text-success-400" />
-              <div className="text-left">
-                <div className="font-medium text-primary-50">Emerging Trends</div>
-                <div className="text-xs text-primary-400">Creator economy insights</div>
-              </div>
-            </Button>
+            {subscriptionAccess?.canAccessTrendAnalysis && (
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/trends'}
+                className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-success-500/20 hover:border-success-400 transition-all duration-300"
+              >
+                <TrendingUp className="w-5 h-5 text-success-400" />
+                <div className="text-left">
+                  <div className="font-medium text-primary-50">Emerging Trends</div>
+                  <div className="text-xs text-primary-400">Creator economy insights</div>
+                </div>
+              </Button>
+            )}
             
-            <Button
-              variant="outline"
-              onClick={() => window.location.href = '/personas'}
-              className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-400 transition-all duration-300"
-            >
-              <Brain className="w-5 h-5 text-purple-400" />
-              <div className="text-left">
-                <div className="font-medium text-primary-50">Generated Personas</div>
-                <div className="text-xs text-primary-400">AI-powered personas</div>
-              </div>
-            </Button>
+            {subscriptionAccess?.canAccessPersonas && (
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/personas'}
+                className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-400 transition-all duration-300"
+              >
+                <Brain className="w-5 h-5 text-purple-400" />
+                <div className="text-left">
+                  <div className="font-medium text-primary-50">Generated Personas</div>
+                  <div className="text-xs text-primary-400">
+                    {subscriptionAccess?.hasAdvancedFeatures ? 'AI-powered personas' : 'Basic personas (3 max)'}
+                  </div>
+                </div>
+              </Button>
+            )}
           </div>
 
           {/* Stats */}
@@ -392,13 +418,16 @@ function DashboardContent() {
               </CardContent>
             </Card>
             
-            <Card className={`border-0 transition-all duration-200 ${canAccessPremium() ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => canAccessPremium() ? handleStatCardClick('personas') : window.location.href = '/personas'}>
+            <Card className={`border-0 transition-all duration-200 ${subscriptionAccess?.canAccessPersonas ? 'cursor-pointer hover:border-accent-500/30' : ''}`} onClick={() => subscriptionAccess?.canAccessPersonas ? handleStatCardClick('personas') : window.location.href = '/personas'}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-primary-400 text-sm font-medium">Saved Personas</p>
                     <p className="text-3xl font-bold text-primary-50">
                       {savedPersonasCount}
+                      {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && subscriptionAccess.canAccessPersonas && (
+                        <span className="text-sm text-primary-400 ml-1">/3</span>
+                      )}
                     </p>
                   </div>
                   <Brain className="w-8 h-8 text-accent-400" />
