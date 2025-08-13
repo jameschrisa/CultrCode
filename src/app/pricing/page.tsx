@@ -148,10 +148,10 @@ export default function Pricing() {
         { name: 'Monthly trend reports', included: true },
         { name: 'Community growth tracking', included: true },
         { name: 'Basic cultural insights', included: true },
-        { name: 'Real-time trend alerts', included: false },
+        { name: 'Access to emerging trends', included: true },
+        { name: '3 generated personas', included: true },
         { name: 'Full 100+ community access', included: false },
-        { name: 'Predictive trend analysis', included: false },
-        { name: 'Priority support', included: false }
+        { name: 'Interactive Personas', included: false }
       ],
       cta: 'Upgrade',
       ctaVariant: 'primary' as const,
@@ -187,13 +187,13 @@ export default function Pricing() {
       features: [
         { name: 'Everything in Curators', included: true },
         { name: 'Multi-brand community analysis', included: true },
-        { name: 'Team collaboration features', included: true },
         { name: 'Custom trend tracking', included: true },
-        { name: 'Dedicated cultural analyst', included: true },
         { name: 'Custom community reports', included: true },
         { name: 'API access', included: true },
         { name: 'White-label options', included: true },
-        { name: 'SLA guarantees', included: true }
+        { name: 'SLA guarantees', included: true },
+        { name: 'Priority Support', included: true },
+        { name: 'International trendhunters', included: true }
       ],
       cta: 'Contact Sales',
       ctaVariant: 'outline' as const,
