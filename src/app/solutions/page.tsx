@@ -36,7 +36,7 @@ function SolutionsContent() {
     if (!user) return false
     const publicMetadata = user.publicMetadata as any
     const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return subscriptionTier === 'scouts' || subscriptionTier === 'curators' || subscriptionTier === 'insiders'
   }
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null)
 

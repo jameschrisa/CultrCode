@@ -17,6 +17,7 @@ function CheckoutPageContent() {
   
   const selectedPlan = searchParams.get('plan')
   const planPrice = searchParams.get('price')
+  const billingCycle = searchParams.get('billing') || 'monthly'
   const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
@@ -56,8 +57,7 @@ function CheckoutPageContent() {
   const planDetails = {
     'scouts': {
       name: 'Scouts',
-      price: 49,
-      originalPrice: undefined,
+      price: { monthly: 29.99, annual: 287.90 },
       features: [
         'Access to 25+ micro-communities',
         'Monthly trend reports',
@@ -68,15 +68,31 @@ function CheckoutPageContent() {
     },
     'curators': {
       name: 'Curators',
-      price: planPrice === '59' ? 59 : 79,
-      originalPrice: planPrice === '59' ? 79 : undefined,
+      price: { monthly: 69.00, annual: 662.40 },
       features: [
         'Full 100+ micro-community access',
         'Real-time trend alerts',
         'Predictive cultural analysis',
         'Weekly subcultural briefings',
         'Priority support',
-        'Advanced analytics dashboard'
+        '10 Personas',
+        'Interactive Personas',
+        'Hyperlocal Maps'
+      ]
+    },
+    'insiders': {
+      name: 'Insiders',
+      price: { monthly: 249.00, annual: 2390.40 },
+      features: [
+        'Everything in Curators',
+        'Multi-brand community analysis',
+        'Team collaboration features',
+        'Custom trend tracking',
+        'Dedicated cultural analyst',
+        'Custom community reports',
+        'API access',
+        'White-label options',
+        'SLA guarantees'
       ]
     }
   }
@@ -149,18 +165,29 @@ function CheckoutPageContent() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-4xl font-bold text-primary-50">${currentPlan.price}</span>
+                    <span className="text-4xl font-bold text-primary-50">
+                      ${billingCycle === 'monthly' 
+                        ? currentPlan.price.monthly.toFixed(2)
+                        : (currentPlan.price.annual / 12).toFixed(2)
+                      }
+                    </span>
                     <span className="text-primary-400">/month</span>
-                    {currentPlan.originalPrice && currentPlan.originalPrice > currentPlan.price && (
+                    {billingCycle === 'annual' && (
                       <span className="text-sm text-primary-500 line-through ml-2">
-                        ${currentPlan.originalPrice}
+                        ${currentPlan.price.monthly.toFixed(2)}
                       </span>
                     )}
                   </div>
                   
-                  {currentPlan.originalPrice && currentPlan.originalPrice > currentPlan.price && (
+                  {billingCycle === 'annual' && (
                     <div className="inline-flex items-center px-3 py-1 bg-success-500/20 text-success-300 rounded-full text-sm font-semibold">
-                      Save ${currentPlan.originalPrice - currentPlan.price}/month with annual billing
+                      Save ${(currentPlan.price.monthly * 12 - currentPlan.price.annual).toFixed(2)}/year with annual billing
+                    </div>
+                  )}
+                  
+                  {billingCycle === 'annual' && (
+                    <div className="text-sm text-primary-400 mt-1">
+                      ${currentPlan.price.annual.toFixed(2)} billed annually
                     </div>
                   )}
 
@@ -243,13 +270,29 @@ function CheckoutPageContent() {
                   <div className="bg-primary-800/30 rounded-lg p-4">
                     <div className="text-sm text-primary-300 mb-2">Order Summary:</div>
                     <div className="flex justify-between items-center text-primary-200">
-                      <span>{currentPlan.name} Plan</span>
-                      <span>${currentPlan.price}/month</span>
+                      <span>{currentPlan.name} Plan ({billingCycle})</span>
+                      <span>
+                        ${billingCycle === 'monthly' 
+                          ? currentPlan.price.monthly.toFixed(2)
+                          : (currentPlan.price.annual / 12).toFixed(2)
+                        }/month
+                      </span>
                     </div>
+                    {billingCycle === 'annual' && (
+                      <div className="flex justify-between items-center text-primary-300 text-sm mt-1">
+                        <span>Annual total:</span>
+                        <span>${currentPlan.price.annual.toFixed(2)}</span>
+                      </div>
+                    )}
                     <div className="border-t border-white/10 mt-2 pt-2">
                       <div className="flex justify-between items-center font-semibold text-primary-50">
                         <span>Total</span>
-                        <span>${currentPlan.price}/month</span>
+                        <span>
+                          ${billingCycle === 'monthly' 
+                            ? currentPlan.price.monthly.toFixed(2)
+                            : (currentPlan.price.annual / 12).toFixed(2)
+                          }/month
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -268,7 +311,12 @@ function CheckoutPageContent() {
                     ) : (
                       <div className="flex items-center space-x-2">
                         <Lock className="w-4 h-4" />
-                        <span>Complete Payment • ${currentPlan.price}/month</span>
+                        <span>
+                          Complete Payment • ${billingCycle === 'monthly' 
+                            ? currentPlan.price.monthly.toFixed(2)
+                            : (currentPlan.price.annual / 12).toFixed(2)
+                          }/month
+                        </span>
                       </div>
                     )}
                   </Button>

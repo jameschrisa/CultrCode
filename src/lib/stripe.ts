@@ -17,16 +17,20 @@ export const getStripe = () => {
 
 // Subscription price IDs from Stripe dashboard
 export const STRIPE_PRICE_IDS = {
-  'scouts': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
-  'curators': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',     // $69.00/month  
-  'insiders': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
+  'scouts-monthly': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
+  'scouts-annual': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $287.90/year (will need new price ID)
+  'curators-monthly': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $69.00/month  
+  'curators-annual': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $662.40/year (will need new price ID)
+  'insiders-monthly': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK', // $249.00/month (price updated)
+  'insiders-annual': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK' // $2390.40/year (will need new price ID)
 }
 
 // Product configurations matching your pricing page
 export const PRODUCTS = {
   'scouts': {
     name: 'Scouts',
-    price: 29.99,
+    monthlyPrice: 29.99,
+    annualPrice: 287.90,
     description: 'Access to 25+ micro-communities and trend analysis',
     features: [
       'Everything in Free',
@@ -40,29 +44,33 @@ export const PRODUCTS = {
   },
   'curators': {
     name: 'Curators', 
-    price: 69.00,
+    monthlyPrice: 69.00,
+    annualPrice: 662.40,
     description: 'Advanced trend prediction and cultural movement tracking',
     features: [
       'Everything in Scouts',
       'Predictive trend analysis',
       'Cultural movement tracking',
       'Advanced audience segmentation',
-      'Custom trend alerts',
+      '10 Personas',
+      'Interactive Personas',
+      'Hyperlocal Maps',
       'Priority API access',
       'Phone & chat support'
     ]
   },
   'insiders': {
     name: 'Insiders',
-    price: 649.00,
+    monthlyPrice: 249.00,
+    annualPrice: 2390.40,
     description: 'Complete cultural intelligence platform with custom solutions',
     features: [
       'Everything in Curators',
       'Custom trend analysis',
-      'Dedicated account manager',
+      'Dedicated cultural analyst',
       'Advanced API access',
       'White-label solutions',
-      'Custom integrations',
+      'Custom community reports',
       '24/7 premium support'
     ]
   }

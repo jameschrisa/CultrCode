@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { priceId, planName } = await req.json()
+    const { priceId, planName, billingCycle = 'monthly' } = await req.json()
     
     console.log('Checkout request:', { userId, priceId, planName, availableProducts: Object.keys(PRODUCTS) })
 
@@ -62,18 +62,20 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?payment=success&plan=${planName}`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?payment=success&plan=${planName}&billing=${billingCycle}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing?payment=cancelled`,
       metadata: {
         userId,
         planName,
-        productName: product.name
+        productName: product.name,
+        billingCycle
       },
       subscription_data: {
         metadata: {
           userId,
           planName,
-          productName: product.name
+          productName: product.name,
+          billingCycle
         }
       },
       allow_promotion_codes: true, // Enable discount codes

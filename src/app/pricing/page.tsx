@@ -35,13 +35,17 @@ export default function Pricing() {
   }
 
   // Map plan names to Stripe price IDs 
-  const getPriceId = (planName: string) => {
+  const getPriceId = (planName: string, billing: 'monthly' | 'annual' = 'monthly') => {
     const priceIds = {
-      'scouts': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
-      'curators': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',    // $69.00/month
-      'insiders': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
+      'scouts-monthly': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
+      'scouts-annual': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $287.90/year (will need new price ID)
+      'curators-monthly': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $69.00/month
+      'curators-annual': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $662.40/year (will need new price ID)  
+      'insiders-monthly': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK', // $249.00/month
+      'insiders-annual': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK' // $2390.40/year (will need new price ID)
     }
-    return priceIds[planName.toLowerCase().replace(/\s+/g, '-') as keyof typeof priceIds]
+    const key = `${planName.toLowerCase().replace(/\s+/g, '-')}-${billing}` as keyof typeof priceIds
+    return priceIds[key]
   }
 
   const handlePlanSelect = async (plan: any) => {
@@ -52,7 +56,7 @@ export default function Pricing() {
     }
     
     const planKey = plan.name.toLowerCase().replace(/\s+/g, '-')
-    const priceId = getPriceId(plan.name)
+    const priceId = getPriceId(plan.name, billingCycle)
     
     try {
       setLoadingPlan(plan.name) // Set loading for this specific plan
@@ -65,7 +69,8 @@ export default function Pricing() {
 
       await createCheckoutSession({
         planName: planKey,
-        priceId: priceId
+        priceId: priceId,
+        billingCycle: billingCycle
       })
     } catch (error) {
       console.error('Plan selection error:', error)
@@ -135,7 +140,7 @@ export default function Pricing() {
     },
     {
       name: 'Scouts',
-      price: { monthly: 29.99, annual: 29.99 },
+      price: { monthly: 29.99, annual: 287.90 },
       description: 'Access to 25+ micro-communities and trend analysis',
       features: [
         { name: 'Everything in Free', included: true },
@@ -156,7 +161,7 @@ export default function Pricing() {
     },
     {
       name: 'Curators',
-      price: { monthly: 69.00, annual: 69.00 },
+      price: { monthly: 69.00, annual: 662.40 },
       description: 'Advanced trend prediction and cultural movement tracking',
       features: [
         { name: 'Everything in Scouts', included: true },
@@ -165,9 +170,9 @@ export default function Pricing() {
         { name: 'Predictive cultural analysis', included: true },
         { name: 'Weekly subcultural briefings', included: true },
         { name: 'Priority support', included: true },
-        { name: 'Custom integrations', included: false },
-        { name: 'Team collaboration', included: false },
-        { name: 'Dedicated account manager', included: false }
+        { name: '10 Personas', included: true },
+        { name: 'Interactive Personas', included: true },
+        { name: 'Hyperlocal Maps', included: true }
       ],
       cta: 'Unlock Now',
       ctaVariant: 'primary' as const,
@@ -177,7 +182,7 @@ export default function Pricing() {
     },
     {
       name: 'Insiders',
-      price: { monthly: 649.00, annual: 649.00 },
+      price: { monthly: 249.00, annual: 2390.40 },
       description: 'Complete cultural intelligence platform with custom solutions',
       features: [
         { name: 'Everything in Curators', included: true },
@@ -336,11 +341,19 @@ export default function Pricing() {
                     <div className="text-4xl font-black text-primary-100 mb-2">
                       {typeof plan.price.monthly === 'number' ? (
                         <>
-                          ${billingCycle === 'monthly' ? plan.price.monthly : plan.price.annual}
+                          ${billingCycle === 'monthly' 
+                            ? plan.price.monthly.toFixed(2)
+                            : (plan.price.annual / 12).toFixed(2)
+                          }
                           {plan.price.monthly > 0 && (
                             <span className="text-lg font-normal text-primary-400">
                               /month
                             </span>
+                          )}
+                          {billingCycle === 'annual' && plan.price.monthly > 0 && (
+                            <div className="text-sm text-primary-400 mt-1">
+                              ${plan.price.annual.toFixed(2)} billed annually
+                            </div>
                           )}
                         </>
                       ) : (
@@ -495,7 +508,7 @@ export default function Pricing() {
                         <span className="text-primary-200">{feature.free}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-primary-400">Explorer:</span>
+                        <span className="text-primary-400">Scouts:</span>
                         <span className="text-primary-200">{feature.standard}</span>
                       </div>
                       <div className="flex justify-between">
