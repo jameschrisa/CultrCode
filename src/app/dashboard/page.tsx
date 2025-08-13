@@ -504,7 +504,7 @@ function DashboardContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className={`mt-8 grid grid-cols-1 gap-6 ${subscriptionAccess?.canAccessMicrocommunities ? 'lg:grid-cols-2' : 'lg:grid-cols-1 max-w-2xl mx-auto'}`}>
               {/* Segments Navigation Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -577,11 +577,12 @@ function DashboardContent() {
               </motion.div>
 
               {/* Micro-Communities Navigation Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
+              {subscriptionAccess?.canAccessMicrocommunities && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
                 <Card className="glass-card hover:border-brand-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.02] shadow-lg hover:shadow-brand-500/10 border border-brand-500/20 h-[400px]"
                       onClick={() => window.location.href = '/microcommunities'}>
                   <CardContent className="p-0 relative z-10 h-full">
@@ -645,7 +646,8 @@ function DashboardContent() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+                </motion.div>
+              )}
             </div>
         </motion.div>
 

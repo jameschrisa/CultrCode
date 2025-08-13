@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth, useUser, UserButton } from '@clerk/nextjs'
+import { Crown, ArrowUpRight } from 'lucide-react'
 import { getSubscriptionAccess } from '@/lib/subscription'
 
 interface HeaderProps {
@@ -246,7 +247,22 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                         userButtonPopoverActionButton: "text-primary-200 hover:bg-primary-700"
                       }
                     }}
-                  />
+                  >
+                    <UserButton.MenuItems>
+                      <UserButton.Action 
+                        label={`Plan: ${subscriptionAccess?.displayName || 'Free'}`}
+                        labelIcon={<Crown size={16} />}
+                        onClick={() => {}}
+                      />
+                      {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && (
+                        <UserButton.Action 
+                          label="Upgrade Account"
+                          labelIcon={<ArrowUpRight size={16} />}
+                          onClick={() => router.push('/pricing')}
+                        />
+                      )}
+                    </UserButton.MenuItems>
+                  </UserButton>
                 </div>
               )}
             </motion.div>
@@ -357,7 +373,22 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                       userButtonPopoverActionButtonText: "text-primary-200"
                     }
                   }}
-                />
+                >
+                  <UserButton.MenuItems>
+                    <UserButton.Action 
+                      label={`Plan: ${subscriptionAccess?.displayName || 'Free'}`}
+                      labelIcon={<Crown size={16} />}
+                      onClick={() => {}}
+                    />
+                    {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && (
+                      <UserButton.Action 
+                        label="Upgrade Account"
+                        labelIcon={<ArrowUpRight size={16} />}
+                        onClick={() => router.push('/pricing')}
+                      />
+                    )}
+                  </UserButton.MenuItems>
+                </UserButton>
               ) : (
                 <div className="flex items-center bg-white/5 rounded-lg border border-white/10 overflow-hidden">
                   <Link href="/sign-in">
