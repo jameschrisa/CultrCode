@@ -38,11 +38,11 @@ export default function Pricing() {
   const getPriceId = (planName: string, billing: 'monthly' | 'annual' = 'monthly') => {
     const priceIds = {
       'scouts-monthly': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
-      'scouts-annual': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $287.90/year (will need new price ID)
+      'scouts-annual': 'price_1Rvj8lAhoMB1H3i8Cdb4dmU6', // $287.90/year (20% discount)
       'curators-monthly': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $69.00/month
-      'curators-annual': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ', // $662.40/year (will need new price ID)  
+      'curators-annual': 'price_1Rvj9dAhoMB1H3i8RVyw7UsZ', // $662.40/year (20% discount)
       'insiders-monthly': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK', // $249.00/month
-      'insiders-annual': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK' // $2390.40/year (will need new price ID)
+      'insiders-annual': 'price_1RvjA6AhoMB1H3i8cN84BcS7' // $2390.40/year (20% discount)
     }
     const key = `${planName.toLowerCase().replace(/\s+/g, '-')}-${billing}` as keyof typeof priceIds
     return priceIds[key]
