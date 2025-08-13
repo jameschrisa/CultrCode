@@ -32,7 +32,17 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true)
   const [viewingReport, setViewingReport] = useState<SavedReport | null>(null)
   const [selectedCard, setSelectedCard] = useState<any>(null)
-  const [savedPersonasCount, setSavedPersonasCount] = useState(1) // Mock count for saved personas
+  const [savedPersonas, setSavedPersonas] = useState<string[]>(['Eco-Conscious Emma']) // Mock personas - in production this would load from API
+  
+  // Function to add a new persona (for future API integration)
+  const addPersona = (personaName: string) => {
+    setSavedPersonas(prev => [...prev, personaName])
+  }
+  
+  // Function to delete a persona 
+  const deletePersona = (personaName: string) => {
+    setSavedPersonas(prev => prev.filter(item => item !== personaName))
+  }
   const [showPinnedModal, setShowPinnedModal] = useState<{
     type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports' | null
     title: string
@@ -200,7 +210,7 @@ function DashboardContent() {
         break
       case 'personas':
         title = 'Saved Personas'
-        items = ['Eco-Conscious Emma'] // Mock data - in production this would come from API
+        items = [...savedPersonas] // Use current saved personas
         break
       case 'reports':
         title = 'Saved Reports'
@@ -214,6 +224,7 @@ function DashboardContent() {
   const handleUnpin = (itemName: string, type: 'segments' | 'trends' | 'communities' | 'personas' | 'reports') => {
     if (type === 'personas') {
       // Handle persona deletion - in production this would call an API
+      deletePersona(itemName)
       setShowPinnedModal(prev => ({
         ...prev,
         items: prev.items.filter(item => item !== itemName)
@@ -424,7 +435,7 @@ function DashboardContent() {
                   <div>
                     <p className="text-primary-400 text-sm font-medium">Saved Personas</p>
                     <p className="text-3xl font-bold text-primary-50">
-                      {savedPersonasCount}
+                      {savedPersonas.length}
                       {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && subscriptionAccess.canAccessPersonas && (
                         <span className="text-sm text-primary-400 ml-1">/3</span>
                       )}
