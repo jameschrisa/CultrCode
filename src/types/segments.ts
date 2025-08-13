@@ -36,6 +36,16 @@ export interface UserInputs {
   primaryPlatform: Platform;
   closestCompetitor?: string;
   
+  // Enhanced core segmentation inputs
+  timeOfDay?: TimeOfDayUsage;
+  lifecycleStage?: LifecycleStage;
+  deviceUsage?: DeviceUsage;
+  socialMediaEngagement?: SocialMediaEngagement;
+  technologyAdoption?: TechnologyAdoption;
+  culturalInfluences?: CulturalInfluences;
+  economicConditions?: EconomicConditions;
+  geographicVariability?: GeographicVariability;
+  
   // Standard+ inputs (basic premium features)
   contentFormats?: ContentFormat[];
   launchTimeline?: LaunchTimeline;
@@ -119,6 +129,72 @@ export type Platform =
   | 'twitter'
   | 'substack'
   | 'discord';
+
+// Enhanced segmentation types
+export type TimeOfDayUsage = 
+  | 'daytime'
+  | 'afternoon'
+  | 'evening'
+  | 'night'
+  | 'anytime'
+  | 'sporadically';
+
+export type LifecycleStage = 
+  | 'awareness'
+  | 'consideration'
+  | 'decision'
+  | 'retention'
+  | 'advocacy';
+
+export type DeviceUsage = 
+  | 'mobile-primary'
+  | 'desktop-primary'
+  | 'tablet-primary'
+  | 'multi-device'
+  | 'mobile-only';
+
+export type SocialMediaEngagement = 
+  | 'instagram-heavy'
+  | 'tiktok-heavy'
+  | 'twitter-heavy'
+  | 'facebook-heavy'
+  | 'linkedin-heavy'
+  | 'youtube-heavy'
+  | 'multi-platform'
+  | 'low-engagement';
+
+export type TechnologyAdoption = 
+  | 'early-adopter'
+  | 'early-majority'
+  | 'late-majority'
+  | 'laggard'
+  | 'tech-enthusiast';
+
+export type CulturalInfluences = 
+  | 'traditional-values'
+  | 'progressive-values'
+  | 'religious-influenced'
+  | 'family-oriented'
+  | 'individualistic'
+  | 'community-focused'
+  | 'multicultural';
+
+export type EconomicConditions = 
+  | 'high-disposable-income'
+  | 'moderate-disposable-income'
+  | 'budget-conscious'
+  | 'recession-resistant'
+  | 'luxury-focused'
+  | 'value-oriented';
+
+export type GeographicVariability = 
+  | 'urban-metropolitan'
+  | 'suburban'
+  | 'rural-small-town'
+  | 'coastal-regions'
+  | 'inland-regions'
+  | 'climate-specific'
+  | 'seasonal-variation';
 
 // Premium parameter types for enhanced segmentation
 export type ContentFormat = 
