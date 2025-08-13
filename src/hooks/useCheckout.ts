@@ -5,13 +5,14 @@ import { getStripe } from '@/lib/stripe'
 interface CheckoutOptions {
   planName: string
   priceId: string
+  billingCycle?: 'monthly' | 'annual'
 }
 
 export const useCheckout = () => {
   const [loading, setLoading] = useState(false)
   const { isSignedIn } = useAuth()
 
-  const createCheckoutSession = async ({ planName, priceId }: CheckoutOptions) => {
+  const createCheckoutSession = async ({ planName, priceId, billingCycle = 'monthly' }: CheckoutOptions) => {
     if (!isSignedIn) {
       // Redirect to sign up with plan info
       window.location.href = `/sign-up?plan=${planName}&redirectTo=checkout`
@@ -32,6 +33,7 @@ export const useCheckout = () => {
         body: JSON.stringify({
           priceId,
           planName,
+          billingCycle,
         }),
       })
 
