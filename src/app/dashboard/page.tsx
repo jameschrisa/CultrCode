@@ -355,7 +355,7 @@ function DashboardContent() {
               </Button>
             )}
             
-            {/* Basic Segments for Community Explorer */}
+            {/* Basic Segments for Scouts */}
             {subscriptionAccess?.hasBasicFeatures && !subscriptionAccess?.canAccessAdvancedSegmentation && (
               <Button
                 variant="outline"

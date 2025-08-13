@@ -24,19 +24,19 @@ function PaymentSuccessContent() {
   }, [searchParams])
 
   const planFeatures = {
-    'Community Explorer': [
+    'Scouts': [
       'Access to 25+ micro-communities',
       'Monthly trend reports', 
       'Basic audience overlap analysis',
       'Community growth tracking'
     ],
-    'Trend Navigator': [
+    'Curators': [
       'Predictive trend analysis',
       'Cultural movement tracking',
       'Advanced audience segmentation',
       'Custom trend alerts'
     ],
-    'Cultural Intelligence': [
+    'Insiders': [
       'Custom trend analysis',
       'Dedicated account manager',
       'Advanced API access',

@@ -37,16 +37,16 @@ export default function Pricing() {
   // Map plan names to Stripe price IDs 
   const getPriceId = (planName: string) => {
     const priceIds = {
-      'community-explorer': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
-      'trend-navigator': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',    // $69.00/month
-      'enterprise': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
+      'scouts': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
+      'curators': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',    // $69.00/month
+      'insiders': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
     }
     return priceIds[planName.toLowerCase().replace(/\s+/g, '-') as keyof typeof priceIds]
   }
 
   const handlePlanSelect = async (plan: any) => {
-    // Handle Enterprise plan immediately without loading state
-    if (plan.name === 'Enterprise') {
+    // Handle Insiders plan immediately without loading state
+    if (plan.name === 'Insiders') {
       window.location.href = '/sales'
       return
     }
@@ -90,7 +90,7 @@ export default function Pricing() {
     }
     
     // If user has a higher tier, show "Downgrade" (disabled)  
-    const tierOrder = ['free', 'community-explorer', 'trend-navigator', 'enterprise']
+    const tierOrder = ['free', 'scouts', 'curators', 'insiders']
     const currentIndex = tierOrder.indexOf(currentTier)
     const planIndex = tierOrder.indexOf(planKey)
     
@@ -134,7 +134,7 @@ export default function Pricing() {
       highlight: false
     },
     {
-      name: 'Community Explorer',
+      name: 'Scouts',
       price: { monthly: 29.99, annual: 29.99 },
       description: 'Access to 25+ micro-communities and trend analysis',
       features: [
@@ -155,11 +155,11 @@ export default function Pricing() {
       badge: 'Perfect for creators'
     },
     {
-      name: 'Trend Navigator',
+      name: 'Curators',
       price: { monthly: 69.00, annual: 69.00 },
       description: 'Advanced trend prediction and cultural movement tracking',
       features: [
-        { name: 'Everything in Community Explorer', included: true },
+        { name: 'Everything in Scouts', included: true },
         { name: 'Full 100+ micro-community access', included: true },
         { name: 'Real-time trend alerts', included: true },
         { name: 'Predictive cultural analysis', included: true },
@@ -176,11 +176,11 @@ export default function Pricing() {
       badge: 'Most Popular'
     },
     {
-      name: 'Enterprise',
+      name: 'Insiders',
       price: { monthly: 649.00, annual: 649.00 },
       description: 'Complete cultural intelligence platform with custom solutions',
       features: [
-        { name: 'Everything in Trend Navigator', included: true },
+        { name: 'Everything in Curators', included: true },
         { name: 'Multi-brand community analysis', included: true },
         { name: 'Team collaboration features', included: true },
         { name: 'Custom trend tracking', included: true },
@@ -430,7 +430,7 @@ export default function Pricing() {
                 free: "Basic discovery",
                 standard: "25+ communities",
                 pro: "100+ communities",
-                enterprise: "Unlimited access"
+                insiders: "Unlimited access"
               },
               {
                 icon: <TrendingUp className="w-6 h-6" />,
@@ -438,7 +438,7 @@ export default function Pricing() {
                 free: "Overview only",
                 standard: "Monthly reports",
                 pro: "Real-time alerts",
-                enterprise: "Predictive insights"
+                insiders: "Predictive insights"
               },
               {
                 icon: <FileText className="w-6 h-6" />,
@@ -446,7 +446,7 @@ export default function Pricing() {
                 free: "Basic insights",
                 standard: "Community tracking",
                 pro: "Subcultural briefings",
-                enterprise: "Custom analysis"
+                insiders: "Custom analysis"
               },
               {
                 icon: <HiSparkles className="w-6 h-6" />,
@@ -454,7 +454,7 @@ export default function Pricing() {
                 free: "Not included",
                 standard: "Growth tracking",
                 pro: "Predictive analysis",
-                enterprise: "Custom tracking"
+                insiders: "Custom tracking"
               },
               {
                 icon: <Users className="w-6 h-6" />,
@@ -462,7 +462,7 @@ export default function Pricing() {
                 free: "Individual use",
                 standard: "Individual use",
                 pro: "Individual use",
-                enterprise: "Team collaboration"
+                insiders: "Team collaboration"
               },
               {
                 icon: <Shield className="w-6 h-6" />,
@@ -470,7 +470,7 @@ export default function Pricing() {
                 free: "Community",
                 standard: "Email support",
                 pro: "Priority support",
-                enterprise: "Cultural analyst"
+                insiders: "Cultural analyst"
               }
             ].map((feature, index) => (
               <motion.div
@@ -499,12 +499,12 @@ export default function Pricing() {
                         <span className="text-primary-200">{feature.standard}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-primary-400">Trend Navigator:</span>
+                        <span className="text-primary-400">Curators:</span>
                         <span className="text-accent-300">{feature.pro}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-primary-400">Enterprise:</span>
-                        <span className="text-brand-300">{feature.enterprise}</span>
+                        <span className="text-primary-400">Insiders:</span>
+                        <span className="text-brand-300">{feature.insiders}</span>
                       </div>
                     </div>
                   </CardContent>

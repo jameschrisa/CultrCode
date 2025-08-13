@@ -3,7 +3,7 @@
  * Centralizes access control logic across the application
  */
 
-export type SubscriptionTier = 'free' | 'community-explorer' | 'trend-navigator' | 'enterprise'
+export type SubscriptionTier = 'free' | 'scouts' | 'curators' | 'insiders'
 
 export interface SubscriptionAccess {
   hasBasicFeatures: boolean
@@ -30,12 +30,18 @@ export function getSubscriptionTier(user: any): SubscriptionTier {
   // Handle legacy tier names
   switch (tier) {
     case 'premium':
-      return 'trend-navigator' // Map legacy 'premium' to 'trend-navigator'
+      return 'curators' // Map legacy 'premium' to 'curators'
     case 'pro':
-      return 'trend-navigator' // Map legacy 'pro' to 'trend-navigator'
+      return 'curators' // Map legacy 'pro' to 'curators'
     case 'community-explorer':
+      return 'scouts' // Map legacy 'community-explorer' to 'scouts'
     case 'trend-navigator':
+      return 'curators' // Map legacy 'trend-navigator' to 'curators'
     case 'enterprise':
+      return 'insiders' // Map legacy 'enterprise' to 'insiders'
+    case 'scouts':
+    case 'curators':
+    case 'insiders':
       return tier as SubscriptionTier
     default:
       return 'free'
@@ -49,7 +55,7 @@ export function getSubscriptionAccess(user: any): SubscriptionAccess {
   const tier = getSubscriptionTier(user)
   
   switch (tier) {
-    case 'community-explorer':
+    case 'scouts':
       return {
         hasBasicFeatures: true,
         hasAdvancedFeatures: false,
@@ -59,10 +65,10 @@ export function getSubscriptionAccess(user: any): SubscriptionAccess {
         canAccessMicrocommunities: true,
         canAccessTrendAnalysis: false,
         canAccessAnalytics: true,
-        displayName: 'Community Explorer'
+        displayName: 'Scouts'
       }
     
-    case 'trend-navigator':
+    case 'curators':
       return {
         hasBasicFeatures: true,
         hasAdvancedFeatures: true,
@@ -72,10 +78,10 @@ export function getSubscriptionAccess(user: any): SubscriptionAccess {
         canAccessMicrocommunities: true,
         canAccessTrendAnalysis: true,
         canAccessAnalytics: true,
-        displayName: 'Trend Navigator'
+        displayName: 'Curators'
       }
     
-    case 'enterprise':
+    case 'insiders':
       return {
         hasBasicFeatures: true,
         hasAdvancedFeatures: true,
@@ -85,7 +91,7 @@ export function getSubscriptionAccess(user: any): SubscriptionAccess {
         canAccessMicrocommunities: true,
         canAccessTrendAnalysis: true,
         canAccessAnalytics: true,
-        displayName: 'Enterprise'
+        displayName: 'Insiders'
       }
     
     case 'free':
@@ -105,7 +111,7 @@ export function getSubscriptionAccess(user: any): SubscriptionAccess {
 }
 
 /**
- * Check if user can access premium features (trend-navigator or enterprise)
+ * Check if user can access premium features (curators or insiders)
  */
 export function canAccessPremiumFeatures(user: any): boolean {
   const access = getSubscriptionAccess(user)
@@ -113,7 +119,7 @@ export function canAccessPremiumFeatures(user: any): boolean {
 }
 
 /**
- * Check if user can access enterprise features
+ * Check if user can access insiders features
  */
 export function canAccessEnterpriseFeatures(user: any): boolean {
   const access = getSubscriptionAccess(user)

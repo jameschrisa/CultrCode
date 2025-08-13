@@ -17,15 +17,15 @@ export const getStripe = () => {
 
 // Subscription price IDs from Stripe dashboard
 export const STRIPE_PRICE_IDS = {
-  'community-explorer': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
-  'trend-navigator': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',     // $69.00/month  
-  'enterprise': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
+  'scouts': 'price_1Rv7V8AhoMB1H3i83iN3dm0G', // $29.99/month
+  'curators': 'price_1Rv7W4AhoMB1H3i8VlejcIyQ',     // $69.00/month  
+  'insiders': 'price_1Rv7WlAhoMB1H3i8xQBFS9vK'           // $649.00/month
 }
 
 // Product configurations matching your pricing page
 export const PRODUCTS = {
-  'community-explorer': {
-    name: 'Community Explorer',
+  'scouts': {
+    name: 'Scouts',
     price: 29.99,
     description: 'Access to 25+ micro-communities and trend analysis',
     features: [
@@ -38,12 +38,12 @@ export const PRODUCTS = {
       'Email support'
     ]
   },
-  'trend-navigator': {
-    name: 'Trend Navigator', 
+  'curators': {
+    name: 'Curators', 
     price: 69.00,
     description: 'Advanced trend prediction and cultural movement tracking',
     features: [
-      'Everything in Community Explorer',
+      'Everything in Scouts',
       'Predictive trend analysis',
       'Cultural movement tracking',
       'Advanced audience segmentation',
@@ -52,12 +52,12 @@ export const PRODUCTS = {
       'Phone & chat support'
     ]
   },
-  'enterprise': {
-    name: 'Enterprise',
+  'insiders': {
+    name: 'Insiders',
     price: 649.00,
     description: 'Complete cultural intelligence platform with custom solutions',
     features: [
-      'Everything in Trend Navigator',
+      'Everything in Curators',
       'Custom trend analysis',
       'Dedicated account manager',
       'Advanced API access',

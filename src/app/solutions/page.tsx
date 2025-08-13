@@ -93,7 +93,7 @@ function SolutionsContent() {
         'Identify high-value community opportunities',
         'Increase organic reach by 300%'
       ],
-      tools: ['Community Explorer', 'Engagement Analytics', 'Growth Tracking'],
+      tools: ['Scouts', 'Engagement Analytics', 'Growth Tracking'],
       features: [
         {
           name: 'Community Database',

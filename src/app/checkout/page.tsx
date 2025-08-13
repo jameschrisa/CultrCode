@@ -54,8 +54,8 @@ function CheckoutPageContent() {
   }
 
   const planDetails = {
-    'community-explorer': {
-      name: 'Community Explorer',
+    'scouts': {
+      name: 'Scouts',
       price: 49,
       originalPrice: undefined,
       features: [
@@ -66,8 +66,8 @@ function CheckoutPageContent() {
         'Email support'
       ]
     },
-    'premium': {
-      name: 'Premium',
+    'curators': {
+      name: 'Curators',
       price: planPrice === '59' ? 59 : 79,
       originalPrice: planPrice === '59' ? 79 : undefined,
       features: [

@@ -33,11 +33,11 @@ export default function SalesRequest() {
     setIsSubmitting(true)
     
     // Create mailto link with form data
-    const subject = `Enterprise Plan Inquiry - ${formData.company || formData.name}`
+    const subject = `Insiders Plan Inquiry - ${formData.company || formData.name}`
     const body = `
 Hi CultrCode Sales Team,
 
-I'm interested in the Enterprise plan. Here are my details:
+I'm interested in the Insiders plan. Here are my details:
 
 Name: ${formData.name}
 Email: ${formData.email}
@@ -131,16 +131,16 @@ ${formData.name}
           >
             <div className="inline-flex items-center px-6 py-3 glass-card text-accent-300 rounded-full text-sm font-semibold border border-accent-500/20 mb-6">
               <Building className="w-5 h-5 mr-2" />
-              Enterprise Sales
+              Insiders Sales
             </div>
             
             <h1 className="text-4xl lg:text-5xl font-black text-primary-50 leading-tight mb-6">
               Let's Talk About Your
-              <span className="gradient-text block">Enterprise Needs</span>
+              <span className="gradient-text block">Insiders Needs</span>
             </h1>
             
             <p className="text-xl text-primary-300 max-w-3xl mx-auto leading-relaxed">
-              Get a custom quote for Enterprise features including dedicated support, 
+              Get a custom quote for Insiders features including dedicated support, 
               custom integrations, and white-label solutions.
             </p>
           </motion.div>
@@ -203,7 +203,7 @@ ${formData.name}
             <Card className="glass-card">
               <CardHeader>
                 <CardTitle className="text-primary-50 text-2xl font-bold text-center">
-                  Enterprise Sales Inquiry
+                  Insiders Sales Inquiry
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-8">
