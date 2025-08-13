@@ -201,6 +201,79 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'non-applicable', label: 'Non-applicable' }
   ]
 
+  const timeOfDayOptions = [
+    { value: 'daytime', label: 'Daytime (6AM - 12PM)' },
+    { value: 'afternoon', label: 'Afternoon (12PM - 6PM)' },
+    { value: 'evening', label: 'Evening (6PM - 11PM)' },
+    { value: 'night', label: 'Night (11PM - 6AM)' },
+    { value: 'anytime', label: 'Anytime' },
+    { value: 'sporadically', label: 'Sporadically' }
+  ]
+
+  const lifecycleStageOptions = [
+    { value: 'awareness', label: 'Awareness - Just discovering the problem' },
+    { value: 'consideration', label: 'Consideration - Researching solutions' },
+    { value: 'decision', label: 'Decision - Ready to purchase' },
+    { value: 'retention', label: 'Retention - Existing customers' },
+    { value: 'advocacy', label: 'Advocacy - Brand promoters' }
+  ]
+
+  const deviceUsageOptions = [
+    { value: 'mobile-primary', label: 'Mobile Primary' },
+    { value: 'desktop-primary', label: 'Desktop Primary' },
+    { value: 'tablet-primary', label: 'Tablet Primary' },
+    { value: 'multi-device', label: 'Multi-device Users' },
+    { value: 'mobile-only', label: 'Mobile Only' }
+  ]
+
+  const socialMediaEngagementOptions = [
+    { value: 'instagram-heavy', label: 'Instagram Heavy Users' },
+    { value: 'tiktok-heavy', label: 'TikTok Heavy Users' },
+    { value: 'twitter-heavy', label: 'Twitter/X Heavy Users' },
+    { value: 'facebook-heavy', label: 'Facebook Heavy Users' },
+    { value: 'linkedin-heavy', label: 'LinkedIn Heavy Users' },
+    { value: 'youtube-heavy', label: 'YouTube Heavy Users' },
+    { value: 'multi-platform', label: 'Multi-platform Active' },
+    { value: 'low-engagement', label: 'Low Social Media Engagement' }
+  ]
+
+  const technologyAdoptionOptions = [
+    { value: 'early-adopter', label: 'Early Adopter - First to try new tech' },
+    { value: 'early-majority', label: 'Early Majority - Quick to adopt proven tech' },
+    { value: 'late-majority', label: 'Late Majority - Adopts when mainstream' },
+    { value: 'laggard', label: 'Laggard - Resistant to new technology' },
+    { value: 'tech-enthusiast', label: 'Tech Enthusiast - Loves cutting-edge' }
+  ]
+
+  const culturalInfluencesOptions = [
+    { value: 'traditional-values', label: 'Traditional Values Focused' },
+    { value: 'progressive-values', label: 'Progressive Values Focused' },
+    { value: 'religious-influenced', label: 'Religious/Spiritual Influenced' },
+    { value: 'family-oriented', label: 'Family-oriented Culture' },
+    { value: 'individualistic', label: 'Individualistic Culture' },
+    { value: 'community-focused', label: 'Community-focused Culture' },
+    { value: 'multicultural', label: 'Multicultural Environment' }
+  ]
+
+  const economicConditionsOptions = [
+    { value: 'high-disposable-income', label: 'High Disposable Income' },
+    { value: 'moderate-disposable-income', label: 'Moderate Disposable Income' },
+    { value: 'budget-conscious', label: 'Budget Conscious' },
+    { value: 'recession-resistant', label: 'Recession Resistant Spending' },
+    { value: 'luxury-focused', label: 'Luxury Focused' },
+    { value: 'value-oriented', label: 'Value-oriented Purchasing' }
+  ]
+
+  const geographicVariabilityOptions = [
+    { value: 'urban-metropolitan', label: 'Urban/Metropolitan Areas' },
+    { value: 'suburban', label: 'Suburban Areas' },
+    { value: 'rural-small-town', label: 'Rural/Small Town' },
+    { value: 'coastal-regions', label: 'Coastal Regions' },
+    { value: 'inland-regions', label: 'Inland Regions' },
+    { value: 'climate-specific', label: 'Climate-specific (hot/cold/humid)' },
+    { value: 'seasonal-variation', label: 'Strong Seasonal Variation' }
+  ]
+
   const watchedValues = watch()
 
   const onSubmit = async (data: UserInputs) => {
@@ -459,58 +532,32 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                       <label className="block text-lg font-semibold text-primary-100 mb-4">
                         Target price range
                       </label>
-                      <div className="grid grid-cols-1 gap-3">
+                      <select
+                        {...register('priceRange')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
                         {priceRangeOptions.map((option) => (
-                          <label
-                            key={option.value}
-                            className={cn(
-                              "flex items-center justify-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                              watchedValues.priceRange === option.value
-                                ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                : "border-primary-700 bg-primary-900/30"
-                            )}
-                          >
-                            <input
-                              type="radio"
-                              {...register('priceRange')}
-                              value={option.value}
-                              className="sr-only"
-                            />
-                            <span className="text-base font-semibold text-primary-100">
-                              {option.label}
-                            </span>
-                          </label>
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
                         ))}
-                      </div>
+                      </select>
                     </div>
 
                     <div>
                       <label className="block text-lg font-semibold text-primary-100 mb-4">
                         Target gender
                       </label>
-                      <div className="grid grid-cols-1 gap-3">
+                      <select
+                        {...register('targetGender')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
                         {genderOptions.map((option) => (
-                          <label
-                            key={option.value}
-                            className={cn(
-                              "flex items-center justify-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                              watchedValues.targetGender === option.value
-                                ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                : "border-primary-700 bg-primary-900/30"
-                            )}
-                          >
-                            <input
-                              type="radio"
-                              {...register('targetGender')}
-                              value={option.value}
-                              className="sr-only"
-                            />
-                            <span className="text-base font-semibold text-primary-100">
-                              {option.label}
-                            </span>
-                          </label>
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
                         ))}
-                      </div>
+                      </select>
                     </div>
                   </div>
 
@@ -548,6 +595,145 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                     </div>
                   </div>
 
+                  {/* Temporal and Behavioral Factors */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Time of day usage
+                      </label>
+                      <select
+                        {...register('timeOfDay')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {timeOfDayOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Lifecycle stage
+                      </label>
+                      <select
+                        {...register('lifecycleStage')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {lifecycleStageOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Device and Technology Factors */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Device usage
+                      </label>
+                      <select
+                        {...register('deviceUsage')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {deviceUsageOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Social media engagement
+                      </label>
+                      <select
+                        {...register('socialMediaEngagement')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {socialMediaEngagementOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Technology and Cultural Factors */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Technology adoption
+                      </label>
+                      <select
+                        {...register('technologyAdoption')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {technologyAdoptionOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Cultural influences
+                      </label>
+                      <select
+                        {...register('culturalInfluences')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {culturalInfluencesOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Economic and Geographic Factors */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Economic conditions
+                      </label>
+                      <select
+                        {...register('economicConditions')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {economicConditionsOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-semibold text-primary-100 mb-4">
+                        Geographic variability
+                      </label>
+                      <select
+                        {...register('geographicVariability')}
+                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                      >
+                        {geographicVariabilityOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
 
                   <div>
                     <label className="block text-lg font-semibold text-primary-100 mb-4">
