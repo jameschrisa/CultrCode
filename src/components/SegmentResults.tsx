@@ -197,30 +197,6 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
         ))}
       </motion.div>
 
-      {/* GIS Geographic Intelligence */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="space-y-6"
-      >
-        <h3 className="text-2xl font-bold text-primary-50 flex items-center">
-          <Target className="w-6 h-6 mr-3 text-accent-400" />
-          Geographic Intelligence
-        </h3>
-        <Card className="border-0 p-6">
-          <CardContent className="p-0">
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold text-primary-100 mb-2">Customer Density Heat Map</h4>
-              <p className="text-sm text-primary-300 leading-relaxed">
-                Interactive visualization showing where your ideal customers are concentrated across the United States. 
-                Click on any zip code to see detailed demographics and customer match percentages.
-              </p>
-            </div>
-            <GISMap height="600px" />
-          </CardContent>
-        </Card>
-      </motion.div>
 
       {/* Detailed Results */}
       <div className="space-y-6">
@@ -427,10 +403,10 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
                 variant="primary" 
                 size="xl" 
                 className="px-12"
-                onClick={() => topMatches.length > 0 && handlePremiumUpgrade(topMatches[0])}
+                onClick={() => window.location.href = '/pricing'}
               >
                 <Zap className="w-5 h-5 mr-2" />
-                Unlock Premium Intelligence
+                Upgrade to Premium Scout or Curator Accounts
               </Button>
             </CardContent>
           </Card>

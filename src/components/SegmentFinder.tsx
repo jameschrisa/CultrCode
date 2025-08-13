@@ -302,30 +302,6 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
         </div>
       )}
 
-      {/* Hyperlocal Feature Preview for Free Users */}
-      {user && ((user.publicMetadata as any)?.subscriptionTier || 'free') === 'free' && (
-        <div className="mb-6 p-6 bg-gradient-to-r from-accent-500/10 to-brand-500/10 border border-accent-500/20 rounded-lg">
-          <div className="flex items-start space-x-4">
-            <div className="p-3 bg-accent-500/20 rounded-xl">
-              <MapPin className="w-6 h-6 text-accent-400" />
-            </div>
-            <div className="flex-1">
-              <h4 className="text-accent-300 font-semibold mb-2">
-                🎯 Hyperlocal Targeting Available
-              </h4>
-              <p className="text-primary-300 text-sm mb-3">
-                Target specific North American cities for local community insights, influencer recommendations, and market opportunities. Perfect for location-based brands.
-              </p>
-              <div className="flex items-center space-x-4">
-                <span className="text-xs text-primary-400">Available with Standard plan or higher</span>
-                <button className="text-xs text-accent-400 hover:text-accent-300 font-medium transition-colors">
-                  Learn more →
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Progress Bar */}
       <div className="mb-12">

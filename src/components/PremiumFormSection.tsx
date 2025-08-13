@@ -25,7 +25,7 @@ const tierConfig = {
     gradientTo: 'to-brand-500/20',
     borderColor: 'border-accent-500/30',
     textColor: 'text-accent-300',
-    buttonText: 'Upgrade to Standard'
+    buttonText: 'Upgrade to Scout or Curator Now'
   },
   premium: {
     icon: <Crown className="w-5 h-5" />,
@@ -34,7 +34,7 @@ const tierConfig = {
     gradientTo: 'to-brand-500/30',
     borderColor: 'border-accent-500/40',
     textColor: 'text-accent-300',
-    buttonText: 'Upgrade to Premium'
+    buttonText: 'Upgrade to Scout or Curator Now'
   },
   pro: {
     icon: <Zap className="w-5 h-5" />,
@@ -43,7 +43,7 @@ const tierConfig = {
     gradientTo: 'to-accent-500/30',
     borderColor: 'border-brand-500/40',
     textColor: 'text-brand-300',
-    buttonText: 'Upgrade to Pro'
+    buttonText: 'Upgrade to Scout or Curator Now'
   }
 }
 
