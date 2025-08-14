@@ -1164,8 +1164,16 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                         >
                           <input
                             type="checkbox"
-                            {...register('customerAcquisition')}
                             value={option.value}
+                            checked={watchedValues.customerAcquisition?.includes(option.value as any) || false}
+                            onChange={(e) => {
+                              const currentAcquisition = watchedValues.customerAcquisition || [];
+                              if (e.target.checked) {
+                                setValue('customerAcquisition', [...currentAcquisition, option.value as any]);
+                              } else {
+                                setValue('customerAcquisition', currentAcquisition.filter(a => a !== option.value));
+                              }
+                            }}
                             className="sr-only"
                           />
                           <div className="flex items-center space-x-3">
@@ -1242,8 +1250,16 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                         >
                           <input
                             type="checkbox"
-                            {...register('competitiveAdvantage')}
                             value={option.value}
+                            checked={watchedValues.competitiveAdvantage?.includes(option.value as any) || false}
+                            onChange={(e) => {
+                              const currentAdvantages = watchedValues.competitiveAdvantage || [];
+                              if (e.target.checked) {
+                                setValue('competitiveAdvantage', [...currentAdvantages, option.value as any]);
+                              } else {
+                                setValue('competitiveAdvantage', currentAdvantages.filter(a => a !== option.value));
+                              }
+                            }}
                             className="sr-only"
                           />
                           <div className="flex items-center space-x-3">
