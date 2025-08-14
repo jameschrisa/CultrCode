@@ -11,6 +11,7 @@ import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { SegmentMatch, UserInputs } from '@/types/segments'
+import { SegmentMatcher } from '@/lib/segmentMatcher'
 import Link from 'next/link'
 
 export default function AdvancedSegmentationPage() {
@@ -28,7 +29,9 @@ export default function AdvancedSegmentationPage() {
   const [results, setResults] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
   
-  const handleResults = (matches: SegmentMatch[], inputs: UserInputs) => {
+  const handleFormComplete = (inputs: UserInputs) => {
+    // For the advanced segmentation page, we'll process directly without enhancement screen
+    const matches = SegmentMatcher.matchSegments(inputs)
     setResults(matches)
     setUserInputs(inputs)
   }
@@ -199,7 +202,7 @@ export default function AdvancedSegmentationPage() {
                   />
                 </div>
               ) : (
-                <SegmentFinder isPremiumMode={true} onResults={handleResults} />
+                <SegmentFinder isPremiumMode={true} onResults={handleFormComplete} />
               )}
             </CardContent>
           </Card>

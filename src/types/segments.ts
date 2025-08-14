@@ -59,6 +59,13 @@ export interface UserInputs {
   socialBehavior?: SocialBehavior[];
   communitySizePreference?: CommunitySizePreference;
   
+  // Business intelligence inputs (for Step 3)
+  businessStage?: BusinessStage;
+  teamSize?: TeamSize;
+  customerAcquisition?: CustomerAcquisition[];
+  marketingBudget?: MarketingBudget;
+  competitiveAdvantage?: CompetitiveAdvantage[];
+
   // Hyperlocal inputs (Pro+ only)
   targetCities?: TargetCity[];
   hyperlocalEnabled?: boolean;
@@ -280,6 +287,47 @@ export type RegionType =
   | 'rural'
   | 'college-towns'
   | 'tech-hubs';
+
+// Business intelligence types
+export type BusinessStage = 
+  | 'pre-revenue'
+  | 'venture-funded'
+  | 'revenue-generating'
+  | 'established-business'
+  | 'enterprise';
+
+export type TeamSize = 
+  | 'solo'
+  | 'small-team'
+  | 'growing-team'
+  | 'large-team';
+
+export type CustomerAcquisition = 
+  | 'word-of-mouth'
+  | 'social-media'
+  | 'content-marketing'
+  | 'paid-advertising'
+  | 'partnerships'
+  | 'email-marketing'
+  | 'events-networking'
+  | 'direct-sales';
+
+export type MarketingBudget = 
+  | 'bootstrap'
+  | 'small-budget'
+  | 'moderate-budget'
+  | 'substantial-budget'
+  | 'large-budget';
+
+export type CompetitiveAdvantage = 
+  | 'unique-product'
+  | 'superior-quality'
+  | 'price-value'
+  | 'customer-service'
+  | 'brand-story'
+  | 'community-access'
+  | 'speed-convenience'
+  | 'expertise-authority';
 
 export interface SegmentMatch {
   segment: Segment;

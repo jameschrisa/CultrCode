@@ -9,6 +9,7 @@ import { HiSparkles, HiLightningBolt } from 'react-icons/hi'
 import { RiAiGenerate, RiBrainFill } from 'react-icons/ri'
 import { Button } from '@/components/ui/HeroButton'
 import { SegmentFinder } from '@/components/SegmentFinder'
+import { PremiumEnhancement } from '@/components/PremiumEnhancement'
 import { SegmentResults } from '@/components/SegmentResults'
 import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'
 import { SimpleImage } from '@/components/ui/SimpleImage'
@@ -17,6 +18,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { getImageWithAttribution } from '@/lib/imageConfig'
 import { SegmentMatch, UserInputs } from '@/types/segments'
+import { SegmentMatcher } from '@/lib/segmentMatcher'
 import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { 
@@ -33,7 +35,7 @@ import {
 } from '@/lib/animations'
 
 export default function Home() {
-  const [currentView, setCurrentView] = useState<'hero' | 'finder' | 'results'>('hero')
+  const [currentView, setCurrentView] = useState<'hero' | 'finder' | 'enhancement' | 'results'>('hero')
   const [segmentMatches, setSegmentMatches] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -86,14 +88,30 @@ export default function Home() {
     }
   }
 
-  const handleResults = (matches: SegmentMatch[], inputs: UserInputs) => {
-    setSegmentMatches(matches)
+  const handleFormComplete = (inputs: UserInputs) => {
     setUserInputs(inputs)
+    setCurrentView('enhancement')
+  }
+
+  const handleEnhancement = (enhancedInputs: UserInputs) => {
+    const matches = SegmentMatcher.matchSegments(enhancedInputs)
+    setSegmentMatches(matches)
+    setUserInputs(enhancedInputs)
     setCurrentView('results')
+  }
+
+  const handleSkipEnhancement = () => {
+    if (userInputs) {
+      const matches = SegmentMatcher.matchSegments(userInputs)
+      setSegmentMatches(matches)
+      setCurrentView('results')
+    }
   }
 
   const handleBack = () => {
     if (currentView === 'results') {
+      setCurrentView('enhancement')
+    } else if (currentView === 'enhancement') {
       setCurrentView('finder')
     } else if (currentView === 'finder') {
       setCurrentView('hero')
@@ -748,7 +766,25 @@ export default function Home() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="min-h-screen flex items-center justify-center px-4 py-12"
             >
-              <SegmentFinder onResults={handleResults} />
+              <SegmentFinder onResults={handleFormComplete} />
+            </motion.section>
+          )}
+
+          {/* Premium Enhancement */}
+          {currentView === 'enhancement' && userInputs && (
+            <motion.section
+              key="enhancement"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="min-h-screen flex items-center justify-center px-4 py-12"
+            >
+              <PremiumEnhancement 
+                userInputs={userInputs}
+                onEnhance={handleEnhancement}
+                onSkip={handleSkipEnhancement}
+              />
             </motion.section>
           )}
 

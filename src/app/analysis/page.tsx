@@ -11,6 +11,7 @@ import { useAuth, useUser } from '@clerk/nextjs'
 import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
 import { SegmentMatch, UserInputs } from '@/types/segments'
+import { SegmentMatcher } from '@/lib/segmentMatcher'
 
 // Sample emerging micro-communities data
 const emergingCommunities = [
@@ -124,7 +125,8 @@ function AdvancedAnalysisContent() {
   const [currentCommunityIndex, setCurrentCommunityIndex] = useState(0)
   const [currentUpdateIndex, setCurrentUpdateIndex] = useState(0)
 
-  const handleResults = (matches: SegmentMatch[], inputs: UserInputs) => {
+  const handleFormComplete = (inputs: UserInputs) => {
+    const matches = SegmentMatcher.matchSegments(inputs)
     setSegmentMatches(matches)
     setUserInputs(inputs)
     setCurrentView('results')
@@ -210,7 +212,7 @@ function AdvancedAnalysisContent() {
               transition={{ delay: 0.2 }}
               className="mb-16"
             >
-              <SegmentFinder onResults={handleResults} />
+              <SegmentFinder onResults={handleFormComplete} />
             </motion.div>
 
             {/* Emerging Communities Carousel */}

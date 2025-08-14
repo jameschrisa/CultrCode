@@ -3,28 +3,25 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Target, Sparkles, ChevronRight, Zap, MapPin, Star, Video, Camera, Mic, FileText, BarChart3, Users, Flame, Wrench, Crown, TrendingUp, Heart, Rocket, DollarSign, Crosshair, Shield, Timer, UserCheck, Palette, Dumbbell, Monitor, Shirt, Utensils, Leaf, Smartphone, Target as TargetIcon, Home, Briefcase, PawPrint, Baby, Car, Plane, Clock, Globe } from 'lucide-react'
+import { Search, Target, Sparkles, ChevronRight, Zap, MapPin, Star, Video, Camera, Mic, FileText, BarChart3, Users, Flame, Wrench, Crown, TrendingUp, Heart, Rocket, DollarSign, Crosshair, Shield, Timer, UserCheck, Palette, Dumbbell, Monitor, Shirt, Utensils, Leaf, Smartphone, Target as TargetIcon, Home, Briefcase, PawPrint, Baby, Car, Plane, Clock, Globe, User, UserPlus, Building, Building2, MessageCircle, Share2, Mail, Calendar, Phone, Coins, CreditCard, Banknote, Landmark, Lightbulb, Award, TrendingDown, BookOpen, Users2, GraduationCap } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaYoutube, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
-import { UserInputs, SegmentMatch, TargetCity } from '@/types/segments'
-import { SegmentMatcher } from '@/lib/segmentMatcher'
+import { UserInputs, TargetCity } from '@/types/segments'
 import { cn } from '@/lib/utils'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { canAccessFeature } from '@/lib/subscription'
 import { CitySelector } from '@/components/CitySelector'
-import { PremiumFormSection } from '@/components/PremiumFormSection'
 import { AudioTextArea } from '@/components/ui/AudioTextArea'
 
 interface SegmentFinderProps {
-  onResults?: (matches: SegmentMatch[], userInputs: UserInputs) => void
+  onResults?: (userInputs: UserInputs) => void
   isPremiumMode?: boolean
 }
 
 export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinderProps) {
   const [currentStep, setCurrentStep] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<SegmentMatch[]>([])
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
   
@@ -129,9 +126,9 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
       icon: <Zap className="w-5 h-5" />
     },
     {
-      title: 'Your creator profile',
-      description: 'Tell us about your platform and reach',
-      icon: <Search className="w-5 h-5" />
+      title: 'Business & go-to-market profile',
+      description: 'Help us understand your business strategy',
+      icon: <Briefcase className="w-5 h-5" />
     }
   ]
   
@@ -291,6 +288,201 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'seasonal-variation', label: 'Strong Seasonal Variation' }
   ]
 
+  // Business stage options for Step 3
+  const businessStageOptions = [
+    { 
+      value: 'pre-revenue', 
+      label: 'Pre-revenue Startup', 
+      description: 'Idea/MVP stage, validating market fit', 
+      icon: <Rocket className="w-5 h-5" /> 
+    },
+    { 
+      value: 'venture-funded', 
+      label: 'Venture Funded Startup', 
+      description: 'Seed to Series A+ with investor backing', 
+      icon: <TrendingUp className="w-5 h-5" /> 
+    },
+    { 
+      value: 'revenue-generating', 
+      label: 'Revenue Generating Startup', 
+      description: 'Profitable or break-even operations', 
+      icon: <DollarSign className="w-5 h-5" /> 
+    },
+    { 
+      value: 'established-business', 
+      label: 'Established Business', 
+      description: 'Stable operations, looking to expand', 
+      icon: <Building className="w-5 h-5" /> 
+    },
+    { 
+      value: 'enterprise', 
+      label: 'Enterprise/Corporation', 
+      description: 'Large organization with dedicated teams', 
+      icon: <Crown className="w-5 h-5" /> 
+    }
+  ]
+
+  const teamSizeOptions = [
+    { 
+      value: 'solo', 
+      label: 'Solo Founder/Creator', 
+      description: 'Just you handling everything', 
+      icon: <User className="w-5 h-5" /> 
+    },
+    { 
+      value: 'small-team', 
+      label: 'Small Team (2-5)', 
+      description: 'Core team with diverse skills', 
+      icon: <Users className="w-5 h-5" /> 
+    },
+    { 
+      value: 'growing-team', 
+      label: 'Growing Team (6-15)', 
+      description: 'Specialized roles and departments', 
+      icon: <UserPlus className="w-5 h-5" /> 
+    },
+    { 
+      value: 'large-team', 
+      label: 'Large Team (16+)', 
+      description: 'Multiple departments and managers', 
+      icon: <Building2 className="w-5 h-5" /> 
+    }
+  ]
+
+  const customerAcquisitionOptions = [
+    { 
+      value: 'word-of-mouth', 
+      label: 'Word of Mouth/Referrals', 
+      description: 'Customer recommendations and organic growth', 
+      icon: <MessageCircle className="w-5 h-5" /> 
+    },
+    { 
+      value: 'social-media', 
+      label: 'Social Media Marketing', 
+      description: 'Instagram, TikTok, LinkedIn content strategy', 
+      icon: <Share2 className="w-5 h-5" /> 
+    },
+    { 
+      value: 'content-marketing', 
+      label: 'Content Marketing/SEO', 
+      description: 'Blog posts, videos, search optimization', 
+      icon: <FileText className="w-5 h-5" /> 
+    },
+    { 
+      value: 'paid-advertising', 
+      label: 'Paid Advertising', 
+      description: 'Google Ads, Facebook Ads, sponsored content', 
+      icon: <Target className="w-5 h-5" /> 
+    },
+    { 
+      value: 'partnerships', 
+      label: 'Partnerships/Collaborations', 
+      description: 'Influencer partnerships, brand collaborations', 
+      icon: <Users2 className="w-5 h-5" /> 
+    },
+    { 
+      value: 'email-marketing', 
+      label: 'Email Marketing', 
+      description: 'Newsletter, email campaigns, automation', 
+      icon: <Mail className="w-5 h-5" /> 
+    },
+    { 
+      value: 'events-networking', 
+      label: 'Events & Networking', 
+      description: 'Trade shows, conferences, local events', 
+      icon: <Calendar className="w-5 h-5" /> 
+    },
+    { 
+      value: 'direct-sales', 
+      label: 'Direct Sales/Outreach', 
+      description: 'Cold calls, direct messages, sales team', 
+      icon: <Phone className="w-5 h-5" /> 
+    }
+  ]
+
+  const marketingBudgetOptions = [
+    { 
+      value: 'bootstrap', 
+      label: 'Bootstrap/Minimal ($0-500/month)', 
+      description: 'Organic growth, sweat equity focus', 
+      icon: <Coins className="w-5 h-5" /> 
+    },
+    { 
+      value: 'small-budget', 
+      label: 'Small Budget ($500-2K/month)', 
+      description: 'Basic paid ads, content tools', 
+      icon: <DollarSign className="w-5 h-5" /> 
+    },
+    { 
+      value: 'moderate-budget', 
+      label: 'Moderate Budget ($2K-10K/month)', 
+      description: 'Multi-channel approach, influencer partnerships', 
+      icon: <CreditCard className="w-5 h-5" /> 
+    },
+    { 
+      value: 'substantial-budget', 
+      label: 'Substantial Budget ($10K-50K/month)', 
+      description: 'Comprehensive campaigns, premium tools', 
+      icon: <Banknote className="w-5 h-5" /> 
+    },
+    { 
+      value: 'large-budget', 
+      label: 'Large Budget ($50K+/month)', 
+      description: 'Enterprise-level marketing operations', 
+      icon: <Landmark className="w-5 h-5" /> 
+    }
+  ]
+
+  const competitiveAdvantageOptions = [
+    { 
+      value: 'unique-product', 
+      label: 'Unique Product/Innovation', 
+      description: 'First-to-market or patent-protected offering', 
+      icon: <Lightbulb className="w-5 h-5" /> 
+    },
+    { 
+      value: 'superior-quality', 
+      label: 'Superior Quality/Craftsmanship', 
+      description: 'Premium materials, attention to detail', 
+      icon: <Award className="w-5 h-5" /> 
+    },
+    { 
+      value: 'price-value', 
+      label: 'Better Price/Value Proposition', 
+      description: 'More affordable or better value for money', 
+      icon: <TrendingDown className="w-5 h-5" /> 
+    },
+    { 
+      value: 'customer-service', 
+      label: 'Exceptional Customer Service', 
+      description: 'Personal touch, rapid response, support', 
+      icon: <Heart className="w-5 h-5" /> 
+    },
+    { 
+      value: 'brand-story', 
+      label: 'Compelling Brand Story/Mission', 
+      description: 'Authentic narrative, strong values alignment', 
+      icon: <BookOpen className="w-5 h-5" /> 
+    },
+    { 
+      value: 'community-access', 
+      label: 'Exclusive Community/Access', 
+      description: 'VIP experiences, insider knowledge', 
+      icon: <Users2 className="w-5 h-5" /> 
+    },
+    { 
+      value: 'speed-convenience', 
+      label: 'Speed/Convenience', 
+      description: 'Faster delivery, easier process, simplicity', 
+      icon: <Zap className="w-5 h-5" /> 
+    },
+    { 
+      value: 'expertise-authority', 
+      label: 'Industry Expertise/Authority', 
+      description: 'Deep knowledge, thought leadership, credentials', 
+      icon: <GraduationCap className="w-5 h-5" /> 
+    }
+  ]
 
   const watchedValues = watch()
 
@@ -303,16 +495,13 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
 
     setLoading(true)
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // Simulate form processing
+    await new Promise(resolve => setTimeout(resolve, 1000))
     
-    const matches = SegmentMatcher.matchSegments(data)
-    setResults(matches)
-    
-    // Track report generation for usage limits
+    // Track form submission for usage limits
     incrementReportGeneration()
     
-    onResults?.(matches, data)
+    onResults?.(data)
     setLoading(false)
   }
 
@@ -650,185 +839,6 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                 </div>
               )}
 
-              {/* Standard+ Features (Step 1.5) */}
-              {currentStep === 1 && (
-                <div className="mt-8 space-y-6">
-                  {/* Content Preferences - Standard+ */}
-                  <PremiumFormSection
-                    title="Content Format Preferences"
-                    description="Identify communities based on their preferred content formats to find the perfect audience for your content style."
-                    tier="standard"
-                    benefits={[
-                      "Match to content-specific communities (e.g., TikTok dancers, podcast listeners)",
-                      "Optimize content strategy for community preferences",
-                      "Discover emerging format trends in your niche"
-                    ]}
-                    isEnabled={((user?.publicMetadata as any)?.subscriptionTier || 'free') !== 'free'}
-                    onUpgrade={() => window.location.href = '/pricing'}
-                  >
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        What content formats work best for your brand? (Select all that apply)
-                      </label>
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                        {[
-                          { value: 'short-form-video', label: 'Short Videos', icon: <Video className="w-4 h-4" /> },
-                          { value: 'long-form-video', label: 'Long Videos', icon: <Camera className="w-4 h-4" /> },
-                          { value: 'image-posts', label: 'Image Posts', icon: <Camera className="w-4 h-4" /> },
-                          { value: 'live-streams', label: 'Live Streams', icon: <Video className="w-4 h-4" /> },
-                          { value: 'podcasts', label: 'Podcasts', icon: <Mic className="w-4 h-4" /> },
-                          { value: 'written-content', label: 'Articles/Blogs', icon: <FileText className="w-4 h-4" /> },
-                          { value: 'polls-quizzes', label: 'Interactive Content', icon: <BarChart3 className="w-4 h-4" /> },
-                          { value: 'user-generated-content', label: 'UGC', icon: <Users className="w-4 h-4" /> }
-                        ].map((format) => (
-                          <label
-                            key={format.value}
-                            className={cn(
-                              "flex items-center p-3 border-2 rounded-xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                              watchedValues.contentFormats?.includes(format.value as any)
-                                ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                : "border-primary-700 bg-primary-900/30"
-                            )}
-                          >
-                            <input
-                              type="checkbox"
-                              value={format.value}
-                              checked={watchedValues.contentFormats?.includes(format.value as any) || false}
-                              onChange={(e) => {
-                                const currentFormats = watchedValues.contentFormats || [];
-                                if (e.target.checked) {
-                                  setValue('contentFormats', [...currentFormats, format.value as any]);
-                                } else {
-                                  setValue('contentFormats', currentFormats.filter(f => f !== format.value));
-                                }
-                              }}
-                              className="sr-only"
-                            />
-                            <div className="flex items-center space-x-2">
-                              <div className="text-accent-400">
-                                {format.icon}
-                              </div>
-                              <span className="text-sm font-medium text-primary-100">
-                                {format.label}
-                              </span>
-                            </div>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  </PremiumFormSection>
-
-                  {/* Premium Advanced Segmentation */}
-                  <PremiumFormSection
-                    title="Advanced Behavioral Analysis"
-                    description="Unlock deep insights into purchase motivations, community engagement patterns, and trend adoption behaviors for precise microcommunity targeting."
-                    tier="premium"
-                    benefits={[
-                      "Identify nano-influencers in your exact niche",
-                      "Track real-time trend adoption in communities",
-                      "Match to highly engaged micro-communities (500-5K members)",
-                      "Discover emerging trends before they go mainstream",
-                      "Advanced personality-community fit analysis"
-                    ]}
-                    isEnabled={canAccessFeature(user, 'canAccessAdvancedSegmentation')}
-                    onUpgrade={() => window.location.href = '/pricing'}
-                  >
-                    <div className="space-y-6">
-                      {/* Purchase Motivation */}
-                      <div>
-                        <label className="block text-lg font-semibold text-primary-100 mb-4">
-                          What motivates your customers to buy?
-                        </label>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                          {[
-                            { value: 'trending-now', label: 'What\'s Trending', icon: <Flame className="w-4 h-4" /> },
-                            { value: 'solve-problem', label: 'Solve Problems', icon: <Wrench className="w-4 h-4" /> },
-                            { value: 'status-symbol', label: 'Status/Image', icon: <Crown className="w-4 h-4" /> },
-                            { value: 'self-improvement', label: 'Self Growth', icon: <TrendingUp className="w-4 h-4" /> },
-                            { value: 'community-belonging', label: 'Fit In', icon: <Heart className="w-4 h-4" /> },
-                            { value: 'early-adopter', label: 'Be First', icon: <Rocket className="w-4 h-4" /> },
-                            { value: 'value-conscious', label: 'Best Value', icon: <DollarSign className="w-4 h-4" /> }
-                          ].map((motivation) => (
-                            <label
-                              key={motivation.value}
-                              className={cn(
-                                "flex items-center p-3 border-2 rounded-xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                                watchedValues.purchaseMotivation?.includes(motivation.value as any)
-                                  ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                  : "border-primary-700 bg-primary-900/30"
-                              )}
-                            >
-                              <input
-                                type="checkbox"
-                                value={motivation.value}
-                                checked={watchedValues.purchaseMotivation?.includes(motivation.value as any) || false}
-                                onChange={(e) => {
-                                  const currentMotivations = watchedValues.purchaseMotivation || [];
-                                  if (e.target.checked) {
-                                    setValue('purchaseMotivation', [...currentMotivations, motivation.value as any]);
-                                  } else {
-                                    setValue('purchaseMotivation', currentMotivations.filter(m => m !== motivation.value));
-                                  }
-                                }}
-                                className="sr-only"
-                              />
-                              <div className="flex items-center space-x-2">
-                                <div className="text-accent-400">
-                                  {motivation.icon}
-                                </div>
-                                <span className="text-sm font-medium text-primary-100">
-                                  {motivation.label}
-                                </span>
-                              </div>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Trend Adoption Speed */}
-                      <div>
-                        <label className="block text-lg font-semibold text-primary-100 mb-4">
-                          How quickly do you want to adopt trends?
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-                          {[
-                            { value: 'trend-creator', label: 'Create Trends', icon: <Crosshair className="w-4 h-4" /> },
-                            { value: 'early-adopter', label: 'Early Adopter', icon: <Rocket className="w-4 h-4" /> },
-                            { value: 'early-majority', label: 'Early Majority', icon: <Users className="w-4 h-4" /> },
-                            { value: 'late-majority', label: 'Late Majority', icon: <Timer className="w-4 h-4" /> },
-                            { value: 'trend-resistant', label: 'Classic/Timeless', icon: <Shield className="w-4 h-4" /> }
-                          ].map((adoption) => (
-                            <label
-                              key={adoption.value}
-                              className={cn(
-                                "flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                                watchedValues.trendAdoption === adoption.value
-                                  ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                  : "border-primary-700 bg-primary-900/30"
-                              )}
-                            >
-                              <input
-                                type="radio"
-                                {...register('trendAdoption')}
-                                value={adoption.value}
-                                className="sr-only"
-                              />
-                              <div className="flex flex-col items-center space-y-1">
-                                <div className="text-accent-400">
-                                  {adoption.icon}
-                                </div>
-                                <span className="text-sm font-medium text-primary-100 text-center">
-                                  {adoption.label}
-                                </span>
-                              </div>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </PremiumFormSection>
-                </div>
-              )}
 
               {/* Step 2: Enhanced Audience Intelligence */}
               {currentStep === 2 && (
@@ -1063,27 +1073,27 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                 </div>
               )}
 
-              {/* Step 3: Your Creator Profile */}
+              {/* Step 3: Business & Go-to-Market Profile */}
               {currentStep === 3 && (
                 <div className="space-y-8">
                   <div>
                     <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      What&apos;s your primary platform?
+                      What stage is your business currently in?
                     </label>
                     <div className="grid grid-cols-1 gap-3">
-                      {platformOptions.map((option) => (
+                      {businessStageOptions.map((option) => (
                         <label
                           key={option.value}
                           className={cn(
-                            "flex items-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                            watchedValues.primaryPlatform === option.value
+                            "flex items-start p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.businessStage === option.value
                               ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
                               : "border-primary-700 bg-primary-900/30"
                           )}
                         >
                           <input
                             type="radio"
-                            {...register('primaryPlatform')}
+                            {...register('businessStage')}
                             value={option.value}
                             className="sr-only"
                           />
@@ -1091,9 +1101,14 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                             <div className="text-accent-400">
                               {option.icon}
                             </div>
-                            <span className="text-base font-semibold text-primary-100">
-                              {option.label}
-                            </span>
+                            <div>
+                              <span className="text-base font-semibold text-primary-100 block">
+                                {option.label}
+                              </span>
+                              <span className="text-sm text-primary-400">
+                                {option.description}
+                              </span>
+                            </div>
                           </div>
                         </label>
                       ))}
@@ -1102,27 +1117,30 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
 
                   <div>
                     <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      Current following size
+                      What's your current team size?
                     </label>
                     <div className="grid grid-cols-1 gap-3">
-                      {followingSizeOptions.map((option) => (
+                      {teamSizeOptions.map((option) => (
                         <label
                           key={option.value}
                           className={cn(
-                            "flex items-center justify-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                            watchedValues.followingSize === option.value
+                            "flex items-center justify-between p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.teamSize === option.value
                               ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
                               : "border-primary-700 bg-primary-900/30"
                           )}
                         >
                           <input
                             type="radio"
-                            {...register('followingSize')}
+                            {...register('teamSize')}
                             value={option.value}
                             className="sr-only"
                           />
                           <span className="text-base font-semibold text-primary-100">
                             {option.label}
+                          </span>
+                          <span className="text-sm text-primary-400">
+                            {option.description}
                           </span>
                         </label>
                       ))}
@@ -1131,18 +1149,119 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
 
                   <div>
                     <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      Launch budget
+                      How do you currently acquire customers? (Select all that apply)
                     </label>
-                    <select
-                      {...register('launchBudget')}
-                      className="w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                    >
-                      <option value="under-5k">Under $5,000</option>
-                      <option value="5k-25k">$5,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="50k-100k">$50,000 - $100,000</option>
-                      <option value="over-100k">Over $100,000</option>
-                    </select>
+                    <div className="grid grid-cols-1 gap-3">
+                      {customerAcquisitionOptions.map((option) => (
+                        <label
+                          key={option.value}
+                          className={cn(
+                            "flex items-start p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.customerAcquisition?.includes(option.value as any)
+                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
+                              : "border-primary-700 bg-primary-900/30"
+                          )}
+                        >
+                          <input
+                            type="checkbox"
+                            {...register('customerAcquisition')}
+                            value={option.value}
+                            className="sr-only"
+                          />
+                          <div className="flex items-center space-x-3">
+                            <div className="text-accent-400">
+                              {option.icon}
+                            </div>
+                            <div>
+                              <span className="text-base font-semibold text-primary-100 block">
+                                {option.label}
+                              </span>
+                              <span className="text-sm text-primary-400">
+                                {option.description}
+                              </span>
+                            </div>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg font-semibold text-primary-100 mb-4">
+                      What's your monthly marketing budget range?
+                    </label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {marketingBudgetOptions.map((option) => (
+                        <label
+                          key={option.value}
+                          className={cn(
+                            "flex items-start p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.marketingBudget === option.value
+                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
+                              : "border-primary-700 bg-primary-900/30"
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...register('marketingBudget')}
+                            value={option.value}
+                            className="sr-only"
+                          />
+                          <div className="flex items-center space-x-3">
+                            <div className="text-accent-400">
+                              {option.icon}
+                            </div>
+                            <div>
+                              <span className="text-base font-semibold text-primary-100 block">
+                                {option.label}
+                              </span>
+                              <span className="text-sm text-primary-400">
+                                {option.description}
+                              </span>
+                            </div>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg font-semibold text-primary-100 mb-4">
+                      What are your key competitive advantages? (Select all that apply)
+                    </label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {competitiveAdvantageOptions.map((option) => (
+                        <label
+                          key={option.value}
+                          className={cn(
+                            "flex items-start p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.competitiveAdvantage?.includes(option.value as any)
+                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
+                              : "border-primary-700 bg-primary-900/30"
+                          )}
+                        >
+                          <input
+                            type="checkbox"
+                            {...register('competitiveAdvantage')}
+                            value={option.value}
+                            className="sr-only"
+                          />
+                          <div className="flex items-center space-x-3">
+                            <div className="text-accent-400">
+                              {option.icon}
+                            </div>
+                            <div>
+                              <span className="text-base font-semibold text-primary-100 block">
+                                {option.label}
+                              </span>
+                              <span className="text-sm text-primary-400">
+                                {option.description}
+                              </span>
+                            </div>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
