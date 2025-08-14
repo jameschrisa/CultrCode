@@ -46,6 +46,23 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
       targetCities: [],
       hyperlocalEnabled: false,
       
+      // Business intelligence defaults
+      businessStage: undefined,
+      teamSize: undefined,
+      customerAcquisition: [],
+      marketingBudget: undefined,
+      competitiveAdvantage: [],
+      
+      // Enhanced intelligence defaults
+      timeOfDay: undefined,
+      lifecycleStage: undefined,
+      deviceUsage: undefined,
+      socialMediaEngagement: [],
+      technologyAdoption: undefined,
+      culturalInfluences: [],
+      economicConditions: undefined,
+      geographicVariability: [],
+      
       // Premium parameter defaults
       contentFormats: [],
       launchTimeline: undefined,
