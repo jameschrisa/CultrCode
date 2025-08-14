@@ -124,38 +124,24 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
       icon: <Target className="w-5 h-5" />
     },
     {
-      title: 'Your creator profile',
-      description: 'Tell us about your platform and reach',
-      icon: <Search className="w-5 h-5" />
-    },
-    {
       title: 'Enhanced audience intelligence',
       description: 'Optional detailed insights for better accuracy',
       icon: <Zap className="w-5 h-5" />
+    },
+    {
+      title: 'Your creator profile',
+      description: 'Tell us about your platform and reach',
+      icon: <Search className="w-5 h-5" />
     }
   ]
   
-  const premiumStep = {
-    title: 'Advanced behavioral analysis',
-    description: 'Premium insights for Scout, Curator & Insider accounts',
-    icon: <Crown className="w-5 h-5" />
-  }
-
   const hyperlocalStep = {
     title: 'Hyperlocal targeting',
     description: 'Select specific cities for local insights',
     icon: <MapPin className="w-5 h-5" />
   }
 
-  const hasPremiumAccess = () => {
-    if (!user) return false
-    return canAccessFeature(user, 'hasAdvancedFeatures') || canAccessFeature(user, 'canAccessAdvancedSegmentation')
-  }
-
   let steps = [...baseSteps]
-  if (hasPremiumAccess()) {
-    steps = [...steps, premiumStep]
-  }
   if (hasHyperlocalAccess()) {
     steps = [...steps, hyperlocalStep]
   }
@@ -305,27 +291,6 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'seasonal-variation', label: 'Strong Seasonal Variation' }
   ]
 
-  // Premium Content & Behavioral Options
-  const contentFormatOptions = [
-    { value: 'short-form-video', label: 'Short-form Videos (TikTok, Reels)' },
-    { value: 'long-form-video', label: 'Long-form Videos (YouTube, Podcasts)' },
-    { value: 'image-posts', label: 'Image Posts & Stories' },
-    { value: 'live-streams', label: 'Live Streams & Interactive Content' },
-    { value: 'podcasts', label: 'Audio Content & Podcasts' },
-    { value: 'written-content', label: 'Blog Posts & Articles' },
-    { value: 'polls-quizzes', label: 'Interactive Polls & Quizzes' },
-    { value: 'user-generated-content', label: 'User-Generated Content' }
-  ]
-
-  const purchaseMotivationOptions = [
-    { value: 'trending-now', label: 'Trending & Popular Items' },
-    { value: 'solve-problem', label: 'Solves a Specific Problem' },
-    { value: 'status-symbol', label: 'Status Symbol & Prestige' },
-    { value: 'self-improvement', label: 'Self-improvement & Growth' },
-    { value: 'community-belonging', label: 'Community & Belonging' },
-    { value: 'early-adopter', label: 'Being First to Try New Things' },
-    { value: 'value-conscious', label: 'Best Value for Money' }
-  ]
 
   const watchedValues = watch()
 
@@ -372,15 +337,12 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
       case 1:
         return watchedValues.priceRange && watchedValues.targetAge && watchedValues.targetGender && watchedValues.values?.length > 0
       case 2:
-        return watchedValues.primaryPlatform && watchedValues.followingSize && watchedValues.launchBudget
-      case 3:
         // Enhanced Audience Intelligence - all optional
         return true
-      case 4:
-        // Premium step - all optional
-        return true
+      case 3:
+        return watchedValues.primaryPlatform && watchedValues.followingSize && watchedValues.launchBudget
       default:
-        // Hyperlocal and other steps
+        // Hyperlocal step
         if (hasHyperlocalAccess() && currentStep === steps.length - 1) {
           return !watchedValues.hyperlocalEnabled || (watchedValues.targetCities?.length || 0) > 0
         }
@@ -868,92 +830,8 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                 </div>
               )}
 
-              {/* Step 2: Creator Profile */}
+              {/* Step 2: Enhanced Audience Intelligence */}
               {currentStep === 2 && (
-                <div className="space-y-8">
-                  <div>
-                    <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      What&apos;s your primary platform?
-                    </label>
-                    <div className="grid grid-cols-1 gap-3">
-                      {platformOptions.map((option) => (
-                        <label
-                          key={option.value}
-                          className={cn(
-                            "flex items-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                            watchedValues.primaryPlatform === option.value
-                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                              : "border-primary-700 bg-primary-900/30"
-                          )}
-                        >
-                          <input
-                            type="radio"
-                            {...register('primaryPlatform')}
-                            value={option.value}
-                            className="sr-only"
-                          />
-                          <div className="flex items-center space-x-3">
-                            <div className="text-accent-400">
-                              {option.icon}
-                            </div>
-                            <span className="text-base font-semibold text-primary-100">
-                              {option.label}
-                            </span>
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      Current following size
-                    </label>
-                    <div className="grid grid-cols-1 gap-3">
-                      {followingSizeOptions.map((option) => (
-                        <label
-                          key={option.value}
-                          className={cn(
-                            "flex items-center justify-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                            watchedValues.followingSize === option.value
-                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                              : "border-primary-700 bg-primary-900/30"
-                          )}
-                        >
-                          <input
-                            type="radio"
-                            {...register('followingSize')}
-                            value={option.value}
-                            className="sr-only"
-                          />
-                          <span className="text-base font-semibold text-primary-100">
-                            {option.label}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-lg font-semibold text-primary-100 mb-4">
-                      Launch budget
-                    </label>
-                    <select
-                      {...register('launchBudget')}
-                      className="w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                    >
-                      <option value="under-5k">Under $5,000</option>
-                      <option value="5k-25k">$5,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="50k-100k">$50,000 - $100,000</option>
-                      <option value="over-100k">Over $100,000</option>
-                    </select>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 3: Enhanced Audience Intelligence */}
-              {currentStep === 3 && (
                 <div className="space-y-8">
                   <div className="bg-gradient-to-r from-accent-500/10 to-brand-500/10 border border-accent-500/20 rounded-xl p-6 space-y-8">
                     <div className="text-center">
@@ -1185,111 +1063,92 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                 </div>
               )}
 
-              {/* Step 4: Advanced Behavioral Analysis (Premium Users Only) */}
-              {currentStep === 4 && hasPremiumAccess() && (
+              {/* Step 3: Your Creator Profile */}
+              {currentStep === 3 && (
                 <div className="space-y-8">
-                  <PremiumFormSection
-                    title="Content Format Preferences"
-                    description="Understand your audience's preferred content consumption patterns"
-                    tier="standard"
-                    benefits={[
-                      "Optimize content strategy",
-                      "Improve engagement rates",
-                      "Platform-specific insights"
-                    ]}
-                    isEnabled={canAccessFeature(user, 'hasAdvancedFeatures')}
-                  >
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        What content formats work best for your audience? (Select all that apply)
-                      </label>
-                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-                        {contentFormatOptions.map((format) => (
-                          <label
-                            key={format.value}
-                            className={cn(
-                              "flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                              watchedValues.contentFormats?.includes(format.value as any)
-                                ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                : "border-primary-700 bg-primary-900/30"
-                            )}
-                          >
-                            <input
-                              type="checkbox"
-                              value={format.value}
-                              checked={watchedValues.contentFormats?.includes(format.value as any) || false}
-                              onChange={(e) => {
-                                const currentFormats = watchedValues.contentFormats || [];
-                                if (e.target.checked) {
-                                  setValue('contentFormats', [...currentFormats, format.value as any]);
-                                } else {
-                                  setValue('contentFormats', currentFormats.filter(f => f !== format.value));
-                                }
-                              }}
-                              className="sr-only"
-                            />
-                            <span className="text-sm font-medium text-primary-100">
-                              {format.label}
+                  <div>
+                    <label className="block text-lg font-semibold text-primary-100 mb-4">
+                      What&apos;s your primary platform?
+                    </label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {platformOptions.map((option) => (
+                        <label
+                          key={option.value}
+                          className={cn(
+                            "flex items-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.primaryPlatform === option.value
+                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
+                              : "border-primary-700 bg-primary-900/30"
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...register('primaryPlatform')}
+                            value={option.value}
+                            className="sr-only"
+                          />
+                          <div className="flex items-center space-x-3">
+                            <div className="text-accent-400">
+                              {option.icon}
+                            </div>
+                            <span className="text-base font-semibold text-primary-100">
+                              {option.label}
                             </span>
-                          </label>
-                        ))}
-                      </div>
+                          </div>
+                        </label>
+                      ))}
                     </div>
-                  </PremiumFormSection>
+                  </div>
 
-                  <PremiumFormSection
-                    title="Purchase Motivation Analysis"
-                    description="Deep insights into what drives your audience's purchasing decisions"
-                    tier="premium"
-                    benefits={[
-                      "Understand buyer psychology",
-                      "Optimize messaging strategy",
-                      "Increase conversion rates"
-                    ]}
-                    isEnabled={canAccessFeature(user, 'hasAdvancedFeatures')}
-                  >
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        What motivates your audience to make purchases? (Select all that apply)
-                      </label>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                        {purchaseMotivationOptions.map((motivation) => (
-                          <label
-                            key={motivation.value}
-                            className={cn(
-                              "flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
-                              watchedValues.purchaseMotivation?.includes(motivation.value as any)
-                                ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
-                                : "border-primary-700 bg-primary-900/30"
-                            )}
-                          >
-                            <input
-                              type="checkbox"
-                              value={motivation.value}
-                              checked={watchedValues.purchaseMotivation?.includes(motivation.value as any) || false}
-                              onChange={(e) => {
-                                const currentMotivations = watchedValues.purchaseMotivation || [];
-                                if (e.target.checked) {
-                                  setValue('purchaseMotivation', [...currentMotivations, motivation.value as any]);
-                                } else {
-                                  setValue('purchaseMotivation', currentMotivations.filter(m => m !== motivation.value));
-                                }
-                              }}
-                              className="sr-only"
-                            />
-                            <span className="text-sm font-medium text-primary-100">
-                              {motivation.label}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
+                  <div>
+                    <label className="block text-lg font-semibold text-primary-100 mb-4">
+                      Current following size
+                    </label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {followingSizeOptions.map((option) => (
+                        <label
+                          key={option.value}
+                          className={cn(
+                            "flex items-center justify-center p-4 border-2 rounded-2xl cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5",
+                            watchedValues.followingSize === option.value
+                              ? "border-accent-500 bg-accent-500/10 shadow-lg shadow-accent-500/20"
+                              : "border-primary-700 bg-primary-900/30"
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            {...register('followingSize')}
+                            value={option.value}
+                            className="sr-only"
+                          />
+                          <span className="text-base font-semibold text-primary-100">
+                            {option.label}
+                          </span>
+                        </label>
+                      ))}
                     </div>
-                  </PremiumFormSection>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg font-semibold text-primary-100 mb-4">
+                      Launch budget
+                    </label>
+                    <select
+                      {...register('launchBudget')}
+                      className="w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                    >
+                      <option value="under-5k">Under $5,000</option>
+                      <option value="5k-25k">$5,000 - $25,000</option>
+                      <option value="25k-50k">$25,000 - $50,000</option>
+                      <option value="50k-100k">$50,000 - $100,000</option>
+                      <option value="over-100k">Over $100,000</option>
+                    </select>
+                  </div>
                 </div>
               )}
 
-              {/* Step 5: Hyperlocal Targeting (Premium Users Only) */}
-              {((currentStep === 4 && !hasPremiumAccess()) || (currentStep === 5 && hasPremiumAccess())) && hasHyperlocalAccess() && (
+              {/* Step 4: Hyperlocal Targeting (Premium Users Only) */}
+              {currentStep === 4 && hasHyperlocalAccess() && (
                 <div className="space-y-8">
                   {/* Premium Feature Badge */}
                   <div className="flex items-center justify-center mb-8">
