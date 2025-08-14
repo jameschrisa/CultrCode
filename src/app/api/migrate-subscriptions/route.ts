@@ -32,12 +32,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Get all users with legacy subscription tiers
-    const users = await client.users.getUserList()
+    const userList = await client.users.getUserList()
     
     let migratedCount = 0
     const migrations: any[] = []
 
-    for (const user of users) {
+    for (const user of userList.data) {
       const metadata = user.publicMetadata as any
       const currentTier = metadata?.subscriptionTier
 
