@@ -10,6 +10,7 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
+import { PremiumEnhancement } from '@/components/PremiumEnhancement'
 import { SegmentMatch, UserInputs } from '@/types/segments'
 import { SegmentMatcher } from '@/lib/segmentMatcher'
 
@@ -119,21 +120,38 @@ function AdvancedAnalysisContent() {
     const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
     return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
   }
-  const [currentView, setCurrentView] = useState<'form' | 'results'>('form')
+  const [currentView, setCurrentView] = useState<'form' | 'enhancement' | 'results'>('form')
   const [segmentMatches, setSegmentMatches] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
   const [currentCommunityIndex, setCurrentCommunityIndex] = useState(0)
   const [currentUpdateIndex, setCurrentUpdateIndex] = useState(0)
 
   const handleFormComplete = (inputs: UserInputs) => {
-    const matches = SegmentMatcher.matchSegments(inputs)
-    setSegmentMatches(matches)
     setUserInputs(inputs)
+    setCurrentView('enhancement')
+  }
+
+  const handleEnhancement = (enhancedInputs: UserInputs) => {
+    const matches = SegmentMatcher.matchSegments(enhancedInputs)
+    setSegmentMatches(matches)
+    setUserInputs(enhancedInputs)
     setCurrentView('results')
   }
 
+  const handleSkipEnhancement = () => {
+    if (userInputs) {
+      const matches = SegmentMatcher.matchSegments(userInputs)
+      setSegmentMatches(matches)
+      setCurrentView('results')
+    }
+  }
+
   const handleBack = () => {
-    setCurrentView('form')
+    if (currentView === 'results') {
+      setCurrentView('enhancement')
+    } else if (currentView === 'enhancement') {
+      setCurrentView('form')
+    }
   }
 
   const nextCommunity = () => {
@@ -178,7 +196,7 @@ function AdvancedAnalysisContent() {
         <div className="floating-orb w-80 h-80 bg-accent-600/10 bottom-20 left-1/4" style={{ animationDelay: '4s' }} />
       </div>
 
-      <Header showBackButton={currentView === 'results'} onBack={handleBack} />
+      <Header showBackButton={currentView !== 'form'} onBack={handleBack} />
       
       <main className="relative z-10">
         {currentView === 'form' ? (
@@ -375,6 +393,14 @@ function AdvancedAnalysisContent() {
                 </CardContent>
               </Card>
             </motion.div>
+          </div>
+        ) : currentView === 'enhancement' && userInputs ? (
+          <div className="px-4 py-12">
+            <PremiumEnhancement 
+              userInputs={userInputs}
+              onEnhance={handleEnhancement}
+              onSkip={handleSkipEnhancement}
+            />
           </div>
         ) : (
           <div className="px-4 py-12">

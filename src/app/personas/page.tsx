@@ -11,6 +11,7 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { expandedSegments } from '@/data/expanded_segments'
 import { emergingTrends } from '@/data/emergingTrends'
+import { canAccessFeature } from '@/lib/subscription'
 import Link from 'next/link'
 
 interface SavedPersona {
@@ -65,10 +66,7 @@ function PersonasContent() {
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return canAccessFeature(user, 'canAccessPersonas')
   }
   const [savedPersonas, setSavedPersonas] = useState<SavedPersona[]>([])
   const [samplePersonas, setSamplePersonas] = useState<SamplePersona[]>([])

@@ -9,9 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
 import { SegmentFinder } from '@/components/SegmentFinder'
 import { SegmentResults } from '@/components/SegmentResults'
+import { PremiumEnhancement } from '@/components/PremiumEnhancement'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { SegmentMatch, UserInputs } from '@/types/segments'
 import { SegmentMatcher } from '@/lib/segmentMatcher'
+import { canAccessFeature } from '@/lib/subscription'
 import Link from 'next/link'
 
 export default function AdvancedSegmentationPage() {
@@ -20,25 +22,37 @@ export default function AdvancedSegmentationPage() {
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return canAccessFeature(user, 'canAccessAdvancedSegmentation')
   }
   const router = useRouter()
+  const [currentView, setCurrentView] = useState<'finder' | 'enhancement' | 'results'>('finder')
   const [results, setResults] = useState<SegmentMatch[]>([])
   const [userInputs, setUserInputs] = useState<UserInputs | null>(null)
   
   const handleFormComplete = (inputs: UserInputs) => {
-    // For the advanced segmentation page, we'll process directly without enhancement screen
-    const matches = SegmentMatcher.matchSegments(inputs)
-    setResults(matches)
     setUserInputs(inputs)
+    setCurrentView('enhancement')
+  }
+
+  const handleEnhancement = (enhancedInputs: UserInputs) => {
+    const matches = SegmentMatcher.matchSegments(enhancedInputs)
+    setResults(matches)
+    setUserInputs(enhancedInputs)
+    setCurrentView('results')
+  }
+
+  const handleSkipEnhancement = () => {
+    if (userInputs) {
+      const matches = SegmentMatcher.matchSegments(userInputs)
+      setResults(matches)
+      setCurrentView('results')
+    }
   }
   
   const handleNewSearch = () => {
     setResults([])
     setUserInputs(null)
+    setCurrentView('finder')
   }
 
   useEffect(() => {
@@ -183,7 +197,19 @@ export default function AdvancedSegmentationPage() {
               </p>
             </CardHeader>
             <CardContent>
-              {results.length > 0 ? (
+              {currentView === 'finder' && (
+                <SegmentFinder isPremiumMode={true} onResults={handleFormComplete} />
+              )}
+              
+              {currentView === 'enhancement' && userInputs && (
+                <PremiumEnhancement 
+                  userInputs={userInputs}
+                  onEnhance={handleEnhancement}
+                  onSkip={handleSkipEnhancement}
+                />
+              )}
+              
+              {currentView === 'results' && results.length > 0 && (
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-primary-100">Your Segment Matches</h3>
@@ -201,8 +227,6 @@ export default function AdvancedSegmentationPage() {
                     userInputs={userInputs || undefined}
                   />
                 </div>
-              ) : (
-                <SegmentFinder isPremiumMode={true} onResults={handleFormComplete} />
               )}
             </CardContent>
           </Card>

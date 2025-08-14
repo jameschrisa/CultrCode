@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Header } from '@/components/Header'
 import { MicrocommunityExploration } from '@/components/MicrocommunityExploration'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { canAccessFeature } from '@/lib/subscription'
 import Link from 'next/link'
 
 export default function MicrocommunitiesPage() {
@@ -17,10 +18,7 @@ export default function MicrocommunitiesPage() {
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return canAccessFeature(user, 'canAccessMicrocommunities')
   }
   const router = useRouter()
 
