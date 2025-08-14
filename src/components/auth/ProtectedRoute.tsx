@@ -7,6 +7,7 @@ import { Shield, AlertTriangle } from 'lucide-react'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { Permission } from '@/types/auth'
 import { Button } from '@/components/ui/Button'
+import { canAccessFeature } from '@/lib/subscription'
 import Link from 'next/link'
 
 interface ProtectedRouteProps {
@@ -32,11 +33,10 @@ export function ProtectedRoute({
     
     // Get user metadata for permissions
     const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
     
     switch (permission) {
       case 'view_premium_reports':
-        return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+        return canAccessFeature(user, 'canAccessPersonas')
       case 'admin_access':
         return publicMetadata?.role === 'admin'
       case 'basic_access':

@@ -34,17 +34,27 @@ export async function POST(req: NextRequest) {
         const planName = session.metadata?.planName
 
         if (userId && planName) {
+          // Map legacy plan names to new tier names
+          const tierMapping: { [key: string]: string } = {
+            'premium': 'curators',
+            'enterprise': 'insiders',
+            'community-explorer': 'scouts',
+            'trend-navigator': 'curators'
+          }
+          
+          const mappedTier = tierMapping[planName] || planName
+          
           // Update Clerk user metadata with subscription info
           const client = await clerkClient()
           await client.users.updateUser(userId, {
             publicMetadata: {
-              subscriptionTier: planName,
+              subscriptionTier: mappedTier,
               subscriptionStatus: 'active',
               stripeCustomerId: session.customer,
               subscriptionId: session.subscription
             }
           })
-          console.log(`✅ User ${userId} upgraded to ${planName}`)
+          console.log(`✅ User ${userId} upgraded to ${mappedTier} (from ${planName})`)
         }
         break
       }

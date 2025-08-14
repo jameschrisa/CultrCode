@@ -11,6 +11,7 @@ import { MicroCommunity, CommunityCategory, CommunitySize, Platform } from '@/ty
 import { allMicroCommunities } from '@/data/allMicroCommunities'
 import { cn, formatNumber } from '@/lib/utils'
 import { useUser } from '@clerk/nextjs'
+import { canAccessFeature } from '@/lib/subscription'
 
 interface MicrocommunityExplorationProps {
   className?: string
@@ -21,10 +22,7 @@ export function MicrocommunityExploration({ className }: MicrocommunityExplorati
   
   // Helper function to check if user can access premium features
   const canAccessPremium = () => {
-    if (!user) return false
-    const publicMetadata = user.publicMetadata as any
-    const subscriptionTier = publicMetadata?.subscriptionTier || 'free'
-    return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'
+    return canAccessFeature(user, 'canAccessMicrocommunities')
   }
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<CommunityCategory | 'all'>('all')

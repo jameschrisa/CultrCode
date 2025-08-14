@@ -907,7 +907,7 @@ function PersonasContent() {
 
 export default function PersonasPage() {
   return (
-    <ProtectedRoute requiredPermission="view_premium_reports">
+    <ProtectedRoute>
       <PersonasContent />
     </ProtectedRoute>
   )
