@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Target, Sparkles, ChevronRight, Zap, MapPin, Star, Video, Camera, Mic, FileText, BarChart3, Users, Flame, Wrench, Crown, TrendingUp, Heart, Rocket, DollarSign, Crosshair, Shield, Timer, UserCheck, Palette, Dumbbell, Monitor, Shirt, Utensils, Leaf, Smartphone, Target as TargetIcon, Home, Briefcase, PawPrint, Baby, Car, Plane } from 'lucide-react'
+import { Search, Target, Sparkles, ChevronRight, Zap, MapPin, Star, Video, Camera, Mic, FileText, BarChart3, Users, Flame, Wrench, Crown, TrendingUp, Heart, Rocket, DollarSign, Crosshair, Shield, Timer, UserCheck, Palette, Dumbbell, Monitor, Shirt, Utensils, Leaf, Smartphone, Target as TargetIcon, Home, Briefcase, PawPrint, Baby, Car, Plane, Clock, Globe } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaYoutube, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
@@ -201,23 +201,28 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'non-applicable', label: 'Non-applicable' }
   ]
 
+  // Behavioral & Temporal Factors
   const timeOfDayOptions = [
+    { value: '', label: 'Skip / Not Applicable' },
     { value: 'daytime', label: 'Daytime (6AM - 12PM)' },
     { value: 'afternoon', label: 'Afternoon (12PM - 6PM)' },
     { value: 'evening', label: 'Evening (6PM - 11PM)' },
     { value: 'night', label: 'Night (11PM - 6AM)' },
-    { value: 'anytime', label: 'Anytime' },
-    { value: 'sporadically', label: 'Sporadically' }
+    { value: 'anytime', label: 'Anytime / No specific pattern' },
+    { value: 'sporadically', label: 'Sporadically / Irregular' }
   ]
 
   const lifecycleStageOptions = [
+    { value: '', label: 'Skip / Not Applicable' },
     { value: 'awareness', label: 'Awareness - Just discovering the problem' },
     { value: 'consideration', label: 'Consideration - Researching solutions' },
     { value: 'decision', label: 'Decision - Ready to purchase' },
     { value: 'retention', label: 'Retention - Existing customers' },
-    { value: 'advocacy', label: 'Advocacy - Brand promoters' }
+    { value: 'advocacy', label: 'Advocacy - Brand promoters' },
+    { value: 'mixed', label: 'Mixed - Multiple stages' }
   ]
 
+  // Technology & Device Factors
   const deviceUsageOptions = [
     { value: 'mobile-primary', label: 'Mobile Primary' },
     { value: 'desktop-primary', label: 'Desktop Primary' },
@@ -238,6 +243,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
   ]
 
   const technologyAdoptionOptions = [
+    { value: '', label: 'Skip / Not Applicable' },
     { value: 'early-adopter', label: 'Early Adopter - First to try new tech' },
     { value: 'early-majority', label: 'Early Majority - Quick to adopt proven tech' },
     { value: 'late-majority', label: 'Late Majority - Adopts when mainstream' },
@@ -245,6 +251,7 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'tech-enthusiast', label: 'Tech Enthusiast - Loves cutting-edge' }
   ]
 
+  // Cultural & Social Factors
   const culturalInfluencesOptions = [
     { value: 'traditional-values', label: 'Traditional Values Focused' },
     { value: 'progressive-values', label: 'Progressive Values Focused' },
@@ -255,7 +262,9 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
     { value: 'multicultural', label: 'Multicultural Environment' }
   ]
 
+  // Economic & Geographic Factors
   const economicConditionsOptions = [
+    { value: '', label: 'Skip / Not Applicable' },
     { value: 'high-disposable-income', label: 'High Disposable Income' },
     { value: 'moderate-disposable-income', label: 'Moderate Disposable Income' },
     { value: 'budget-conscious', label: 'Budget Conscious' },
@@ -595,143 +604,232 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
                     </div>
                   </div>
 
-                  {/* Temporal and Behavioral Factors */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Time of day usage
-                      </label>
-                      <select
-                        {...register('timeOfDay')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {timeOfDayOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
+                  {/* Enhanced Segmentation - Optional */}
+                  <div className="bg-gradient-to-r from-accent-500/10 to-brand-500/10 border border-accent-500/20 rounded-xl p-6 space-y-6">
+                    <div className="text-center">
+                      <h3 className="text-xl font-bold text-primary-50 mb-2">
+                        🎯 Enhanced Audience Intelligence (Optional)
+                      </h3>
+                      <p className="text-primary-300 text-sm leading-relaxed">
+                        The more details you provide, the more accurate your segmentation and persona insights will be. 
+                        All fields are optional - skip any that don't apply or select "Not Applicable".
+                        <span className="text-accent-400 font-medium ml-1">
+                          Upgrade to Scout, Curator, or Insider accounts for AI-powered personas based on this data!
+                        </span>
+                      </p>
                     </div>
 
+                    {/* Behavioral & Temporal Factors */}
                     <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Lifecycle stage
-                      </label>
-                      <select
-                        {...register('lifecycleStage')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {lifecycleStageOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                      <h4 className="text-lg font-semibold text-primary-100 mb-4 flex items-center">
+                        <Clock className="w-5 h-5 mr-2 text-accent-400" />
+                        Behavioral & Temporal Factors
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            When do your customers typically engage?
+                          </label>
+                          <select
+                            {...register('timeOfDay')}
+                            className="custom-select w-full p-4 bg-primary-900/50 border-2 border-primary-700 rounded-xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                          >
+                            {timeOfDayOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                  {/* Device and Technology Factors */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Device usage
-                      </label>
-                      <select
-                        {...register('deviceUsage')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {deviceUsageOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Social media engagement
-                      </label>
-                      <select
-                        {...register('socialMediaEngagement')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {socialMediaEngagementOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Technology and Cultural Factors */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Technology adoption
-                      </label>
-                      <select
-                        {...register('technologyAdoption')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {technologyAdoptionOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            Where are your customers in their buying journey?
+                          </label>
+                          <select
+                            {...register('lifecycleStage')}
+                            className="custom-select w-full p-4 bg-primary-900/50 border-2 border-primary-700 rounded-xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                          >
+                            {lifecycleStageOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
                     </div>
 
+                    {/* Technology & Platform Factors */}
                     <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Cultural influences
-                      </label>
-                      <select
-                        {...register('culturalInfluences')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {culturalInfluencesOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                      <h4 className="text-lg font-semibold text-primary-100 mb-4 flex items-center">
+                        <Smartphone className="w-5 h-5 mr-2 text-brand-400" />
+                        Technology & Platform Preferences
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            Primary device usage pattern
+                          </label>
+                          <select
+                            {...register('deviceUsage')}
+                            className="custom-select w-full p-4 bg-primary-900/50 border-2 border-primary-700 rounded-xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                          >
+                            <option value="">Skip / Not Applicable</option>
+                            {deviceUsageOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                  {/* Economic and Geographic Factors */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Economic conditions
-                      </label>
-                      <select
-                        {...register('economicConditions')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {economicConditionsOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            Social media engagement style (Select multiple if needed)
+                          </label>
+                          <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto custom-scrollbar">
+                            {socialMediaEngagementOptions.map((option) => (
+                              <label
+                                key={option.value}
+                                className={cn(
+                                  "flex items-center p-2 border rounded-lg cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5 text-xs",
+                                  watchedValues.socialMediaEngagement?.includes(option.value as any)
+                                    ? "border-accent-500 bg-accent-500/10"
+                                    : "border-primary-700 bg-primary-900/30"
+                                )}
+                              >
+                                <input
+                                  type="checkbox"
+                                  value={option.value}
+                                  checked={watchedValues.socialMediaEngagement?.includes(option.value as any) || false}
+                                  onChange={(e) => {
+                                    const currentEngagement = watchedValues.socialMediaEngagement || [];
+                                    if (e.target.checked) {
+                                      setValue('socialMediaEngagement', [...currentEngagement, option.value as any]);
+                                    } else {
+                                      setValue('socialMediaEngagement', currentEngagement.filter(e => e !== option.value));
+                                    }
+                                  }}
+                                  className="sr-only"
+                                />
+                                <span className="text-primary-200">{option.label}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-primary-200 mb-2">
+                          Technology adoption style
+                        </label>
+                        <select
+                          {...register('technologyAdoption')}
+                          className="custom-select w-full p-4 bg-primary-900/50 border-2 border-primary-700 rounded-xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                        >
+                          {technologyAdoptionOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
+                    {/* Cultural & Economic Factors */}
                     <div>
-                      <label className="block text-lg font-semibold text-primary-100 mb-4">
-                        Geographic variability
-                      </label>
-                      <select
-                        {...register('geographicVariability')}
-                        className="custom-select w-full p-5 bg-primary-900/50 border-2 border-primary-700 rounded-2xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
-                      >
-                        {geographicVariabilityOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
+                      <h4 className="text-lg font-semibold text-primary-100 mb-4 flex items-center">
+                        <Globe className="w-5 h-5 mr-2 text-success-400" />
+                        Cultural & Economic Context
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            Cultural influences (Select multiple if needed)
+                          </label>
+                          <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto custom-scrollbar">
+                            {culturalInfluencesOptions.map((option) => (
+                              <label
+                                key={option.value}
+                                className={cn(
+                                  "flex items-center p-2 border rounded-lg cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5 text-xs",
+                                  watchedValues.culturalInfluences?.includes(option.value as any)
+                                    ? "border-accent-500 bg-accent-500/10"
+                                    : "border-primary-700 bg-primary-900/30"
+                                )}
+                              >
+                                <input
+                                  type="checkbox"
+                                  value={option.value}
+                                  checked={watchedValues.culturalInfluences?.includes(option.value as any) || false}
+                                  onChange={(e) => {
+                                    const currentCultural = watchedValues.culturalInfluences || [];
+                                    if (e.target.checked) {
+                                      setValue('culturalInfluences', [...currentCultural, option.value as any]);
+                                    } else {
+                                      setValue('culturalInfluences', currentCultural.filter(c => c !== option.value));
+                                    }
+                                  }}
+                                  className="sr-only"
+                                />
+                                <span className="text-primary-200">{option.label}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-primary-200 mb-2">
+                            Economic conditions affecting purchasing
+                          </label>
+                          <select
+                            {...register('economicConditions')}
+                            className="custom-select w-full p-4 bg-primary-900/50 border-2 border-primary-700 rounded-xl focus:border-accent-400 focus:outline-none transition-all text-primary-100 backdrop-blur-sm"
+                          >
+                            {economicConditionsOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-primary-200 mb-2">
+                          Geographic context (Select multiple if applicable)
+                        </label>
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 max-h-32 overflow-y-auto custom-scrollbar">
+                          {geographicVariabilityOptions.map((option) => (
+                            <label
+                              key={option.value}
+                              className={cn(
+                                "flex items-center p-2 border rounded-lg cursor-pointer transition-all hover:border-accent-400/50 hover:bg-accent-500/5 text-xs",
+                                watchedValues.geographicVariability?.includes(option.value as any)
+                                  ? "border-accent-500 bg-accent-500/10"
+                                  : "border-primary-700 bg-primary-900/30"
+                              )}
+                            >
+                              <input
+                                type="checkbox"
+                                value={option.value}
+                                checked={watchedValues.geographicVariability?.includes(option.value as any) || false}
+                                onChange={(e) => {
+                                  const currentGeo = watchedValues.geographicVariability || [];
+                                  if (e.target.checked) {
+                                    setValue('geographicVariability', [...currentGeo, option.value as any]);
+                                  } else {
+                                    setValue('geographicVariability', currentGeo.filter(g => g !== option.value));
+                                  }
+                                }}
+                                className="sr-only"
+                              />
+                              <span className="text-primary-200">{option.label}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
 

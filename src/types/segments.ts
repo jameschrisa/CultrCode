@@ -40,11 +40,11 @@ export interface UserInputs {
   timeOfDay?: TimeOfDayUsage;
   lifecycleStage?: LifecycleStage;
   deviceUsage?: DeviceUsage;
-  socialMediaEngagement?: SocialMediaEngagement;
+  socialMediaEngagement?: SocialMediaEngagement[];
   technologyAdoption?: TechnologyAdoption;
-  culturalInfluences?: CulturalInfluences;
+  culturalInfluences?: CulturalInfluences[];
   economicConditions?: EconomicConditions;
-  geographicVariability?: GeographicVariability;
+  geographicVariability?: GeographicVariability[];
   
   // Standard+ inputs (basic premium features)
   contentFormats?: ContentFormat[];
