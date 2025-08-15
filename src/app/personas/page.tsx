@@ -481,26 +481,24 @@ function PersonasContent() {
               >
                 <Card className="glass-card hover:border-accent-500/50 transition-all duration-300 h-full relative">
                   <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3 flex-1">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          SAMPLE
+                        </span>
+                        <div className="px-2 py-1 bg-success-500/20 text-success-400 rounded text-xs font-medium">
+                          {persona.confidence}% match
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-accent-500/20 to-brand-500/20 rounded-full flex items-center justify-center">
                           {persona.source === 'segment' && <Target className="w-6 h-6 text-accent-400" />}
                           {persona.source === 'community' && <Users className="w-6 h-6 text-brand-400" />}
                           {persona.source === 'trend' && <TrendingUp className="w-6 h-6 text-success-400" />}
                         </div>
                         <div className="text-left flex-1">
-                          <div className="flex items-center space-x-2 mb-1">
-                            <CardTitle className="text-lg text-primary-100 text-left">{persona.name}</CardTitle>
-                            <span className="px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-sm">
-                              SAMPLE
-                            </span>
-                          </div>
+                          <CardTitle className="text-lg text-primary-100 text-left">{persona.name}</CardTitle>
                           <div className="text-sm text-primary-400 text-left">{persona.category}</div>
-                        </div>
-                      </div>
-                      <div className="flex-shrink-0 ml-4">
-                        <div className="px-2 py-1 bg-success-500/20 text-success-400 rounded text-xs font-medium">
-                          {persona.confidence}% match
                         </div>
                       </div>
                     </div>

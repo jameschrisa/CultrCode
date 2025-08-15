@@ -12,10 +12,17 @@ import { OptimizedImage, ImagePresets } from '@/components/ui/OptimizedImage'
 import { SimpleImage } from '@/components/ui/SimpleImage'
 import { getImageWithAttribution } from '@/lib/imageConfig'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { canAccessFeature } from '@/lib/subscription'
 import Link from 'next/link'
 
 export default function HowItWorks() {
-  const { isSignedIn } = useAuth(); const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
+  const { isSignedIn } = useAuth()
+  const { user } = useUser()
+  
+  // Helper function to check if user can access premium features
+  const canAccessPremium = () => {
+    return canAccessFeature(user, 'hasAdvancedFeatures')
+  }
   
   const steps = [
     {
