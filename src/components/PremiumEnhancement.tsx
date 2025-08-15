@@ -309,8 +309,9 @@ export function PremiumEnhancement({ userInputs, onEnhance, onSkip }: PremiumEnh
         >
           <Button
             type="submit"
+            variant="outline"
             size="lg"
-            className="px-8"
+            className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
           >
             <Sparkles className="w-4 h-4 mr-2" />
             Enhance My Results
@@ -322,7 +323,7 @@ export function PremiumEnhancement({ userInputs, onEnhance, onSkip }: PremiumEnh
             variant="outline"
             size="lg"
             onClick={onSkip}
-            className="px-8"
+            className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
           >
             Skip & View Results
           </Button>

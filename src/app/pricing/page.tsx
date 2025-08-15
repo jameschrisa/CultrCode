@@ -389,8 +389,8 @@ export default function Pricing() {
                     {plan.name === 'Free Discovery' ? (
                       <Link href="/sign-up">
                         <Button
-                          variant={plan.ctaVariant}
-                          className="w-full"
+                          variant="outline"
+                          className="w-full border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
                           size="lg"
                         >
                           {plan.cta}
@@ -400,8 +400,8 @@ export default function Pricing() {
                       const buttonProps = getButtonProps(plan)
                       return (
                         <Button
-                          variant={buttonProps.variant}
-                          className={`w-full ${plan.highlight ? 'bg-accent-500 hover:bg-accent-600' : ''}`}
+                          variant="outline"
+                          className="w-full border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
                           size="lg"
                           onClick={buttonProps.onClick}
                           disabled={buttonProps.disabled || loadingPlan === plan.name}
@@ -652,13 +652,13 @@ export default function Pricing() {
                   {!isSignedIn ? (
                     <>
                       <Link href="/sign-up">
-                        <Button size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           <Zap className="w-5 h-5 mr-2" />
                           Get Started
                         </Button>
                       </Link>
                       <Link href="/sign-in">
-                        <Button variant="outline" size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           Sign In
                         </Button>
                       </Link>
@@ -666,12 +666,12 @@ export default function Pricing() {
                   ) : (
                     <>
                       <Link href={canAccessPremium() ? "/dashboard" : "/analysis"}>
-                        <Button size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           <Zap className="w-5 h-5 mr-2" />
                           {canAccessPremium() ? "Go to Dashboard" : "Start Analysis"}
                         </Button>
                       </Link>
-                      <Button variant="outline" size="xl" className="px-12">
+                      <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                         <Phone className="w-5 h-5 mr-2" />
                         Schedule Demo
                       </Button>

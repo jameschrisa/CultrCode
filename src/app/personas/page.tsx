@@ -410,14 +410,14 @@ function PersonasContent() {
           <div className="flex items-center justify-center">
             {canAccessPremium() ? (
               <Link href="/personas/generate">
-                <Button size="lg" className="px-8 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
+                <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                   <Plus className="w-5 h-5 mr-2" />
                   Generate New Persona
                 </Button>
               </Link>
             ) : (
               <Link href="/pricing">
-                <Button size="lg" className="px-8 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300">
+                <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                   <Star className="w-5 h-5 mr-2" />
                   Upgrade to Generate Personas
                 </Button>

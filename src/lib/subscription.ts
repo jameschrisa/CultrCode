@@ -27,9 +27,6 @@ export function getSubscriptionTier(user: any): SubscriptionTier {
   
   const tier = user.publicMetadata.subscriptionTier as string
   
-  // Debug logging to see what tier we're getting
-  console.log('DEBUG: Raw subscription tier from user metadata:', tier)
-  
   // Handle legacy tier names
   switch (tier) {
     case 'premium':

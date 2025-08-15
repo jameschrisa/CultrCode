@@ -221,16 +221,14 @@ export default function Home() {
                     >
                       <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                         <Button
+                          variant="outline"
                           size="xl"
                           onClick={handleStartFinder}
-                          className="text-lg px-12 py-4 shadow-2xl hover:shadow-accent-500/50 relative group glass-button"
+                          className="text-lg px-12 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-accent-400 to-accent-600 rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-                          <div className="relative flex items-center">
-                            <HiSparkles className="w-5 h-5 mr-3" />
-                            Start Free Discovery
-                            <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
-                          </div>
+                          <HiSparkles className="w-5 h-5 mr-3" />
+                          Start Free Discovery
+                          <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                         </Button>
                       </motion.div>
                       
@@ -740,9 +738,10 @@ export default function Home() {
                   {/* Call to Action */}
                   <div className="text-center mt-16">
                     <Button
+                      variant="outline"
                       size="lg"
                       onClick={handleStartFinder}
-                      className="px-12 shadow-xl hover:shadow-accent-500/30 transition-all duration-300"
+                      className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
                     >
                       <HiSparkles className="w-5 h-5 mr-2" />
                       Start Free Discovery

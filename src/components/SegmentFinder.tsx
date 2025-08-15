@@ -1416,16 +1416,17 @@ export function SegmentFinder({ onResults, isPremiumMode = false }: SegmentFinde
               variant="outline"
               onClick={prevStep}
               disabled={currentStep === 0}
-              className="px-8"
+              className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
             >
               Back
             </Button>
             
             <Button
+              variant="outline"
               onClick={nextStep}
               disabled={!isStepValid()}
               loading={loading && currentStep === steps.length - 1}
-              className="px-10"
+              className="px-10 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]"
               size="lg"
             >
               {currentStep === steps.length - 1 ? (
