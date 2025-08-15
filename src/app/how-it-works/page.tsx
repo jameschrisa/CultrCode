@@ -163,13 +163,13 @@ export default function HowItWorks() {
                 {!isSignedIn ? (
                   <>
                     <Link href="/sign-up">
-                      <Button size="lg" className="px-8">
+                      <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                         <HiSparkles className="w-5 h-5 mr-2" />
                         Get Started
                       </Button>
                     </Link>
                     <Link href="/sign-in">
-                      <Button variant="outline" size="lg" className="px-8">
+                      <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                         Sign In
                       </Button>
                     </Link>
@@ -177,13 +177,13 @@ export default function HowItWorks() {
                 ) : (
                   <>
                     <Link href={canAccessPremium() ? "/dashboard" : "/sign-up?redirect=segmentation"}>
-                      <Button size="lg" className="px-8">
+                      <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                         <HiSparkles className="w-5 h-5 mr-2" />
                         {canAccessPremium() ? "Go to Dashboard" : "Start Free Analysis"}
                       </Button>
                     </Link>
                     <Link href="/dashboard">
-                      <Button variant="outline" size="lg" className="px-8">
+                      <Button variant="outline" size="lg" className="px-8 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                         Dashboard
                       </Button>
                     </Link>
@@ -433,13 +433,13 @@ export default function HowItWorks() {
                   {!isSignedIn ? (
                     <>
                       <Link href="/sign-up?redirect=segmentation">
-                        <Button size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           <Zap className="w-5 h-5 mr-2" />
                           Start Free Analysis
                         </Button>
                       </Link>
                       <Link href="/sign-in">
-                        <Button variant="outline" size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           Sign In
                           <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
@@ -448,13 +448,13 @@ export default function HowItWorks() {
                   ) : (
                     <>
                       <Link href={canAccessPremium() ? "/dashboard" : "/sign-up?redirect=segmentation"}>
-                        <Button size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           <Zap className="w-5 h-5 mr-2" />
                           {canAccessPremium() ? "Go to Dashboard" : "Start Free Analysis"}
                         </Button>
                       </Link>
                       <Link href="/pricing">
-                        <Button variant="outline" size="xl" className="px-12">
+                        <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                           View Pricing
                           <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
