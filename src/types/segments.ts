@@ -129,12 +129,10 @@ export type FollowingSize =
   | 'over-1m';
 
 export type Platform = 
-  | 'instagram'
+  | 'reddit'
   | 'tiktok'
+  | 'instagram'
   | 'youtube'
-  | 'linkedin'
-  | 'twitter'
-  | 'substack'
   | 'discord';
 
 // Enhanced segmentation types
@@ -161,12 +159,11 @@ export type DeviceUsage =
   | 'mobile-only';
 
 export type SocialMediaEngagement = 
-  | 'instagram-heavy'
+  | 'reddit-heavy'
   | 'tiktok-heavy'
-  | 'twitter-heavy'
-  | 'facebook-heavy'
-  | 'linkedin-heavy'
+  | 'instagram-heavy'
   | 'youtube-heavy'
+  | 'discord-heavy'
   | 'multi-platform'
   | 'low-engagement';
 

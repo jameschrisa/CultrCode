@@ -16,7 +16,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
     description: 'Silicon Valley tech workers and entrepreneurs who embrace startup culture, productivity optimization, and tech innovation',
     category: 'tech',
     size: 'established',
-    platform: 'twitter',
+    platform: 'reddit',
     characteristics: {
       values: ['innovation', 'efficiency', 'disruption', 'growth', 'optimization'],
       interests: ['startups', 'AI/ML', 'crypto', 'productivity tools', 'venture capital'],
@@ -72,7 +72,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
       {
         id: 'inf-tech-1',
         handle: '@techleader',
-        platform: 'twitter',
+        platform: 'reddit',
         followers: 125000,
         tier: 'macro',
         engagement: 3.2,
@@ -102,7 +102,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
       monthlyGrowthRate: 3.2,
       seasonalPatterns: { spring: 110, summer: 95, fall: 105, winter: 90 },
       platformMigration: [
-        { fromPlatform: 'twitter', toPlatform: 'linkedin', percentage: 15, reason: 'professional networking' }
+        { fromPlatform: 'reddit', toPlatform: 'discord', percentage: 15, reason: 'professional networking' }
       ],
       futureProjection: { sixMonth: 8, oneYear: 15, twoYear: 25, confidence: 80 }
     }
@@ -300,7 +300,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
     description: 'Wall Street and finance professionals obsessed with markets, wealth building, and status symbols',
     category: 'professional',
     size: 'growing',
-    platform: 'twitter',
+    platform: 'reddit',
     characteristics: {
       values: ['wealth', 'status', 'competition', 'networking', 'performance'],
       interests: ['stock market', 'crypto', 'luxury watches', 'expensive cars', 'exclusive events'],
@@ -351,7 +351,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
       {
         id: 'inf-finance-1',
         handle: '@wallstreetguru',
-        platform: 'twitter',
+        platform: 'reddit',
         followers: 185000,
         tier: 'macro',
         engagement: 2.8,
@@ -381,7 +381,7 @@ export const northAmericanMicroCommunities: MicroCommunity[] = [
       monthlyGrowthRate: 2.1,
       seasonalPatterns: { spring: 105, summer: 95, fall: 110, winter: 100 },
       platformMigration: [
-        { fromPlatform: 'twitter', toPlatform: 'linkedin', percentage: 20, reason: 'professional credibility' }
+        { fromPlatform: 'reddit', toPlatform: 'discord', percentage: 20, reason: 'professional credibility' }
       ],
       futureProjection: { sixMonth: 3, oneYear: 8, twoYear: 12, confidence: 65 }
     }

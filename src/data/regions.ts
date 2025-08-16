@@ -29,7 +29,7 @@ export const northAmericanRegions: Region[] = [
     creatorEconomyProfile: {
       creatorDensity: 2400, // creators per 100k population
       averageFollowerSize: 45000,
-      topPlatforms: ['instagram', 'linkedin', 'twitter', 'substack'],
+      topPlatforms: ['instagram', 'discord', 'reddit', 'reddit'],
       contentCategories: ['professional-services', 'fashion-accessories', 'tech-apps', 'coaching-consulting'],
       seasonalTrends: [
         {
@@ -98,7 +98,7 @@ export const northAmericanRegions: Region[] = [
     creatorEconomyProfile: {
       creatorDensity: 3200,
       averageFollowerSize: 65000,
-      topPlatforms: ['instagram', 'tiktok', 'youtube', 'twitter'],
+      topPlatforms: ['instagram', 'tiktok', 'youtube', 'reddit'],
       contentCategories: ['tech-apps', 'health-fitness', 'sustainable-products', 'beauty-skincare'],
       seasonalTrends: [
         {
@@ -171,7 +171,7 @@ export const northAmericanRegions: Region[] = [
     creatorEconomyProfile: {
       creatorDensity: 1800,
       averageFollowerSize: 35000,
-      topPlatforms: ['tiktok', 'instagram', 'youtube', 'twitter'],
+      topPlatforms: ['tiktok', 'instagram', 'youtube', 'reddit'],
       contentCategories: ['food-beverage', 'travel-experiences', 'home-lifestyle', 'beauty-skincare'],
       seasonalTrends: [
         {
@@ -241,7 +241,7 @@ export const northAmericanRegions: Region[] = [
     creatorEconomyProfile: {
       creatorDensity: 2100,
       averageFollowerSize: 38000,
-      topPlatforms: ['instagram', 'tiktok', 'youtube', 'linkedin'],
+      topPlatforms: ['instagram', 'tiktok', 'youtube', 'discord'],
       contentCategories: ['health-fitness', 'sustainable-products', 'home-lifestyle', 'professional-services'],
       seasonalTrends: [
         {

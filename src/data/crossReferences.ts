@@ -20,7 +20,7 @@ export const crossReferences: CrossReference[] = [
       lastUpdated: '2024-07-01',
       source: 'platform_analysis',
       validFrom: '2024-01-01',
-      tags: ['silicon-valley', 'startup-culture', 'twitter'],
+      tags: ['silicon-valley', 'startup-culture', 'reddit'],
       notes: 'Strong overlap between tech segment and tech bros community, especially in SF Bay Area'
     }
   },

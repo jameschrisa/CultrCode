@@ -414,7 +414,7 @@ export const nanoInfluencers: NanoInfluencer[] = [
     id: 'nano-carlos-business',
     handle: '@carlosside hustle',
     name: 'Carlos Rodriguez',
-    platform: 'linkedin',
+    platform: 'discord',
     followers: 7200,
     engagementRate: 6.8,
     niche: ['entrepreneurship', 'side hustles', 'professional development'],
