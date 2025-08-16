@@ -385,7 +385,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Y2K Revival aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -513,7 +513,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-y2k-revival",
         "handle": "@y2krevival",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 226939,
         "tier": "macro",
         "engagement": 4.2,
@@ -571,7 +571,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Minimalist Living aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -697,7 +697,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-minimalist-living",
         "handle": "@minimalistliving",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 501628,
         "tier": "macro",
         "engagement": 11.6,
@@ -941,7 +941,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Vintage Fashion aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -1067,7 +1067,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-vintage-fashion",
         "handle": "@vintagefashion",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 466082,
         "tier": "macro",
         "engagement": 2.7,
@@ -1125,7 +1125,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Art Nouveau aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -1251,7 +1251,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-art-nouveau",
         "handle": "@artnouveau",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 114294,
         "tier": "macro",
         "engagement": 9.0,
@@ -2048,7 +2048,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Pastel Goth aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -2174,7 +2174,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-pastel-goth",
         "handle": "@pastelgoth",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 323950,
         "tier": "macro",
         "engagement": 6.1,
@@ -2232,7 +2232,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A visual community centered around Kawaii Culture aesthetic, focusing on style, design, and creative expression",
     "category": "aesthetic",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -2360,7 +2360,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-kawaii-culture",
         "handle": "@kawaiiculture",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 192180,
         "tier": "macro",
         "engagement": 8.9,
@@ -2786,7 +2786,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Digital Nomads lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -2914,7 +2914,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-digital-nomads",
         "handle": "@digitalnomads",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 203972,
         "tier": "macro",
         "engagement": 7.8,
@@ -3156,7 +3156,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Zero Waste lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -3283,7 +3283,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-zero-waste",
         "handle": "@zerowaste",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 32973,
         "tier": "micro",
         "engagement": 11.0,
@@ -3710,7 +3710,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Minimalists lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -3838,7 +3838,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-minimalists",
         "handle": "@minimalists",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 16742,
         "tier": "micro",
         "engagement": 5.9,
@@ -3896,7 +3896,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Van Life lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -4024,7 +4024,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-van-life",
         "handle": "@vanlife",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 374810,
         "tier": "macro",
         "engagement": 9.0,
@@ -4082,7 +4082,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Off-Grid Living lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -4210,7 +4210,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-off-grid-living",
         "handle": "@off-gridliving",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 355945,
         "tier": "macro",
         "engagement": 6.2,
@@ -4268,7 +4268,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Hygge Lifestyle lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -4396,7 +4396,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-hygge-lifestyle",
         "handle": "@hyggelifestyle",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 151708,
         "tier": "macro",
         "engagement": 10.4,
@@ -4639,7 +4639,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the FIRE Movement lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "massive",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -4765,7 +4765,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-fire-movement",
         "handle": "@firemovement",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 337657,
         "tier": "macro",
         "engagement": 7.9,
@@ -5008,7 +5008,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Life Optimizers lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -5135,7 +5135,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-life-optimizers",
         "handle": "@lifeoptimizers",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 236957,
         "tier": "macro",
         "engagement": 12.0,
@@ -5193,7 +5193,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals embracing the Intentional Living lifestyle, sharing experiences and building community around shared values",
     "category": "lifestyle",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -5319,7 +5319,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-intentional-living",
         "handle": "@intentionalliving",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 377841,
         "tier": "macro",
         "engagement": 9.6,
@@ -6301,7 +6301,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Marketing Professionals connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -6427,7 +6427,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-marketing-professionals",
         "handle": "@marketingprofessionals",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 21129,
         "tier": "micro",
         "engagement": 10.8,
@@ -6857,7 +6857,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Sales Professionals connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "massive",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -6983,7 +6983,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-sales-professionals",
         "handle": "@salesprofessionals",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 250499,
         "tier": "macro",
         "engagement": 10.9,
@@ -7041,7 +7041,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "HR Leaders connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -7167,7 +7167,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-hr-leaders",
         "handle": "@hrleaders",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 215884,
         "tier": "macro",
         "engagement": 6.5,
@@ -7409,7 +7409,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Consultants connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -7535,7 +7535,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-consultants",
         "handle": "@consultants",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 460504,
         "tier": "macro",
         "engagement": 10.9,
@@ -7593,7 +7593,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Career Coaches connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -7720,7 +7720,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-career-coaches",
         "handle": "@careercoaches",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 426794,
         "tier": "macro",
         "engagement": 7.3,
@@ -7964,7 +7964,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Product Managers connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "massive",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -8090,7 +8090,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-product-managers",
         "handle": "@productmanagers",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 281636,
         "tier": "macro",
         "engagement": 10.6,
@@ -8148,7 +8148,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Tech Recruiters connecting to share industry insights, career advice, and professional development opportunities",
     "category": "professional",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -8274,7 +8274,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-tech-recruiters",
         "handle": "@techrecruiters",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 494204,
         "tier": "macro",
         "engagement": 5.1,
@@ -8702,7 +8702,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Enthusiasts passionate about Urban Gardeners, sharing techniques, projects, and connecting with fellow hobbyists",
     "category": "hobby",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -8830,7 +8830,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-urban-gardeners",
         "handle": "@urbangardeners",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 229574,
         "tier": "macro",
         "engagement": 9.6,
@@ -9259,7 +9259,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Enthusiasts passionate about Vinyl Collectors, sharing techniques, projects, and connecting with fellow hobbyists",
     "category": "hobby",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -9387,7 +9387,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-vinyl-collectors",
         "handle": "@vinylcollectors",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 213171,
         "tier": "macro",
         "engagement": 6.3,
@@ -9445,7 +9445,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Enthusiasts passionate about Model Train Builders, sharing techniques, projects, and connecting with fellow hobbyists",
     "category": "hobby",
     "size": "massive",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -9572,7 +9572,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-model-train-builders",
         "handle": "@modeltrainbuilders",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 470221,
         "tier": "macro",
         "engagement": 5.2,
@@ -10184,7 +10184,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Enthusiasts passionate about Woodworkers, sharing techniques, projects, and connecting with fellow hobbyists",
     "category": "hobby",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -10311,7 +10311,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-woodworkers",
         "handle": "@woodworkers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 34210,
         "tier": "micro",
         "engagement": 11.0,
@@ -10739,7 +10739,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Enthusiasts passionate about Origami Artists, sharing techniques, projects, and connecting with fellow hobbyists",
     "category": "hobby",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -10866,7 +10866,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-origami-artists",
         "handle": "@origamiartists",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 66154,
         "tier": "micro",
         "engagement": 8.3,
@@ -11478,7 +11478,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A cultural community celebrating Latin Music Lovers, sharing content and building connections around shared interests",
     "category": "cultural",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -11604,7 +11604,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-latin-music-lovers",
         "handle": "@latinmusiclovers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 47262,
         "tier": "micro",
         "engagement": 5.8,
@@ -12400,7 +12400,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A cultural community celebrating Art Gallery Goers, sharing content and building connections around shared interests",
     "category": "cultural",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -12526,7 +12526,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-art-gallery-goers",
         "handle": "@artgallerygoers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 456922,
         "tier": "macro",
         "engagement": 9.0,
@@ -12584,7 +12584,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A cultural community celebrating Museum Enthusiasts, sharing content and building connections around shared interests",
     "category": "cultural",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -12710,7 +12710,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-museum-enthusiasts",
         "handle": "@museumenthusiasts",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 293838,
         "tier": "macro",
         "engagement": 7.5,
@@ -12953,7 +12953,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A cultural community celebrating Folk Music Revival, sharing content and building connections around shared interests",
     "category": "cultural",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -13079,7 +13079,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-folk-music-revival",
         "handle": "@folkmusicrevival",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 80143,
         "tier": "micro",
         "engagement": 5.9,
@@ -13692,7 +13692,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "A cultural community celebrating Opera Lovers, sharing content and building connections around shared interests",
     "category": "cultural",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -13819,7 +13819,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-opera-lovers",
         "handle": "@operalovers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 466671,
         "tier": "macro",
         "engagement": 6.9,
@@ -14062,7 +14062,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Meditation Circle practices and lifestyle choices",
     "category": "wellness",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -14188,7 +14188,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-meditation-circle",
         "handle": "@meditationcircle",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 186839,
         "tier": "macro",
         "engagement": 6.3,
@@ -14430,7 +14430,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Fitness Enthusiasts practices and lifestyle choices",
     "category": "wellness",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -14556,7 +14556,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-fitness-enthusiasts",
         "handle": "@fitnessenthusiasts",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 165167,
         "tier": "macro",
         "engagement": 11.6,
@@ -15355,7 +15355,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Pilates Community practices and lifestyle choices",
     "category": "wellness",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -15482,7 +15482,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-pilates-community",
         "handle": "@pilatescommunity",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 27373,
         "tier": "micro",
         "engagement": 7.9,
@@ -15540,7 +15540,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Cycling Enthusiasts practices and lifestyle choices",
     "category": "wellness",
     "size": "massive",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -15668,7 +15668,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-cycling-enthusiasts",
         "handle": "@cyclingenthusiasts",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 264078,
         "tier": "macro",
         "engagement": 3.7,
@@ -15911,7 +15911,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Marathon Runners practices and lifestyle choices",
     "category": "wellness",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -16039,7 +16039,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-marathon-runners",
         "handle": "@marathonrunners",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 432663,
         "tier": "macro",
         "engagement": 4.6,
@@ -16283,7 +16283,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Alternative Medicine practices and lifestyle choices",
     "category": "wellness",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -16411,7 +16411,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-alternative-medicine",
         "handle": "@alternativemedicine",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 136847,
         "tier": "macro",
         "engagement": 11.2,
@@ -16469,7 +16469,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Health and wellness focused community centered around Breathwork Practitioners practices and lifestyle choices",
     "category": "wellness",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -16597,7 +16597,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-breathwork-practitioners",
         "handle": "@breathworkpractitioners",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 210076,
         "tier": "macro",
         "engagement": 8.5,
@@ -16655,7 +16655,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Technology enthusiasts and professionals in the AI Enthusiasts space, sharing knowledge and innovations",
     "category": "tech",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -16783,7 +16783,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-ai-enthusiasts",
         "handle": "@aienthusiasts",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 255561,
         "tier": "macro",
         "engagement": 11.0,
@@ -17025,7 +17025,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Technology enthusiasts and professionals in the Open Source Developers space, sharing knowledge and innovations",
     "category": "tech",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -17153,7 +17153,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-open-source-developers",
         "handle": "@opensourcedevelopers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 433534,
         "tier": "macro",
         "engagement": 7.4,
@@ -18505,7 +18505,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Technology enthusiasts and professionals in the Mobile App Developers space, sharing knowledge and innovations",
     "category": "tech",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -18631,7 +18631,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-mobile-app-developers",
         "handle": "@mobileappdevelopers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 46990,
         "tier": "micro",
         "engagement": 4.0,
@@ -18689,7 +18689,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Technology enthusiasts and professionals in the Web3 Builders space, sharing knowledge and innovations",
     "category": "tech",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -18816,7 +18816,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-web3-builders",
         "handle": "@web3builders",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 65311,
         "tier": "micro",
         "engagement": 11.6,
@@ -18874,7 +18874,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Technology enthusiasts and professionals in the Hardware Hackers space, sharing knowledge and innovations",
     "category": "tech",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -19000,7 +19000,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-hardware-hackers",
         "handle": "@hardwarehackers",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 29823,
         "tier": "micro",
         "engagement": 2.3,
@@ -19428,7 +19428,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Digital Artists, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -19555,7 +19555,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-digital-artists",
         "handle": "@digitalartists",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 215097,
         "tier": "macro",
         "engagement": 7.2,
@@ -19798,7 +19798,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Indie Musicians, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -19926,7 +19926,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-indie-musicians",
         "handle": "@indiemusicians",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 315746,
         "tier": "macro",
         "engagement": 2.0,
@@ -20168,7 +20168,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in YouTubers, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -20294,7 +20294,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-youtubers",
         "handle": "@youtubers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 237604,
         "tier": "macro",
         "engagement": 7.7,
@@ -20352,7 +20352,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Graphic Designers, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -20478,7 +20478,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-graphic-designers",
         "handle": "@graphicdesigners",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 223541,
         "tier": "macro",
         "engagement": 3.4,
@@ -20907,7 +20907,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Photographers, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -21035,7 +21035,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-photographers",
         "handle": "@photographers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 114389,
         "tier": "macro",
         "engagement": 7.7,
@@ -21277,7 +21277,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Video Editors, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -21403,7 +21403,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-video-editors",
         "handle": "@videoeditors",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 160056,
         "tier": "macro",
         "engagement": 7.1,
@@ -22019,7 +22019,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Creative professionals and artists in Social Media Creators, sharing work, collaborating, and building careers",
     "category": "creative",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -22145,7 +22145,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-social-media-creators",
         "handle": "@socialmediacreators",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 489693,
         "tier": "macro",
         "engagement": 3.5,
@@ -22943,7 +22943,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Activists and advocates working on Volunteer Network issues, organizing and creating social change",
     "category": "social-cause",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -23071,7 +23071,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-volunteer-network",
         "handle": "@volunteernetwork",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 111912,
         "tier": "macro",
         "engagement": 5.4,
@@ -23313,7 +23313,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Activists and advocates working on Human Rights Advocates issues, organizing and creating social change",
     "category": "social-cause",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -23439,7 +23439,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-human-rights-advocates",
         "handle": "@humanrightsadvocates",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 270724,
         "tier": "macro",
         "engagement": 11.4,
@@ -24050,7 +24050,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Activists and advocates working on Healthcare Access issues, organizing and creating social change",
     "category": "social-cause",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -24178,7 +24178,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-healthcare-access",
         "handle": "@healthcareaccess",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 452733,
         "tier": "macro",
         "engagement": 12.0,
@@ -24977,7 +24977,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of CrossFit Community, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -25105,7 +25105,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-crossfit-community",
         "handle": "@crossfitcommunity",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 294930,
         "tier": "macro",
         "engagement": 2.8,
@@ -25532,7 +25532,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Runners, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -25659,7 +25659,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-runners",
         "handle": "@runners",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 34730,
         "tier": "micro",
         "engagement": 8.1,
@@ -25903,7 +25903,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Basketball Fans, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -26029,7 +26029,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-basketball-fans",
         "handle": "@basketballfans",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 140388,
         "tier": "macro",
         "engagement": 7.4,
@@ -26087,7 +26087,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Soccer Enthusiasts, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -26213,7 +26213,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-soccer-enthusiasts",
         "handle": "@soccerenthusiasts",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 435613,
         "tier": "macro",
         "engagement": 2.7,
@@ -26271,7 +26271,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Tennis Players, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -26397,7 +26397,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-tennis-players",
         "handle": "@tennisplayers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 196203,
         "tier": "macro",
         "engagement": 8.9,
@@ -26455,7 +26455,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Golf Community, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -26581,7 +26581,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-golf-community",
         "handle": "@golfcommunity",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 397917,
         "tier": "macro",
         "engagement": 4.5,
@@ -26639,7 +26639,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Hiking Groups, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -26766,7 +26766,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-hiking-groups",
         "handle": "@hikinggroups",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 27702,
         "tier": "micro",
         "engagement": 7.9,
@@ -27193,7 +27193,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Athletes and fans of Martial Arts, sharing training tips, achievements, and building sporting community",
     "category": "sports",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -27320,7 +27320,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-martial-arts",
         "handle": "@martialarts",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 421199,
         "tier": "macro",
         "engagement": 4.2,
@@ -27935,7 +27935,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Craft Beer Lovers, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -28062,7 +28062,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-craft-beer-lovers",
         "handle": "@craftbeerlovers",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 349908,
         "tier": "macro",
         "engagement": 4.7,
@@ -28120,7 +28120,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Coffee Aficionados, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -28248,7 +28248,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-coffee-aficionados",
         "handle": "@coffeeaficionados",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 410242,
         "tier": "macro",
         "engagement": 7.7,
@@ -28306,7 +28306,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Baking Community, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "massive",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -28432,7 +28432,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-baking-community",
         "handle": "@bakingcommunity",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 270254,
         "tier": "macro",
         "engagement": 5.8,
@@ -28490,7 +28490,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Wine Enthusiasts, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "emerging",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -28618,7 +28618,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-wine-enthusiasts",
         "handle": "@wineenthusiasts",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 34378,
         "tier": "micro",
         "engagement": 7.6,
@@ -29418,7 +29418,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Cooking Enthusiasts, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -29545,7 +29545,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-cooking-enthusiasts",
         "handle": "@cookingenthusiasts",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 273129,
         "tier": "macro",
         "engagement": 11.9,
@@ -29789,7 +29789,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Organic Food, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "emerging",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -29917,7 +29917,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-organic-food",
         "handle": "@organicfood",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 250216,
         "tier": "macro",
         "engagement": 11.6,
@@ -30346,7 +30346,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Food lovers focused on Culinary Artists, sharing recipes, experiences, and culinary adventures",
     "category": "food",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -30474,7 +30474,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-culinary-artists",
         "handle": "@culinaryartists",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 331289,
         "tier": "macro",
         "engagement": 5.6,
@@ -30717,7 +30717,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Travelers and adventurers specializing in Budget Backpackers experiences, sharing tips and inspiration",
     "category": "travel",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -30844,7 +30844,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-budget-backpackers",
         "handle": "@budgetbackpackers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 112912,
         "tier": "macro",
         "engagement": 10.3,
@@ -30902,7 +30902,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Travelers and adventurers specializing in Luxury Travelers experiences, sharing tips and inspiration",
     "category": "travel",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -31028,7 +31028,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-luxury-travelers",
         "handle": "@luxurytravelers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 365719,
         "tier": "macro",
         "engagement": 7.3,
@@ -31272,7 +31272,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Travelers and adventurers specializing in Cultural Travelers experiences, sharing tips and inspiration",
     "category": "travel",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -31399,7 +31399,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-cultural-travelers",
         "handle": "@culturaltravelers",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 293030,
         "tier": "macro",
         "engagement": 4.3,
@@ -32941,7 +32941,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Travelers and adventurers specializing in Cruise Enthusiasts experiences, sharing tips and inspiration",
     "category": "travel",
     "size": "established",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -33067,7 +33067,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-cruise-enthusiasts",
         "handle": "@cruiseenthusiasts",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 488984,
         "tier": "macro",
         "engagement": 3.1,
@@ -33864,7 +33864,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Homeschooling Parents sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -33991,7 +33991,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-homeschooling-parents",
         "handle": "@homeschoolingparents",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 307645,
         "tier": "macro",
         "engagement": 5.7,
@@ -34049,7 +34049,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Working Parents sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -34177,7 +34177,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-working-parents",
         "handle": "@workingparents",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 180241,
         "tier": "macro",
         "engagement": 6.1,
@@ -34604,7 +34604,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Special Needs Parents sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -34731,7 +34731,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-special-needs-parents",
         "handle": "@specialneedsparents",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 476968,
         "tier": "macro",
         "engagement": 11.5,
@@ -34975,7 +34975,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Gentle Parenting sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -35101,7 +35101,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-gentle-parenting",
         "handle": "@gentleparenting",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 460327,
         "tier": "macro",
         "engagement": 4.5,
@@ -35159,7 +35159,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Montessori Parents sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -35285,7 +35285,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-montessori-parents",
         "handle": "@montessoriparents",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 486745,
         "tier": "macro",
         "engagement": 8.0,
@@ -35343,7 +35343,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Waldorf Education sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -35470,7 +35470,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-waldorf-education",
         "handle": "@waldorfeducation",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 259398,
         "tier": "macro",
         "engagement": 4.8,
@@ -35714,7 +35714,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Baby-wearing sharing parenting experiences, advice, and building supportive community networks",
     "category": "parenting",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -35840,7 +35840,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-baby-wearing",
         "handle": "@baby-wearing",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 95243,
         "tier": "micro",
         "engagement": 7.7,
@@ -36084,7 +36084,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Personal Finance strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -36210,7 +36210,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-personal-finance",
         "handle": "@personalfinance",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 38407,
         "tier": "micro",
         "engagement": 10.5,
@@ -36638,7 +36638,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Real Estate Investors strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "emerging",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -36764,7 +36764,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-real-estate-investors",
         "handle": "@realestateinvestors",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 245511,
         "tier": "macro",
         "engagement": 4.6,
@@ -37006,7 +37006,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Financial Independence strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "growing",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -37134,7 +37134,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-financial-independence",
         "handle": "@financialindependence",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 445135,
         "tier": "macro",
         "engagement": 11.6,
@@ -37192,7 +37192,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Dividend Investors strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -37319,7 +37319,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-dividend-investors",
         "handle": "@dividendinvestors",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 85701,
         "tier": "micro",
         "engagement": 6.9,
@@ -37934,7 +37934,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Debt-Free Journey strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "massive",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -38061,7 +38061,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-debt-free-journey",
         "handle": "@debt-freejourney",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 25513,
         "tier": "micro",
         "engagement": 4.9,
@@ -38119,7 +38119,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Side Hustlers strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "established",
-    "platform": "linkedin",
+    "platform": "discord",
     "characteristics": {
       "values": [
         "community",
@@ -38246,7 +38246,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-side-hustlers",
         "handle": "@sidehustlers",
-        "platform": "linkedin",
+        "platform": "discord",
         "followers": 196967,
         "tier": "macro",
         "engagement": 9.9,
@@ -38304,7 +38304,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Business Investors strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "established",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -38430,7 +38430,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-business-investors",
         "handle": "@businessinvestors",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 453983,
         "tier": "macro",
         "engagement": 11.8,
@@ -38488,7 +38488,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Individuals focused on Frugal Living strategies, sharing tips and building wealth together",
     "category": "finance",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -38614,7 +38614,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-frugal-living",
         "handle": "@frugalliving",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 456062,
         "tier": "macro",
         "engagement": 10.2,
@@ -39041,7 +39041,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Educators and learners in Online Educators, sharing resources, methods, and educational innovation",
     "category": "education",
     "size": "growing",
-    "platform": "twitter",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -39167,7 +39167,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-online-educators",
         "handle": "@onlineeducators",
-        "platform": "twitter",
+        "platform": "reddit",
         "followers": 68889,
         "tier": "micro",
         "engagement": 9.7,
@@ -39596,7 +39596,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Educators and learners in Skill Sharers, sharing resources, methods, and educational innovation",
     "category": "education",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -39724,7 +39724,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-skill-sharers",
         "handle": "@skillsharers",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 114157,
         "tier": "macro",
         "engagement": 6.6,
@@ -40150,7 +40150,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Educators and learners in Arts Education, sharing resources, methods, and educational innovation",
     "category": "education",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -40277,7 +40277,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-arts-education",
         "handle": "@artseducation",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 74586,
         "tier": "micro",
         "engagement": 7.1,
@@ -41445,7 +41445,7 @@ export const allMicroCommunities: MicroCommunity[] = [
     "description": "Educators and learners in Learning Community, sharing resources, methods, and educational innovation",
     "category": "education",
     "size": "growing",
-    "platform": "substack",
+    "platform": "reddit",
     "characteristics": {
       "values": [
         "community",
@@ -41571,7 +41571,7 @@ export const allMicroCommunities: MicroCommunity[] = [
       {
         "id": "inf-learning-community",
         "handle": "@learningcommunity",
-        "platform": "substack",
+        "platform": "reddit",
         "followers": 254307,
         "tier": "macro",
         "engagement": 8.7,

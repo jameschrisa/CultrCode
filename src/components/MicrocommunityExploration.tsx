@@ -3,8 +3,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Filter, Users, TrendingUp, MapPin, Crown, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
-import { FaInstagram, FaTiktok, FaYoutube, FaLinkedin, FaTwitter, FaDiscord } from 'react-icons/fa'
-import { SiSubstack } from 'react-icons/si'
+import { FaInstagram, FaTiktok, FaYoutube, FaDiscord, FaReddit } from 'react-icons/fa'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { MicroCommunity, CommunityCategory, CommunitySize, Platform } from '@/types/segments'
@@ -92,7 +91,7 @@ export function MicrocommunityExploration({ className }: MicrocommunityExplorati
   ]
 
   const sizes: (CommunitySize | 'all')[] = ['all', 'emerging', 'growing', 'established', 'massive']
-  const platforms: (Platform | 'all')[] = ['all', 'instagram', 'tiktok', 'youtube', 'linkedin', 'twitter', 'substack', 'discord']
+  const platforms: (Platform | 'all')[] = ['all', 'reddit', 'tiktok', 'instagram', 'youtube', 'discord']
 
   const getSizeInfo = (size: CommunitySize) => {
     const sizeMap = {
@@ -106,13 +105,11 @@ export function MicrocommunityExploration({ className }: MicrocommunityExplorati
 
   const getPlatformIcon = (platform: Platform) => {
     const iconMap = {
-      'instagram': <FaInstagram className="w-4 h-4" />,
+      'reddit': <FaReddit className="w-4 h-4" />,
       'tiktok': <FaTiktok className="w-4 h-4" />,
+      'instagram': <FaInstagram className="w-4 h-4" />,
       'youtube': <FaYoutube className="w-4 h-4" />,
-      'linkedin': <FaLinkedin className="w-4 h-4" />,
-      'twitter': <FaTwitter className="w-4 h-4" />,
-      'discord': <FaDiscord className="w-4 h-4" />,
-      'substack': <SiSubstack className="w-4 h-4" />
+      'discord': <FaDiscord className="w-4 h-4" />
     }
     return iconMap[platform] || <span className="text-xs font-bold">{platform.charAt(0).toUpperCase()}</span>
   }
