@@ -71,7 +71,7 @@ export class EnhancedPersonaGenerator {
       sourceId: sources[0]?.id,
       sourceName: sources[0]?.data?.name,
       demographics,
-      psychographics: finalPsychographics,
+      psychographics: finalPsychographics as any, // Type assertion for now
       values: insights.values,
       personality: insights.personality,
       interests: insights.interests,
@@ -85,7 +85,7 @@ export class EnhancedPersonaGenerator {
       lastModified: new Date().toISOString(),
       isActive: true,
       chatEnabled: true
-    }
+    } as PersonaDBRecord
   }
   
   /**
@@ -221,7 +221,7 @@ export class EnhancedPersonaGenerator {
   /**
    * Generate psychographic scores based on source attributes
    */
-  private static generatePsychographicsFromSources(attributes: { [key: string]: any[] }): { [key: string]: number } {
+  private static generatePsychographicsFromSources(attributes: { [key: string]: any[] }) {
     const psychographics: { [key: string]: number } = {
       sustainabilityImportance: 3,
       convenienceOrientation: 3,
@@ -393,7 +393,7 @@ export class EnhancedPersonaGenerator {
   /**
    * Create attribute mappings for database tracking
    */
-  private static createAttributeMappings(sources: SourceData[], insights: any): AttributeMapping[] {
+  static createAttributeMappings(sources: SourceData[], insights: any): AttributeMapping[] {
     const mappings: AttributeMapping[] = []
     
     sources.forEach(source => {
