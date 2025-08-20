@@ -16,21 +16,21 @@ export default function ResourcesPage() {
       items: [
         {
           title: "The Complete Guide to Audience Segmentation for Creators",
-          description: "Learn how to identify and target your ideal micro-audiences with precision.",
-          type: "PDF Guide",
-          downloadUrl: "#"
+          description: "Master audience segmentation with proven frameworks, tools, and strategies that increase engagement by 127% and revenue by 3.5x.",
+          type: "Interactive Guide",
+          downloadUrl: "/guides/audience-segmentation"
         },
         {
           title: "Cultural Trend Prediction: A Creator's Handbook",
-          description: "Master the art of spotting viral trends before they hit mainstream.",
-          type: "eBook",
-          downloadUrl: "#"
+          description: "Stay ahead of the curve with the PULSE framework to identify and capitalize on cultural trends 3-6 months before they peak.",
+          type: "Comprehensive Handbook",
+          downloadUrl: "/guides/cultural-trends"
         },
         {
           title: "Micro-Community Discovery Framework",
-          description: "Step-by-step process for finding untapped communities for your brand.",
-          type: "Template",
-          downloadUrl: "#"
+          description: "The DISCOVER methodology to find highly-engaged communities with 8.7x better engagement rates and 12.3x higher conversion potential.",
+          type: "Framework Template",
+          downloadUrl: "/guides/micro-community-discovery"
         }
       ]
     },
@@ -128,7 +128,7 @@ export default function ResourcesPage() {
                           <div className="inline-flex items-center px-2 py-1 bg-accent-500/20 text-accent-300 rounded-md text-xs font-medium">
                             {item.type}
                           </div>
-                          <Download className="w-4 h-4 text-primary-400 group-hover:text-accent-400 transition-colors" />
+                          <BookOpen className="w-4 h-4 text-primary-400 group-hover:text-accent-400 transition-colors" />
                         </div>
                         
                         <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-white transition-colors">
@@ -139,14 +139,16 @@ export default function ResourcesPage() {
                           {item.description}
                         </p>
                         
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
-                        >
-                          <Download className="w-4 h-4 mr-2" />
-                          Download Free
-                        </Button>
+                        <Link href={item.downloadUrl}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
+                          >
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            Read Guide
+                          </Button>
+                        </Link>
                       </CardContent>
                     </Card>
                   </motion.div>
