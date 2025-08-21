@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronDown, ChevronRight, TrendingUp, BarChart3, Users, Globe, Brain, Target, Calendar, Award, DollarSign, Zap, Eye, ArrowRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, TrendingUp, BarChart3, Users, Globe, Brain, Target, Calendar, Award, DollarSign, Zap, Eye, ArrowRight, Heart } from 'lucide-react'
 
 interface TableOfContentsProps {}
 
