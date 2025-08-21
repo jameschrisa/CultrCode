@@ -40,21 +40,21 @@ export default function ResourcesPage() {
       items: [
         {
           title: "State of Cultural Intelligence 2024",
-          description: "Annual report on cultural trends, micro-communities, and creator economy insights.",
+          description: "Comprehensive analysis of the $47.2B creator economy market, cultural trends, and micro-community insights with data from 15,000+ campaigns.",
           type: "Report",
-          downloadUrl: "#"
+          downloadUrl: "/reports/cultural-intelligence-2024"
         },
         {
           title: "Psychographic Persona Research Study",
-          description: "Analysis of how persona-driven marketing outperforms demographic targeting.",
+          description: "Research study proving psychographic-driven marketing outperforms demographic targeting by 247% across key performance metrics.",
           type: "Research",
-          downloadUrl: "#"
+          downloadUrl: "/reports/psychographic-persona-research"
         },
         {
           title: "Challenger Brand Success Patterns",
-          description: "What makes some challenger brands succeed while others fail.",
+          description: "Analysis of 847 challenger brands reveals the cultural intelligence strategies that drive 4.7x higher market penetration rates.",
           type: "Case Study",
-          downloadUrl: "#"
+          downloadUrl: "/reports/challenger-brand-success"
         }
       ]
     },
@@ -146,7 +146,7 @@ export default function ResourcesPage() {
                             className="w-full text-accent-400 hover:text-accent-300 border-accent-400/50 hover:border-accent-400"
                           >
                             <BookOpen className="w-4 h-4 mr-2" />
-                            Read Guide
+                            Read Now
                           </Button>
                         </Link>
                       </CardContent>
