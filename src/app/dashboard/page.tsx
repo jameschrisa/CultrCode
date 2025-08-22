@@ -344,13 +344,13 @@ function DashboardContent() {
             {subscriptionAccess?.canAccessAdvancedSegmentation && (
               <Button
                 variant="outline"
-                onClick={() => window.location.href = '/advanced-segmentation'}
+                onClick={() => window.location.href = '/segments'}
                 className="p-4 h-auto flex items-center justify-start space-x-3 rounded-xl hover:shadow-lg hover:shadow-accent-500/20 hover:border-accent-400 transition-all duration-300"
               >
                 <Target className="w-5 h-5 text-accent-400" />
                 <div className="text-left">
-                  <div className="font-medium text-primary-50">Advanced Segmentation</div>
-                  <div className="text-xs text-primary-400">Hyperlocal targeting</div>
+                  <div className="font-medium text-primary-50">Segments</div>
+                  <div className="text-xs text-primary-400">Audience targeting</div>
                 </div>
               </Button>
             )}

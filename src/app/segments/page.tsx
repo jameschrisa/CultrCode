@@ -102,6 +102,43 @@ function SegmentsContent() {
             </Card>
           </div>
 
+          {/* Advanced Segmentation CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-8"
+          >
+            <Card className="glass-card bg-gradient-to-r from-accent-500/10 via-accent-600/5 to-brand-500/10 border border-accent-500/30 hover:border-accent-500/50 transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex flex-col lg:flex-row items-center justify-between">
+                  <div className="flex items-center space-x-4 mb-4 lg:mb-0">
+                    <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center">
+                      <Target className="w-6 h-6 text-accent-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-primary-50 mb-1">
+                        Advanced Segmentation Workflow
+                      </h3>
+                      <p className="text-primary-300 text-sm">
+                        Get personalized segment recommendations based on your brand, audience, and goals
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="primary"
+                    onClick={() => window.location.href = '/advanced-segmentation'}
+                    className="bg-accent-500 hover:bg-accent-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 hover:shadow-lg hover:shadow-accent-500/20 transition-all duration-300"
+                  >
+                    <Target className="w-4 h-4" />
+                    <span>Start Advanced Workflow</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
           {/* Search and Filters */}
           <div className="flex flex-col lg:flex-row gap-4 mb-8">
             <div className="flex-1 relative">
