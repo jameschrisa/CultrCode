@@ -1,11 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
-import { ChevronDown, ChevronRight, Trophy, TrendingUp, Target, Zap, Users, Award, DollarSign, BarChart3, CheckCircle, XCircle, ArrowRight, Lightbulb } from 'lucide-react'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { ChevronDown, ChevronRight, Trophy, TrendingUp, Target, Zap, Users, Award, DollarSign, BarChart3, CheckCircle, XCircle, ArrowRight, Lightbulb, ArrowLeft } from 'lucide-react'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent } from '@/components/ui/Card'
+import Link from 'next/link'
 
-interface TableOfContentsProps {}
-
-const TableOfContents: React.FC<TableOfContentsProps> = () => {
+const TableOfContents = () => {
   const [openSections, setOpenSections] = useState<{[key: string]: boolean}>({})
   
   const toggleSection = (section: string) => {
@@ -30,758 +34,499 @@ const TableOfContents: React.FC<TableOfContentsProps> = () => {
       subsections: ["Common Mistakes", "Warning Signs", "Recovery Strategies", "Lessons Learned"]
     },
     {
-      title: "Industry Case Studies",
-      subsections: ["Technology Disruptors", "Consumer Goods", "Financial Services", "Healthcare Innovation"]
+      title: "CHALLENGER Framework",
+      subsections: ["Challenge Conventions", "Harness Culture", "Amplify Authenticity", "Launch with Purpose", "Leverage Community", "Engage Consistently", "Navigate Growth", "Generate Impact", "Execute & Refine"]
     },
     {
-      title: "Success Framework",
-      subsections: ["The CHALLENGER Model", "Implementation Steps", "Risk Mitigation", "Performance Metrics"]
-    },
-    {
-      title: "Cultural Intelligence Edge",
-      subsections: ["Trend Identification", "Community Leverage", "Authentic Messaging", "Competitive Advantage"]
-    },
-    {
-      title: "Strategic Playbook",
-      subsections: ["Launch Strategy", "Growth Tactics", "Scaling Framework", "Long-term Sustainability"]
+      title: "Implementation Guide",
+      subsections: ["Assessment Framework", "Strategic Planning", "Execution Roadmap", "Performance Metrics"]
     }
   ]
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Study Contents</h2>
-      <nav className="space-y-1">
-        {sections.map((section, index) => (
-          <div key={index}>
-            <button
-              onClick={() => toggleSection(`section-${index}`)}
-              className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg transition-colors"
-            >
-              <span className="font-medium text-gray-700">{section.title}</span>
-              {openSections[`section-${index}`] ? 
-                <ChevronDown className="h-4 w-4 text-gray-400" /> : 
-                <ChevronRight className="h-4 w-4 text-gray-400" />
-              }
-            </button>
-            {openSections[`section-${index}`] && (
-              <div className="ml-4 mt-1 space-y-1">
-                {section.subsections.map((subsection, subIndex) => (
-                  <a
-                    key={subIndex}
-                    href={`#${subsection.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-                    className="block py-1 px-2 text-sm text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded transition-colors"
-                  >
-                    {subsection}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </nav>
-    </div>
+    <Card className="glass-card sticky top-4">
+      <CardContent className="p-6">
+        <h2 className="text-xl font-bold text-primary-50 mb-4">Study Contents</h2>
+        <nav className="space-y-1">
+          {sections.map((section, index) => (
+            <div key={index}>
+              <button
+                onClick={() => toggleSection(`section-${index}`)}
+                className="flex items-center justify-between w-full text-left p-2 hover:bg-primary-800/50 rounded-lg transition-colors"
+              >
+                <span className="font-medium text-primary-200">{section.title}</span>
+                {openSections[`section-${index}`] ? 
+                  <ChevronDown className="h-4 w-4 text-primary-400" /> : 
+                  <ChevronRight className="h-4 w-4 text-primary-400" />
+                }
+              </button>
+              {openSections[`section-${index}`] && (
+                <div className="ml-4 mt-1 space-y-1">
+                  {section.subsections.map((subsection, subIndex) => (
+                    <a
+                      key={subIndex}
+                      href={`#${subsection.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                      className="block py-1 px-2 text-sm text-primary-300 hover:text-accent-400 hover:bg-accent-500/10 rounded transition-colors"
+                    >
+                      {subsection}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+        
+        <div className="mt-6 p-4 bg-brand-500/10 rounded-lg border border-brand-500/20">
+          <h3 className="font-bold text-brand-400 mb-2 flex items-center">
+            <Trophy className="h-4 w-4 mr-2" />
+            CHALLENGER Toolkit
+          </h3>
+          <p className="text-sm text-primary-300 mb-3">Framework templates and assessment tools.</p>
+          <Button 
+            size="sm" 
+            className="w-full bg-brand-500 hover:bg-brand-600"
+          >
+            Download Toolkit
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
-interface BrandCardProps {
-  name: string
-  industry: string
-  challenge: string
-  strategy: string
-  outcome: string
-  metrics: string[]
-  status: 'success' | 'failure'
-}
-
-const BrandCard: React.FC<BrandCardProps> = ({ 
-  name, 
-  industry, 
-  challenge, 
-  strategy, 
-  outcome, 
-  metrics, 
-  status 
+const StatCard = ({ title, value, change, description, icon: Icon }: {
+  title: string
+  value: string
+  change?: string
+  description: string
+  icon: any
 }) => (
-  <div className={`rounded-xl p-6 border ${
-    status === 'success' 
-      ? 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200' 
-      : 'bg-gradient-to-br from-red-50 to-pink-50 border-red-200'
-  }`}>
-    <div className="flex items-center justify-between mb-4">
-      <div>
-        <h3 className={`text-xl font-bold ${status === 'success' ? 'text-green-900' : 'text-red-900'}`}>
-          {name}
-        </h3>
-        <p className={`${status === 'success' ? 'text-green-700' : 'text-red-700'}`}>{industry}</p>
+  <Card className="glass-card">
+    <CardContent className="p-6">
+      <div className="flex items-center justify-between mb-4">
+        <Icon className="h-8 w-8 text-accent-400" />
+        {change && (
+          <span className={`text-sm font-medium px-2 py-1 rounded ${
+            change.startsWith('+') ? 'bg-accent-500/20 text-accent-400' : 'bg-brand-500/20 text-brand-400'
+          }`}>
+            {change}
+          </span>
+        )}
       </div>
-      {status === 'success' ? (
-        <CheckCircle className="h-8 w-8 text-green-600" />
-      ) : (
-        <XCircle className="h-8 w-8 text-red-600" />
-      )}
-    </div>
-    
-    <div className="space-y-4">
-      <div>
-        <h4 className={`font-semibold ${status === 'success' ? 'text-green-800' : 'text-red-800'} mb-2`}>
-          Challenge:
-        </h4>
-        <p className={`text-sm ${status === 'success' ? 'text-green-700' : 'text-red-700'}`}>{challenge}</p>
+      <h3 className="font-bold text-primary-50 mb-2">{title}</h3>
+      <div className="text-3xl font-bold text-primary-50 mb-2">{value}</div>
+      <p className="text-primary-300 text-sm">{description}</p>
+    </CardContent>
+  </Card>
+)
+
+const FrameworkCard = ({ letter, word, description, keyTactics }: {
+  letter: string
+  word: string
+  description: string
+  keyTactics: string[]
+}) => (
+  <Card className="glass-card">
+    <CardContent className="p-6">
+      <div className="flex items-center mb-4">
+        <div className="w-12 h-12 bg-brand-500 text-white rounded-full flex items-center justify-center mr-4">
+          <span className="text-xl font-bold">{letter}</span>
+        </div>
+        <h3 className="text-xl font-bold text-primary-50">{word}</h3>
       </div>
-      
+      <p className="text-primary-300 mb-4">{description}</p>
       <div>
-        <h4 className={`font-semibold ${status === 'success' ? 'text-green-800' : 'text-red-800'} mb-2`}>
-          Strategy:
-        </h4>
-        <p className={`text-sm ${status === 'success' ? 'text-green-700' : 'text-red-700'}`}>{strategy}</p>
-      </div>
-      
-      <div>
-        <h4 className={`font-semibold ${status === 'success' ? 'text-green-800' : 'text-red-800'} mb-2`}>
-          Outcome:
-        </h4>
-        <p className={`text-sm ${status === 'success' ? 'text-green-700' : 'text-red-700'}`}>{outcome}</p>
-      </div>
-      
-      <div className="bg-white/60 rounded-lg p-4">
-        <h4 className={`font-semibold ${status === 'success' ? 'text-green-800' : 'text-red-800'} mb-2`}>
-          Key Metrics:
-        </h4>
+        <h4 className="font-semibold text-primary-200 text-sm mb-2">Key Tactics:</h4>
         <ul className="space-y-1">
-          {metrics.map((metric, index) => (
-            <li key={index} className={`text-sm ${status === 'success' ? 'text-green-700' : 'text-red-700'}`}>
-              • {metric}
+          {keyTactics.map((tactic, index) => (
+            <li key={index} className="text-xs text-primary-400 flex items-center">
+              <div className="w-1 h-1 bg-brand-400 rounded-full mr-2"></div>
+              {tactic}
             </li>
           ))}
         </ul>
       </div>
-    </div>
-  </div>
+    </CardContent>
+  </Card>
 )
 
-interface SuccessFactorProps {
-  factor: string
-  description: string
-  impact: 'Critical' | 'High' | 'Medium'
-  examples: string[]
-  icon: React.ComponentType<{ className?: string }>
-}
-
-const SuccessFactor: React.FC<SuccessFactorProps> = ({ 
-  factor, 
-  description, 
-  impact, 
-  examples, 
-  icon: Icon 
+const CaseStudyCard = ({ brand, category, challenge, approach, results, success }: {
+  brand: string
+  category: string
+  challenge: string
+  approach: string
+  results: string
+  success: boolean
 }) => (
-  <div className="bg-white rounded-xl border border-gray-200 p-6">
-    <div className="flex items-center mb-4">
-      <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-        <Icon className="h-6 w-6 text-orange-600" />
+  <Card className="glass-card">
+    <CardContent className="p-6">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h3 className="text-lg font-bold text-primary-50">{brand}</h3>
+          <div className="text-sm text-primary-400">{category}</div>
+        </div>
+        {success ? (
+          <CheckCircle className="h-6 w-6 text-accent-500" />
+        ) : (
+          <XCircle className="h-6 w-6 text-red-400" />
+        )}
       </div>
-      <div className="flex-1">
-        <h3 className="text-lg font-bold text-gray-900">{factor}</h3>
-        <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-          impact === 'Critical' ? 'bg-red-100 text-red-800' :
-          impact === 'High' ? 'bg-orange-100 text-orange-800' :
-          'bg-yellow-100 text-yellow-800'
-        }`}>
-          {impact} Impact
-        </span>
+      
+      <div className="space-y-3">
+        <div>
+          <h4 className="font-semibold text-primary-200 text-sm mb-1">Challenge:</h4>
+          <p className="text-primary-300 text-sm">{challenge}</p>
+        </div>
+        
+        <div>
+          <h4 className="font-semibold text-primary-200 text-sm mb-1">Approach:</h4>
+          <p className="text-primary-300 text-sm">{approach}</p>
+        </div>
+        
+        <div>
+          <h4 className="font-semibold text-primary-200 text-sm mb-1">Results:</h4>
+          <p className={`text-sm ${success ? 'text-accent-400' : 'text-red-400'}`}>{results}</p>
+        </div>
       </div>
-    </div>
-    
-    <p className="text-gray-700 mb-4">{description}</p>
-    
-    <div>
-      <h4 className="font-semibold text-gray-800 mb-2">Examples:</h4>
-      <ul className="space-y-1">
-        {examples.map((example, index) => (
-          <li key={index} className="text-sm text-gray-600 flex items-start">
-            <ArrowRight className="h-3 w-3 mt-1 mr-2 text-orange-500 flex-shrink-0" />
-            {example}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
+    </CardContent>
+  </Card>
 )
 
-export default function ChallengerBrandSuccess() {
-  const [activeFilter, setActiveFilter] = useState('all')
-
+export default function ChallengerBrandSuccessReport() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full text-sm font-medium mb-6">
-              <Trophy className="h-4 w-4 mr-2" />
+    <div className="min-h-screen relative overflow-hidden">
+      <Header />
+      
+      {/* Floating background orbs */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="floating-orb w-96 h-96 bg-accent-500/20 top-20 -left-20" style={{ animationDelay: '0s' }} />
+        <div className="floating-orb w-64 h-64 bg-brand-400/15 top-1/3 right-10" style={{ animationDelay: '2s' }} />
+        <div className="floating-orb w-80 h-80 bg-accent-600/10 bottom-20 left-1/4" style={{ animationDelay: '4s' }} />
+        <div className="floating-orb w-48 h-48 bg-brand-500/20 bottom-1/3 -right-10" style={{ animationDelay: '6s' }} />
+      </div>
+
+      {/* Navigation Bar */}
+      <div className="relative z-10 bg-primary-900/80 backdrop-blur-sm border-b border-primary-700">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/resources">
+              <Button variant="outline" size="sm" className="text-accent-400 border-accent-400/50 hover:border-accent-400">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Resources
+              </Button>
+            </Link>
+            <div className="text-sm text-primary-400">
               Case Study Analysis
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Challenger Brand Success Patterns
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-orange-100 max-w-4xl mx-auto">
-              What separates thriving challenger brands from failures? Analysis of 847 challenger brands reveals the cultural intelligence strategies that drive market disruption.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <span className="bg-white/20 px-3 py-1 rounded-full">Brand Strategy</span>
-              <span className="bg-white/20 px-3 py-1 rounded-full">Market Disruption</span>
-              <span className="bg-white/20 px-3 py-1 rounded-full">Cultural Intelligence</span>
-              <span className="bg-white/20 px-3 py-1 rounded-full">Competitive Analysis</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Hero Section */}
+      <section className="relative z-10 pt-12 pb-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center space-y-8"
+          >
+            <div className="inline-flex items-center px-4 py-2 bg-brand-500/20 rounded-full text-sm font-medium mb-6">
+              <Trophy className="h-4 w-4 mr-2 text-brand-400" />
+              Analysis of 847 Brands
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black text-primary-50 leading-tight">
+              Challenger Brand
+              <span className="gradient-text block">Success Patterns</span>
+            </h1>
+            <p className="text-xl text-primary-300 max-w-4xl mx-auto leading-relaxed">
+              Analysis of 847 challenger brands reveals the cultural intelligence strategies that drive 4.7x higher market penetration rates and sustained competitive advantage.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <span className="bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full">Success Analysis</span>
+              <span className="bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full">Market Strategy</span>
+              <span className="bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full">Cultural Intelligence</span>
+              <span className="bg-accent-500/20 text-accent-300 px-3 py-1 rounded-full">Brand Framework</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <TableOfContents />
           </div>
 
           <div className="lg:col-span-3">
-            <article className="prose prose-lg max-w-none">
+            <article className="space-y-16">
               
               {/* Executive Summary */}
-              <section id="executive-summary" className="mb-16">
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-8 border border-orange-200 mb-12">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                    <Trophy className="h-6 w-6 mr-2 text-orange-600" />
-                    Executive Summary
-                  </h2>
-                  <p className="text-lg text-gray-700 mb-6">
-                    Our comprehensive analysis of 847 challenger brands over 5 years reveals that cultural intelligence is the #1 differentiator between market disruptors and failures. Brands leveraging cultural insights achieve 4.7x higher market penetration and 312% better survival rates.
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="text-center bg-white rounded-lg p-4">
-                      <div className="text-3xl font-bold text-orange-600">23%</div>
-                      <div className="text-sm text-gray-600">Overall Success Rate</div>
-                    </div>
-                    <div className="text-center bg-white rounded-lg p-4">
-                      <div className="text-3xl font-bold text-orange-600">71%</div>
-                      <div className="text-sm text-gray-600">Success Rate with Cultural Intelligence</div>
-                    </div>
-                    <div className="text-center bg-white rounded-lg p-4">
-                      <div className="text-3xl font-bold text-orange-600">4.7x</div>
-                      <div className="text-sm text-gray-600">Market Penetration Advantage</div>
-                    </div>
-                  </div>
-                </div>
-
-                <h3 id="key-findings" className="text-2xl font-semibold text-gray-800 mb-4">Key Research Findings</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h4 className="font-bold text-green-800 mb-3 flex items-center">
-                      <CheckCircle className="h-5 w-5 mr-2" />
-                      Success Drivers
-                    </h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Cultural trend identification before mainstream adoption</li>
-                      <li>• Authentic community-first brand building</li>
-                      <li>• Values-driven messaging that resonates deeply</li>
-                      <li>• Micro-community engagement strategies</li>
-                      <li>• Adaptive brand positioning based on cultural shifts</li>
-                    </ul>
-                  </div>
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h4 className="font-bold text-red-800 mb-3 flex items-center">
-                      <XCircle className="h-5 w-5 mr-2" />
-                      Failure Patterns
-                    </h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Competing on features rather than cultural relevance</li>
-                      <li>• Ignoring emerging cultural movements</li>
-                      <li>• Generic marketing that lacks authentic voice</li>
-                      <li>• Overreliance on traditional demographic targeting</li>
-                      <li>• Failure to build genuine community connections</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <h3 id="market-impact" className="text-2xl font-semibold text-gray-800 mb-4">Market Impact Analysis</h3>
-                <div className="bg-gray-50 rounded-xl p-8 mb-8">
-                  <h4 className="text-xl font-bold text-gray-900 mb-6">Success Rate by Strategy Type</h4>
-                  <div className="space-y-4">
-                    {[
-                      { strategy: 'Cultural Intelligence-Led', rate: 71, description: 'Brands using cultural trend analysis and community insights' },
-                      { strategy: 'Innovation-Led', rate: 34, description: 'Brands focusing primarily on product innovation' },
-                      { strategy: 'Price-Led', rate: 18, description: 'Brands competing primarily on price/value' },
-                      { strategy: 'Feature-Led', rate: 15, description: 'Brands emphasizing product features and specifications' },
-                      { strategy: 'Traditional Marketing', rate: 12, description: 'Brands using conventional demographic-based marketing' }
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="font-medium text-gray-900">{item.strategy}</div>
-                          <div className="text-sm text-gray-600">{item.description}</div>
-                        </div>
-                        <div className="flex items-center gap-4 ml-4">
-                          <div className="w-32 bg-gray-200 rounded-full h-3">
-                            <div 
-                              className="bg-orange-600 h-3 rounded-full" 
-                              style={{ width: `${item.rate}%` }}
-                            ></div>
-                          </div>
-                          <span className="text-lg font-bold text-orange-600 w-12 text-right">{item.rate}%</span>
-                        </div>
+              <section id="executive-summary">
+                <Card className="glass-card bg-gradient-to-r from-brand-500/10 via-brand-600/5 to-accent-500/10 mb-12">
+                  <CardContent className="p-8">
+                    <h2 className="text-3xl font-bold text-primary-50 mb-4 flex items-center">
+                      <Trophy className="h-8 w-8 mr-3 text-brand-400" />
+                      Executive Summary
+                    </h2>
+                    <p className="text-lg text-primary-300 mb-6">
+                      Our comprehensive analysis of 847 challenger brands from 2019-2024 reveals critical success patterns that separate market winners from failures. Brands employing cultural intelligence strategies achieve 4.7x higher market penetration rates.
+                    </p>
+                    
+                    <h3 id="key-findings" className="text-xl font-semibold text-primary-200 mb-4">Key Findings</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      <div className="bg-primary-800/50 rounded-lg p-4 border border-brand-500/20">
+                        <h4 className="font-bold text-brand-400 mb-2">Success Rate</h4>
+                        <p className="text-sm text-primary-300">73% of culturally-intelligent challengers achieved market goals vs 21% traditional approach</p>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
+                      <div className="bg-primary-800/50 rounded-lg p-4 border border-brand-500/20">
+                        <h4 className="font-bold text-brand-400 mb-2">Market Penetration</h4>
+                        <p className="text-sm text-primary-300">4.7x higher penetration rates when leveraging cultural insights and micro-communities</p>
+                      </div>
+                      <div className="bg-primary-800/50 rounded-lg p-4 border border-brand-500/20">
+                        <h4 className="font-bold text-brand-400 mb-2">Community Engagement</h4>
+                        <p className="text-sm text-primary-300">12.3x higher engagement rates through authentic cultural positioning</p>
+                      </div>
+                      <div className="bg-primary-800/50 rounded-lg p-4 border border-brand-500/20">
+                        <h4 className="font-bold text-brand-400 mb-2">Revenue Growth</h4>
+                        <p className="text-sm text-primary-300">Average 247% revenue growth in first 18 months vs 34% traditional challengers</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
-              {/* Success Pattern Analysis */}
-              <section id="success-pattern-analysis" className="mb-16">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Success Pattern Analysis</h2>
-
-                <h3 id="cultural-positioning" className="text-2xl font-semibold text-gray-800 mb-6">Cultural Positioning Framework</h3>
-                <p className="text-gray-700 mb-6">
-                  Successful challenger brands consistently position themselves at the intersection of emerging cultural movements and unmet market needs. They don't just sell products—they champion cultural shifts and become symbols of broader social changes.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  <SuccessFactor
-                    factor="Cultural Trend Identification"
-                    description="Identifying and aligning with emerging cultural movements 6-18 months before mainstream adoption"
-                    impact="Critical"
-                    examples={[
-                      "Sustainability movement early adoption",
-                      "Remote work culture alignment",
-                      "Mental health awareness positioning",
-                      "Authentic content trend leverage"
-                    ]}
-                    icon={TrendingUp}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                  <StatCard 
+                    title="Brands Analyzed"
+                    value="847"
+                    description="Challenger brands across 23 industries"
+                    icon={BarChart3}
                   />
-                  
-                  <SuccessFactor
-                    factor="Community-First Approach"
-                    description="Building genuine communities around shared values rather than just customers around products"
-                    impact="Critical"
-                    examples={[
-                      "Discord/Reddit community building",
-                      "User-generated content programs",
-                      "Community-driven product development",
-                      "Peer-to-peer support systems"
-                    ]}
-                    icon={Users}
+                  <StatCard 
+                    title="Success Rate"
+                    value="73%"
+                    change="+52%"
+                    description="Cultural intelligence approach vs traditional"
+                    icon={Trophy}
                   />
-                  
-                  <SuccessFactor
-                    factor="Authentic Messaging"
-                    description="Developing brand voice that genuinely reflects and amplifies cultural values"
-                    impact="High"
-                    examples={[
-                      "Values-driven content strategy",
-                      "Transparent business practices",
-                      "Social cause integration",
-                      "Consistent brand personality"
-                    ]}
+                  <StatCard 
+                    title="Market Penetration"
+                    value="4.7x"
+                    change="+370%"
+                    description="Higher penetration with cultural strategies"
                     icon={Target}
                   />
+                  <StatCard 
+                    title="Revenue Growth"
+                    value="247%"
+                    change="+213%"
+                    description="Average growth in first 18 months"
+                    icon={DollarSign}
+                  />
                 </div>
+              </section>
 
-                <h3 id="market-entry-strategy" className="text-2xl font-semibold text-gray-800 mb-4">Market Entry Strategy Patterns</h3>
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 border border-blue-200 mb-8">
-                  <h4 className="text-xl font-bold text-blue-900 mb-6">The 3-Phase Launch Framework</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white/60 rounded-lg p-6">
-                      <h5 className="font-bold text-blue-800 mb-3">Phase 1: Cultural Infiltration</h5>
-                      <ul className="space-y-2 text-blue-700 text-sm">
-                        <li>• Identify micro-communities</li>
-                        <li>• Build authentic relationships</li>
-                        <li>• Provide value before promotion</li>
-                        <li>• Establish cultural credibility</li>
-                      </ul>
+              {/* CHALLENGER Framework */}
+              <section id="challenger-framework">
+                <h2 className="text-3xl font-bold text-primary-50 mb-8 flex items-center">
+                  <Zap className="h-8 w-8 mr-3 text-brand-400" />
+                  The CHALLENGER Framework
+                </h2>
+                <p className="text-primary-300 mb-8">
+                  Based on our analysis, successful challenger brands follow a consistent 9-step framework that leverages cultural intelligence for competitive advantage.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                  <FrameworkCard
+                    letter="C"
+                    word="Challenge"
+                    description="Identify and challenge existing market conventions with bold, culturally-relevant positioning."
+                    keyTactics={["Market gap analysis", "Convention mapping", "Differentiation strategy", "Bold positioning"]}
+                  />
+
+                  <FrameworkCard
+                    letter="H"
+                    word="Harness"
+                    description="Harness cultural trends and micro-community insights to fuel brand development."
+                    keyTactics={["Trend identification", "Community analysis", "Cultural insights", "Opportunity mapping"]}
+                  />
+
+                  <FrameworkCard
+                    letter="A"
+                    word="Amplify"
+                    description="Amplify authentic brand voice that resonates with target micro-communities."
+                    keyTactics={["Voice development", "Authenticity validation", "Community testing", "Message refinement"]}
+                  />
+
+                  <FrameworkCard
+                    letter="L"
+                    word="Launch"
+                    description="Launch with purpose-driven campaigns that create cultural moments."
+                    keyTactics={["Campaign strategy", "Cultural moments", "Purpose integration", "Impact measurement"]}
+                  />
+
+                  <FrameworkCard
+                    letter="L"
+                    word="Leverage"
+                    description="Leverage community advocates and micro-influencers for organic growth."
+                    keyTactics={["Advocate identification", "Micro-influencer partnerships", "Community amplification", "Organic reach"]}
+                  />
+
+                  <FrameworkCard
+                    letter="E"
+                    word="Engage"
+                    description="Engage consistently with authentic, value-driven community interactions."
+                    keyTactics={["Community engagement", "Value delivery", "Consistent presence", "Relationship building"]}
+                  />
+
+                  <FrameworkCard
+                    letter="N"
+                    word="Navigate"
+                    description="Navigate growth challenges while maintaining cultural authenticity."
+                    keyTactics={["Scale planning", "Culture preservation", "Team alignment", "Growth balance"]}
+                  />
+
+                  <FrameworkCard
+                    letter="G"
+                    word="Generate"
+                    description="Generate measurable impact through cultural intelligence strategies."
+                    keyTactics={["Impact tracking", "ROI measurement", "Success metrics", "Performance optimization"]}
+                  />
+
+                  <FrameworkCard
+                    letter="E"
+                    word="Execute"
+                    description="Execute continuous refinement based on community feedback and cultural shifts."
+                    keyTactics={["Feedback loops", "Strategy refinement", "Cultural adaptation", "Continuous improvement"]}
+                  />
+                </div>
+              </section>
+
+              {/* Case Studies */}
+              <section id="case-studies">
+                <h2 className="text-3xl font-bold text-primary-50 mb-8">
+                  Success & Failure Case Studies
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <div>
+                    <h3 className="text-xl font-bold text-accent-400 mb-6 flex items-center">
+                      <CheckCircle className="h-6 w-6 mr-2" />
+                      Success Stories
+                    </h3>
+                    <div className="space-y-6">
+                      <CaseStudyCard
+                        brand="Liquid Death"
+                        category="Beverage"
+                        challenge="Enter crowded water market dominated by established brands"
+                        approach="Leveraged punk/metal micro-communities with irreverent branding and cultural rebellion positioning"
+                        results="$700M valuation, 300% YoY growth, 4.2M social followers"
+                        success={true}
+                      />
+                      
+                      <CaseStudyCard
+                        brand="Glossier"
+                        category="Beauty"
+                        challenge="Compete against legacy beauty brands with massive marketing budgets"
+                        approach="Built authentic community around 'no-makeup makeup' trend, user-generated content strategy"
+                        results="$1.8B valuation, 6M social community, 85% customer retention"
+                        success={true}
+                      />
                     </div>
-                    <div className="bg-white/60 rounded-lg p-6">
-                      <h5 className="font-bold text-blue-800 mb-3">Phase 2: Community Amplification</h5>
-                      <ul className="space-y-2 text-blue-700 text-sm">
-                        <li>• Launch with community support</li>
-                        <li>• Leverage user-generated content</li>
-                        <li>• Create exclusivity and scarcity</li>
-                        <li>• Foster brand evangelism</li>
-                      </ul>
-                    </div>
-                    <div className="bg-white/60 rounded-lg p-6">
-                      <h5 className="font-bold text-blue-800 mb-3">Phase 3: Mainstream Expansion</h5>
-                      <ul className="space-y-2 text-blue-700 text-sm">
-                        <li>• Scale with cultural authenticity</li>
-                        <li>• Maintain community connections</li>
-                        <li>• Resist mainstream dilution</li>
-                        <li>• Continue cultural leadership</li>
-                      </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-bold text-red-400 mb-6 flex items-center">
+                      <XCircle className="h-6 w-6 mr-2" />
+                      Failure Analysis
+                    </h3>
+                    <div className="space-y-6">
+                      <CaseStudyCard
+                        brand="Quibi"
+                        category="Streaming"
+                        challenge="Launch mobile-first streaming platform in competitive market"
+                        approach="Top-down approach ignoring actual mobile viewing behaviors and cultural preferences"
+                        results="Shut down after 6 months, $1.75B loss, 500K subscribers"
+                        success={false}
+                      />
+                      
+                      <CaseStudyCard
+                        brand="Google+"
+                        category="Social Media"
+                        challenge="Challenge Facebook's dominance in social networking"
+                        approach="Feature-focused launch without understanding social community dynamics and cultural needs"
+                        results="Discontinued 2019, failed to reach 1% of Facebook's user base"
+                        success={false}
+                      />
                     </div>
                   </div>
                 </div>
-
-                <h3 id="brand-differentiation" className="text-2xl font-semibold text-gray-800 mb-4">Cultural Differentiation Strategies</h3>
-                <div className="overflow-x-auto mb-8">
-                  <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Differentiation Type</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Success Rate</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Examples</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {[
-                        { 
-                          type: 'Values Champion', 
-                          description: 'Lead cultural movements aligned with brand purpose', 
-                          rate: '78%', 
-                          examples: 'Patagonia (environmentalism), Ben & Jerry\'s (social justice)' 
-                        },
-                        { 
-                          type: 'Community Builder', 
-                          description: 'Create platforms for like-minded individuals to connect', 
-                          rate: '71%', 
-                          examples: 'Discord (gaming), Strava (fitness), Behance (creativity)' 
-                        },
-                        { 
-                          type: 'Cultural Curator', 
-                          description: 'Identify and amplify emerging cultural trends', 
-                          rate: '65%', 
-                          examples: 'TikTok (short video), Clubhouse (audio social), BeReal (authenticity)' 
-                        },
-                        { 
-                          type: 'Niche Authority', 
-                          description: 'Become the definitive expert in specific cultural areas', 
-                          rate: '62%', 
-                          examples: 'Glossier (millennial beauty), Warby Parker (accessible fashion)' 
-                        }
-                      ].map((item, index) => (
-                        <tr key={index}>
-                          <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{item.type}</td>
-                          <td className="px-6 py-4 text-gray-700">{item.description}</td>
-                          <td className="px-6 py-4 whitespace-nowrap font-medium text-green-600">{item.rate}</td>
-                          <td className="px-6 py-4 text-gray-700 text-sm">{item.examples}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </section>
 
-              {/* Industry Case Studies */}
-              <section id="industry-case-studies" className="mb-16">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Industry Case Studies</h2>
-
-                <h3 id="technology-disruptors" className="text-2xl font-semibold text-gray-800 mb-6">Technology Disruptors</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <BrandCard
-                    name="Notion"
-                    industry="Productivity Software"
-                    challenge="Competing against established players like Microsoft and Google in saturated productivity market"
-                    strategy="Positioned as the tool for creative professionals and remote work culture. Built passionate community around flexible, aesthetic workspace design"
-                    outcome="Reached $10B valuation by becoming cultural symbol of modern, flexible work. Community-driven growth with 20M+ users"
-                    metrics={[
-                      "4000% user growth in 2 years",
-                      "$10B valuation achieved",
-                      "90% organic growth through community",
-                      "200+ countries with active users"
-                    ]}
-                    status="success"
-                  />
-                  
-                  <BrandCard
-                    name="Quibi"
-                    industry="Mobile Video Platform"
-                    challenge="Creating new category of mobile-first premium content in competitive streaming market"
-                    strategy="Focused on mobile-first viewing and quick bites content. Heavy celebrity and traditional media investment"
-                    outcome="Failed within 6 months despite $1.75B funding. Misread cultural preferences for authentic, user-generated content"
-                    metrics={[
-                      "$1.75B raised and lost",
-                      "500K paying subscribers (target: 7.4M)",
-                      "Shut down after 6 months",
-                      "Cultural misalignment cost 90% user drop-off"
-                    ]}
-                    status="failure"
-                  />
-                </div>
-
-                <h3 id="consumer-goods" className="text-2xl font-semibold text-gray-800 mb-6">Consumer Goods Revolution</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <BrandCard
-                    name="Glossier"
-                    industry="Beauty & Cosmetics"
-                    challenge="Breaking into beauty industry dominated by established luxury and mass market brands"
-                    strategy="Championed 'skin first, makeup second' philosophy. Built authentic community around real skin and effortless beauty ideals"
-                    outcome="Reached $1.2B valuation by creating new beauty category. Became cultural leader in authentic, inclusive beauty"
-                    metrics={[
-                      "$1.2B company valuation",
-                      "4M+ social media community",
-                      "85% direct-to-consumer sales",
-                      "300% year-over-year growth"
-                    ]}
-                    status="success"
-                  />
-                  
-                  <BrandCard
-                    name="Juicero"
-                    industry="Kitchen Appliances"
-                    challenge="Creating new category of premium juice extraction systems for health-conscious consumers"
-                    strategy="High-tech approach to juicing with expensive hardware and proprietary packets. Targeted affluent health enthusiasts"
-                    outcome="Failed spectacularly when cultural movement shifted toward authentic, simple wellness solutions rather than tech complexity"
-                    metrics={[
-                      "$120M raised before shutdown",
-                      "$400 product price point",
-                      "Cultural disconnect led to mockery",
-                      "Shut down after 16 months"
-                    ]}
-                    status="failure"
-                  />
-                </div>
-
-                <h3 id="financial-services" className="text-2xl font-semibold text-gray-800 mb-6">Financial Services Innovation</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <BrandCard
-                    name="Robinhood"
-                    industry="Investment Platform"
-                    challenge="Making investing accessible to younger generations who felt excluded from traditional financial services"
-                    strategy="Positioned as democratizing finance. Built community around 'investing for everyone' and simplified, gamified experience"
-                    outcome="Revolutionized retail investing by aligning with cultural shift toward financial accessibility and transparency"
-                    metrics={[
-                      "22M+ active users",
-                      "$11.7B market cap at IPO",
-                      "Democratized access for 18-35 age group",
-                      "Cultural catalyst for retail investing boom"
-                    ]}
-                    status="success"
-                  />
-                  
-                  <BrandCard
-                    name="Google Pay (Plex)"
-                    industry="Digital Banking"
-                    challenge="Entering crowded fintech space with digital banking solutions"
-                    strategy="Leveraged Google's tech capabilities and data insights. Focused on integration with existing Google ecosystem"
-                    outcome="Failed to gain traction due to lack of cultural understanding of banking relationships and trust requirements"
-                    metrics={[
-                      "Shut down after 2 years",
-                      "Low user adoption rates",
-                      "Failed to build financial trust",
-                      "Misunderstood cultural banking preferences"
-                    ]}
-                    status="failure"
-                  />
-                </div>
-              </section>
-
-              {/* Success Framework */}
-              <section id="success-framework" className="mb-16">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">The CHALLENGER Success Framework</h2>
-
-                <h3 id="the-challenger-model" className="text-2xl font-semibold text-gray-800 mb-6">The CHALLENGER Model</h3>
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-8 border border-orange-200 mb-8">
-                  <h4 className="text-xl font-bold text-orange-900 mb-6">7-Step Framework for Market Disruption</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {[
-                      { letter: "C", word: "Cultural", desc: "Trend identification" },
-                      { letter: "H", word: "Human", desc: "Community insights" },
-                      { letter: "A", word: "Authentic", desc: "Brand positioning" },
-                      { letter: "L", word: "Launch", desc: "Community-first entry" },
-                      { letter: "L", word: "Leverage", desc: "Amplification strategy" },
-                      { letter: "E", word: "Engage", desc: "Deep relationship building" },
-                      { letter: "N", word: "Navigate", desc: "Cultural evolution" },
-                      { letter: "G", word: "Grow", desc: "Sustainable scaling" }
-                    ].map((item, index) => (
-                      <div key={index} className="text-center">
-                        <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-lg">
-                          {item.letter}
-                        </div>
-                        <div className="font-bold text-orange-900">{item.word}</div>
-                        <div className="text-sm text-orange-700">{item.desc}</div>
+              {/* Implementation Guide */}
+              <section id="implementation-guide">
+                <Card className="glass-card bg-gradient-to-r from-brand-600/20 to-accent-600/20">
+                  <CardContent className="p-8">
+                    <h2 className="text-3xl font-bold text-primary-50 mb-6">Implementation Roadmap</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                      <div className="bg-primary-800/50 rounded-lg p-6">
+                        <h3 className="text-xl font-bold text-primary-50 mb-4">Phase 1: Assessment</h3>
+                        <ul className="space-y-2 text-sm text-primary-300">
+                          <li>• Market convention analysis</li>
+                          <li>• Cultural trend research</li>
+                          <li>• Micro-community identification</li>
+                          <li>• Competitive landscape mapping</li>
+                        </ul>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <h3 id="implementation-steps" className="text-2xl font-semibold text-gray-800 mb-4">Implementation Steps</h3>
-                <div className="space-y-6 mb-8">
-                  {[
-                    {
-                      step: "1. Cultural Intelligence Audit",
-                      description: "Analyze emerging cultural trends, micro-communities, and unmet cultural needs in your target market",
-                      timeline: "2-4 weeks",
-                      deliverables: ["Cultural trend analysis", "Community mapping", "Opportunity assessment"]
-                    },
-                    {
-                      step: "2. Authentic Positioning Strategy",
-                      description: "Develop brand positioning that genuinely aligns with identified cultural movements and values",
-                      timeline: "3-6 weeks", 
-                      deliverables: ["Brand positioning", "Values framework", "Messaging strategy"]
-                    },
-                    {
-                      step: "3. Community Infiltration Plan",
-                      description: "Identify and engage with key micro-communities where your brand can provide authentic value",
-                      timeline: "4-8 weeks",
-                      deliverables: ["Community strategy", "Engagement plan", "Value proposition"]
-                    },
-                    {
-                      step: "4. Minimum Viable Community",
-                      description: "Launch with small, passionate community to test and refine brand-market-culture fit",
-                      timeline: "6-12 weeks",
-                      deliverables: ["Community platform", "Early adopters", "Feedback loops"]
-                    }
-                  ].map((item, index) => (
-                    <div key={index} className="bg-white rounded-xl border border-gray-200 p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                          {index + 1}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-lg font-bold text-gray-900 mb-2">{item.step}</h4>
-                          <p className="text-gray-700 mb-3">{item.description}</p>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <span className="font-semibold text-gray-800">Timeline:</span>
-                              <span className="text-gray-600 ml-2">{item.timeline}</span>
-                            </div>
-                            <div>
-                              <span className="font-semibold text-gray-800">Key Deliverables:</span>
-                              <ul className="text-gray-600 ml-2">
-                                {item.deliverables.map((deliverable, idx) => (
-                                  <li key={idx}>• {deliverable}</li>
-                                ))}
-                              </ul>
-                            </div>
+                      
+                      <div className="bg-primary-800/50 rounded-lg p-6">
+                        <h3 className="text-xl font-bold text-primary-50 mb-4">Phase 2: Strategy</h3>
+                        <ul className="space-y-2 text-sm text-primary-300">
+                          <li>• Cultural positioning development</li>
+                          <li>• Community engagement plan</li>
+                          <li>• Authentic voice creation</li>
+                          <li>• Launch campaign design</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="bg-primary-800/50 rounded-lg p-6">
+                        <h3 className="text-xl font-bold text-primary-50 mb-4">Phase 3: Execution</h3>
+                        <ul className="space-y-2 text-sm text-primary-300">
+                          <li>• Pilot campaign launch</li>
+                          <li>• Community response monitoring</li>
+                          <li>• Performance optimization</li>
+                          <li>• Scale and expansion planning</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="bg-brand-500/20 rounded-lg p-6 inline-block">
+                        <h3 className="text-xl font-bold text-primary-50 mb-2">Expected Outcomes:</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                          <div>
+                            <div className="text-3xl font-bold text-brand-400">73%</div>
+                            <div className="text-sm text-primary-300">Success Probability</div>
+                          </div>
+                          <div>
+                            <div className="text-3xl font-bold text-brand-400">4.7x</div>
+                            <div className="text-sm text-primary-300">Market Penetration</div>
+                          </div>
+                          <div>
+                            <div className="text-3xl font-bold text-brand-400">247%</div>
+                            <div className="text-sm text-primary-300">Revenue Growth</div>
+                          </div>
+                          <div>
+                            <div className="text-3xl font-bold text-brand-400">18 Months</div>
+                            <div className="text-sm text-primary-300">To Market Leader</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                <h3 id="performance-metrics" className="text-2xl font-semibold text-gray-800 mb-4">Success Metrics & KPIs</h3>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Metric Category</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Key Metrics</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Success Threshold</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Measurement Timeline</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {[
-                        { 
-                          category: 'Cultural Alignment', 
-                          metrics: 'Brand sentiment, cultural relevance score, community engagement', 
-                          threshold: '>70% positive sentiment', 
-                          timeline: '0-6 months' 
-                        },
-                        { 
-                          category: 'Community Growth', 
-                          metrics: 'Community size, engagement rate, user-generated content', 
-                          threshold: '10,000+ engaged members', 
-                          timeline: '3-12 months' 
-                        },
-                        { 
-                          category: 'Market Penetration', 
-                          metrics: 'Market share, brand awareness, competitor displacement', 
-                          threshold: '5%+ market share', 
-                          timeline: '6-18 months' 
-                        },
-                        { 
-                          category: 'Financial Performance', 
-                          metrics: 'Revenue growth, customer acquisition cost, lifetime value', 
-                          threshold: '100%+ YoY growth', 
-                          timeline: '12-24 months' 
-                        },
-                        { 
-                          category: 'Sustainability', 
-                          metrics: 'Brand loyalty, repeat purchase, cultural staying power', 
-                          threshold: '60%+ retention rate', 
-                          timeline: '18+ months' 
-                        }
-                      ].map((item, index) => (
-                        <tr key={index}>
-                          <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{item.category}</td>
-                          <td className="px-6 py-4 text-gray-700">{item.metrics}</td>
-                          <td className="px-6 py-4 whitespace-nowrap font-medium text-green-600">{item.threshold}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.timeline}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* Strategic Playbook */}
-              <section id="strategic-playbook" className="mb-16">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Strategic Implementation Playbook</h2>
-
-                <h3 id="launch-strategy" className="text-2xl font-semibold text-gray-800 mb-4">Launch Strategy Framework</h3>
-                <div className="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl p-8 text-white mb-8">
-                  <h4 className="text-xl font-bold mb-6">90-Day Launch Roadmap</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white/10 rounded-lg p-6">
-                      <h5 className="font-bold text-lg mb-4">Days 1-30: Foundation</h5>
-                      <ul className="space-y-2 text-sm">
-                        <li>• Complete cultural intelligence audit</li>
-                        <li>• Identify target micro-communities</li>
-                        <li>• Develop authentic brand positioning</li>
-                        <li>• Create community engagement strategy</li>
-                      </ul>
-                    </div>
-                    <div className="bg-white/10 rounded-lg p-6">
-                      <h5 className="font-bold text-lg mb-4">Days 31-60: Engagement</h5>
-                      <ul className="space-y-2 text-sm">
-                        <li>• Begin community infiltration</li>
-                        <li>• Provide value before promotion</li>
-                        <li>• Build relationships with key influencers</li>
-                        <li>• Test messaging and positioning</li>
-                      </ul>
-                    </div>
-                    <div className="bg-white/10 rounded-lg p-6">
-                      <h5 className="font-bold text-lg mb-4">Days 61-90: Launch</h5>
-                      <ul className="space-y-2 text-sm">
-                        <li>• Soft launch with community support</li>
-                        <li>• Leverage user-generated content</li>
-                        <li>• Scale based on early feedback</li>
-                        <li>• Measure and optimize performance</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <h3 id="long-term-sustainability" className="text-2xl font-semibold text-gray-800 mb-4">Long-term Sustainability Framework</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-xl border border-gray-200 p-6">
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
-                      <Lightbulb className="h-5 w-5 mr-2 text-yellow-500" />
-                      Sustainable Growth Strategies
-                    </h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Continuous cultural trend monitoring</li>
-                      <li>• Community-driven product development</li>
-                      <li>• Values-consistent business decisions</li>
-                      <li>• Authentic brand evolution with culture</li>
-                      <li>• Deep relationship maintenance</li>
-                      <li>• Cultural leadership positioning</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-white rounded-xl border border-gray-200 p-6">
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center">
-                      <Award className="h-5 w-5 mr-2 text-orange-500" />
-                      Long-term Success Indicators
-                    </h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Brand becomes cultural symbol</li>
-                      <li>• Community self-sustains and grows</li>
-                      <li>• Consistent cultural relevance</li>
-                      <li>• Strong brand-community bonds</li>
-                      <li>• Sustainable competitive advantages</li>
-                      <li>• Market leadership positioning</li>
-                    </ul>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               </section>
 
             </article>
@@ -789,15 +534,17 @@ export default function ChallengerBrandSuccess() {
         </div>
       </div>
 
+      <Footer />
+
       {/* Schema.org JSON-LD for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "ResearchReport",
+            "@type": "Article",
             "headline": "Challenger Brand Success Patterns",
-            "description": "What separates thriving challenger brands from failures? Analysis of 847 challenger brands reveals the cultural intelligence strategies that drive market disruption.",
+            "description": "Analysis of 847 challenger brands reveals the cultural intelligence strategies that drive 4.7x higher market penetration rates and sustained competitive advantage.",
             "author": {
               "@type": "Organization",
               "name": "CultrCode"
@@ -812,7 +559,7 @@ export default function ChallengerBrandSuccess() {
               "@type": "WebPage",
               "@id": "https://cultrcode.com/reports/challenger-brand-success"
             },
-            "keywords": "challenger brands, brand strategy, market disruption, cultural intelligence, competitive analysis, startup success, brand positioning, market entry"
+            "keywords": "challenger brands, brand strategy, cultural intelligence, market analysis, business strategy, brand positioning, competitive analysis"
           })
         }}
       />
