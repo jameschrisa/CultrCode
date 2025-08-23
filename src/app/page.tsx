@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { Target, Sparkles, ChevronLeft, Menu, X, Zap, Users, TrendingUp, ArrowRight, Brain, MapPin, Cpu } from 'lucide-react'
+import { Target, Sparkles, ChevronLeft, Menu, X, Zap, Users, TrendingUp, ArrowRight, Brain, MapPin, Cpu, BookOpen, Trophy } from 'lucide-react'
 import { FaRobot, FaChartLine, FaMapMarkedAlt, FaReddit, FaTiktok, FaYoutube, FaDiscord } from 'react-icons/fa'
 import { HiSparkles, HiLightningBolt } from 'react-icons/hi'
 import { RiAiGenerate, RiBrainFill } from 'react-icons/ri'
@@ -33,6 +33,36 @@ import {
   transitions,
   iconVariants
 } from '@/lib/animations'
+
+const resources = [
+  {
+    title: "Cultural Trend Prediction: A Creator's Handbook",
+    description: "Master the PULSE framework for identifying emerging trends 2-6 weeks before mainstream adoption. Includes case studies, templates, and monetization strategies.",
+    icon: <TrendingUp className="w-6 h-6" />,
+    href: "/guides/cultural-trends",
+    category: "Strategy Guide",
+    readTime: "15 min read",
+    keyTopics: ["PULSE Framework", "Trend Discovery", "Monetization Strategies"]
+  },
+  {
+    title: "Challenger Brand Success Patterns",
+    description: "Comprehensive analysis of what makes challenger brands succeed or fail. Features the proven CHALLENGER framework with implementation roadmap.",
+    icon: <Trophy className="w-6 h-6" />,
+    href: "/reports/challenger-brand-success",
+    category: "Research Report",
+    readTime: "25 min read",
+    keyTopics: ["CHALLENGER Framework", "Success Patterns", "Implementation Guide"]
+  },
+  {
+    title: "State of Cultural Intelligence 2024",
+    description: "Annual report on the cultural intelligence landscape, creator economy insights, and technology adoption trends shaping the industry.",
+    icon: <Brain className="w-6 h-6" />,
+    href: "/reports/cultural-intelligence-2024",
+    category: "Industry Report",
+    readTime: "30 min read",
+    keyTopics: ["Market Analysis", "Future Predictions", "Technology Trends"]
+  }
+]
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<'hero' | 'finder' | 'enhancement' | 'results'>('hero')
@@ -665,7 +695,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                {/* Success Stories */}
+                {/* Essential Resources */}
                 <motion.div
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -674,63 +704,66 @@ export default function Home() {
                 >
                   <div className="text-center mb-16">
                     <h2 className="text-3xl lg:text-4xl font-bold text-primary-50 mb-4">
-                      Trusted by 1,000+ Creator Brands
+                      Essential Creator Intelligence Resources
                     </h2>
                     <p className="text-xl text-primary-300 max-w-3xl mx-auto">
-                      See how our complete creator intelligence suite has driven real growth for emerging brands.
+                      Access our comprehensive guides and research reports to master cultural intelligence and build successful creator brands.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {[
-                      {
-                        name: "Sarah Chen",
-                        role: "Beauty Brand Founder",
-                        content: "CultrCode&apos; segmentation tool identified our perfect customer base, then trend intelligence helped us spot the clean beauty wave early. Game changer.",
-                        imageKey: "testimonials.sarah",
-                        metric: "$250K ARR"
-                      },
-                      {
-                        name: "Marcus Rodriguez", 
-                        role: "Wellness Tech Creator",
-                        content: "The complete suite is incredible—from audience discovery to micro-community insights to geographic targeting. Everything we needed in one place.",
-                        imageKey: "testimonials.marcus",
-                        metric: "5x Growth"
-                      },
-                      {
-                        name: "Emma Johnson",
-                        role: "Sustainable Fashion CEO", 
-                        content: "Used 4 of their tools to launch in new markets. The hyperlocal data + community insights combination is unbeatable for creator brands.",
-                        imageKey: "testimonials.emma",
-                        metric: "400% ROI"
-                      }
-                    ].map((story, index) => (
+                    {resources.map((resource, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
-                        className="glass-card p-6 rounded-2xl group hover:border-accent-500/30 transition-all duration-300"
                       >
-                        <div className="flex items-center space-x-4 mb-4">
-                          <div className="w-16 h-16 rounded-full ring-2 ring-accent-500/20 overflow-hidden flex-shrink-0">
-                            <Image
-                              src={`/images/${story.imageKey.split('.')[1]}.png`}
-                              alt={`${story.name} testimonial photo`}
-                              width={64}
-                              height={64}
-                              className="w-full h-full object-cover"
-                            />
+                        <Link href={resource.href}>
+                          <div className="glass-card p-6 rounded-2xl group hover:border-accent-500/50 transition-all duration-300 cursor-pointer h-full">
+                            <div className="flex items-start justify-between mb-4">
+                              <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center text-accent-400 group-hover:bg-accent-500/30 transition-colors">
+                                {resource.icon}
+                              </div>
+                              <div className="flex flex-col items-end space-y-2">
+                                <span className="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs font-medium">
+                                  {resource.category}
+                                </span>
+                                <span className="text-xs text-primary-400">
+                                  {resource.readTime}
+                                </span>
+                              </div>
+                            </div>
+                            
+                            <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors">
+                              {resource.title}
+                            </h3>
+                            
+                            <p className="text-primary-300 leading-relaxed mb-4 text-sm">
+                              {resource.description}
+                            </p>
+                            
+                            <div className="space-y-3">
+                              <div>
+                                <h4 className="text-xs font-semibold text-primary-200 mb-2">Key Topics:</h4>
+                                <div className="flex flex-wrap gap-1">
+                                  {resource.keyTopics.map((topic, i) => (
+                                    <span key={i} className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded text-xs">
+                                      {topic}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="pt-4 border-t border-primary-700/50 mt-4">
+                              <div className="flex items-center text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-colors">
+                                <BookOpen className="w-4 h-4 mr-2" />
+                                Read Full Guide
+                              </div>
+                            </div>
                           </div>
-                          <div>
-                            <div className="font-bold text-primary-50">{story.name}</div>
-                            <div className="text-sm text-primary-400">{story.role}</div>
-                            <div className="text-sm font-bold text-accent-400">{story.metric}</div>
-                          </div>
-                        </div>
-                        <p className="text-primary-200 italic leading-relaxed">
-                          &ldquo;{story.content}&rdquo;
-                        </p>
+                        </Link>
                       </motion.div>
                     ))}
                   </div>
@@ -747,7 +780,7 @@ export default function Home() {
                       Start Free Discovery
                     </Button>
                     <p className="text-sm text-primary-400 mt-4">
-                      Join 1,000+ successful creator brands • Start free, upgrade as you grow
+                      Discover your perfect audience, then dive deeper with our intelligence resources
                     </p>
                   </div>
                 </motion.div>
