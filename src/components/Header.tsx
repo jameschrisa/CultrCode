@@ -175,13 +175,25 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               exit={{ opacity: 0, height: 0 }}
               className="glass-card border-t border-white/10 p-4 space-y-3"
             >
-              {/* Mobile Dashboard for Premium Users */}
+              {/* Mobile Discover and Dashboard for Premium Users */}
               {isPremiumUser && (
-                <Link href="/dashboard">
-                  <Button variant="ghost" size="sm" className="w-full justify-start">
-                    Dashboard
-                  </Button>
-                </Link>
+                <>
+                  <Link href="/" onClick={(e) => {
+                    e.preventDefault()
+                    sessionStorage.setItem('stay_on_main', 'true')
+                    router.push('/')
+                    setMobileMenuOpen(false)
+                  }}>
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      Discover
+                    </Button>
+                  </Link>
+                  <Link href="/dashboard">
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      Dashboard
+                    </Button>
+                  </Link>
+                </>
               )}
               
               {/* Mobile Solutions/Tools */}
@@ -286,11 +298,20 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               </div>
             </div>
             <nav className="flex items-center space-x-8">
-              {/* Dashboard Link for Premium Users */}
+              {/* Discover and Dashboard Links for Premium Users */}
               {isPremiumUser && (
-                <Link href="/dashboard" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
-                  Dashboard
-                </Link>
+                <>
+                  <Link href="/" onClick={(e) => {
+                    e.preventDefault()
+                    sessionStorage.setItem('stay_on_main', 'true')
+                    router.push('/')
+                  }} className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
+                    Discover
+                  </Link>
+                  <Link href="/dashboard" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
+                    Dashboard
+                  </Link>
+                </>
               )}
               
               {/* Solutions/Tools Dropdown */}

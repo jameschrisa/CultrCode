@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, X, Crown, Zap, FileText, MapPin, Users, TrendingUp, Shield, Phone, Star } from 'lucide-react'
+import { Check, X, Crown, Zap, FileText, MapPin, Users, TrendingUp, Shield, Phone, Star, BookOpen, Brain, Trophy } from 'lucide-react'
 import { FaRobot, FaMapMarkedAlt, FaFileInvoiceDollar } from 'react-icons/fa'
 import { RiAiGenerate, RiBrainFill } from 'react-icons/ri'
 import { HiSparkles } from 'react-icons/hi'
@@ -229,27 +229,33 @@ export default function Pricing() {
     }
   ]
 
-  const testimonials = [
+  const resources = [
     {
-      name: "Sarah Chen",
-      role: "Founder, Glow Naturals",
-      content: "CultrCode helped us identify our perfect customer segment and launch locations. We hit $50K in sales in our first month - something we never achieved with generic targeting.",
-      rating: 5,
-      imageKey: "testimonials.sarah"
+      title: "Cultural Trend Prediction: A Creator's Handbook",
+      description: "Master the PULSE framework for identifying emerging trends 2-6 weeks before mainstream adoption. Includes case studies, templates, and monetization strategies.",
+      icon: <TrendingUp className="w-6 h-6" />,
+      href: "/guides/cultural-trends",
+      category: "Strategy Guide",
+      readTime: "15 min read",
+      keyTopics: ["PULSE Framework", "Trend Discovery", "Monetization Strategies"]
     },
     {
-      name: "Marcus Rodriguez",
-      role: "Creator, FitLife App",
-      content: "The competitor analysis was a game-changer. We discovered market gaps that our competitors missed and positioned ourselves perfectly. Worth every penny.",
-      rating: 5,
-      imageKey: "testimonials.marcus"
+      title: "Challenger Brand Success Patterns",
+      description: "Comprehensive analysis of what makes challenger brands succeed or fail. Features the proven CHALLENGER framework with implementation roadmap.",
+      icon: <Trophy className="w-6 h-6" />,
+      href: "/reports/challenger-brand-success",
+      category: "Research Report",
+      readTime: "25 min read",
+      keyTopics: ["CHALLENGER Framework", "Success Patterns", "Implementation Guide"]
     },
     {
-      name: "Emma Johnson",
-      role: "CEO, Sustainable Style",
-      content: "The ZIP code intelligence was incredibly accurate. We focused our launch on their top 5 recommended areas and saw 3x higher conversion rates than our previous launches.",
-      rating: 5,
-      imageKey: "testimonials.emma"
+      title: "State of Cultural Intelligence 2024",
+      description: "Annual report on the cultural intelligence landscape, creator economy insights, and technology adoption trends shaping the industry.",
+      icon: <Brain className="w-6 h-6" />,
+      href: "/reports/cultural-intelligence-2024",
+      category: "Industry Report",
+      readTime: "30 min read",
+      keyTopics: ["Market Analysis", "Future Predictions", "Technology Trends"]
     }
   ]
 
@@ -528,7 +534,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Resources */}
       <section className="relative z-10 py-20">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
@@ -538,50 +544,68 @@ export default function Pricing() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-primary-50 mb-6">
-              Trusted by 1,000+ Creators
+              Essential Creator Intelligence Resources
             </h2>
             <p className="text-xl text-primary-300 max-w-3xl mx-auto">
-              See how CultrCode has helped creators discover emerging micro-communities and tap into cultural trends.
+              Access our comprehensive guides and research reports to master cultural intelligence and build successful creator brands.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {resources.map((resource, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <Card className="glass-card h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-primary-200 leading-relaxed mb-6 italic">
-                      &ldquo;{testimonial.content}&rdquo;
-                    </p>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                        <SimpleImage
-                          src={`/images/${testimonial.imageKey.split('.')[1]}.png`}
-                          alt={`${testimonial.name} testimonial photo`}
-                          className="w-full h-full"
-                        />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-primary-100">
-                          {testimonial.name}
+                <Link href={resource.href}>
+                  <Card className="glass-card h-full hover:border-accent-500/50 transition-all duration-300 group cursor-pointer">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center text-accent-400 group-hover:bg-accent-500/30 transition-colors">
+                          {resource.icon}
                         </div>
-                        <div className="text-sm text-primary-400">
-                          {testimonial.role}
+                        <div className="flex flex-col items-end space-y-2">
+                          <span className="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs font-medium">
+                            {resource.category}
+                          </span>
+                          <span className="text-xs text-primary-400">
+                            {resource.readTime}
+                          </span>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                      
+                      <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors">
+                        {resource.title}
+                      </h3>
+                      
+                      <p className="text-primary-300 leading-relaxed mb-4 text-sm">
+                        {resource.description}
+                      </p>
+                      
+                      <div className="space-y-3">
+                        <div>
+                          <h4 className="text-xs font-semibold text-primary-200 mb-2">Key Topics:</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {resource.keyTopics.map((topic, i) => (
+                              <span key={i} className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded text-xs">
+                                {topic}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="pt-4 border-t border-primary-700/50 mt-4">
+                        <div className="flex items-center text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-colors">
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          Read Full Guide
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </div>
