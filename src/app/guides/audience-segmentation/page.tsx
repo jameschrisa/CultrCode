@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown, ChevronRight, Users, Target, Brain, TrendingUp, Eye, Heart, DollarSign, ArrowLeft, BookOpen } from 'lucide-react'
+import { ChevronDown, ChevronRight, ArrowLeft, BookOpen } from 'lucide-react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/Button'
@@ -99,80 +99,6 @@ const TableOfContents = () => {
   )
 }
 
-const StatCard = ({ metric, value, description, icon: Icon, trend }: {
-  metric: string
-  value: string
-  description: string
-  icon: any
-  trend?: string
-}) => (
-  <Card className="glass-card">
-    <CardContent className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <Icon className="h-8 w-8 text-accent-400" />
-        <div className="text-3xl font-bold text-primary-50">{value}</div>
-      </div>
-      <h3 className="font-bold text-primary-50 mb-2">{metric}</h3>
-      <p className="text-primary-300 text-sm">{description}</p>
-      {trend && (
-        <div className="mt-2 text-xs text-accent-400 font-medium">
-          {trend}
-        </div>
-      )}
-    </CardContent>
-  </Card>
-)
-
-const FrameworkStep = ({ number, title, description, tools, outputs, icon: Icon }: {
-  number: string
-  title: string
-  description: string
-  tools: string[]
-  outputs: string[]
-  icon: any
-}) => (
-  <Card className="glass-card mb-8">
-    <CardContent className="p-8">
-      <div className="flex items-start mb-6">
-        <div className="flex items-center justify-center w-16 h-16 bg-accent-500 text-white rounded-full mr-6 flex-shrink-0">
-          <span className="text-2xl font-bold">{number}</span>
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center mb-3">
-            <Icon className="h-6 w-6 text-accent-400 mr-2" />
-            <h3 className="text-2xl font-bold text-primary-50">{title}</h3>
-          </div>
-          <p className="text-primary-300 text-lg">{description}</p>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h4 className="font-bold text-primary-200 mb-3">Tools & Methods:</h4>
-          <ul className="space-y-2">
-            {tools.map((tool, index) => (
-              <li key={index} className="flex items-start">
-                <div className="w-2 h-2 bg-accent-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span className="text-primary-300">{tool}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold text-primary-200 mb-3">Expected Outputs:</h4>
-          <ul className="space-y-2">
-            {outputs.map((output, index) => (
-              <li key={index} className="flex items-start">
-                <div className="w-2 h-2 bg-brand-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span className="text-primary-300">{output}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-)
 
 export default function AudienceSegmentationGuide() {
   return (
