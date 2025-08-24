@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown, ChevronRight, Trophy, TrendingUp, Target, Zap, Users, Award, DollarSign, BarChart3, CheckCircle, XCircle, ArrowRight, Lightbulb, ArrowLeft } from 'lucide-react'
+import { ChevronDown, ChevronRight, Trophy, ArrowLeft } from 'lucide-react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/Button'
@@ -95,103 +95,6 @@ const TableOfContents = () => {
   )
 }
 
-const StatCard = ({ title, value, change, description, icon: Icon }: {
-  title: string
-  value: string
-  change?: string
-  description: string
-  icon: any
-}) => (
-  <Card className="glass-card">
-    <CardContent className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <Icon className="h-8 w-8 text-accent-400" />
-        {change && (
-          <span className={`text-sm font-medium px-2 py-1 rounded ${
-            change.startsWith('+') ? 'bg-accent-500/20 text-accent-400' : 'bg-brand-500/20 text-brand-400'
-          }`}>
-            {change}
-          </span>
-        )}
-      </div>
-      <h3 className="font-bold text-primary-50 mb-2">{title}</h3>
-      <div className="text-3xl font-bold text-primary-50 mb-2">{value}</div>
-      <p className="text-primary-300 text-sm">{description}</p>
-    </CardContent>
-  </Card>
-)
-
-const FrameworkCard = ({ letter, word, description, keyTactics }: {
-  letter: string
-  word: string
-  description: string
-  keyTactics: string[]
-}) => (
-  <Card className="glass-card">
-    <CardContent className="p-6">
-      <div className="flex items-center mb-4">
-        <div className="w-12 h-12 bg-brand-500 text-white rounded-full flex items-center justify-center mr-4">
-          <span className="text-xl font-bold">{letter}</span>
-        </div>
-        <h3 className="text-xl font-bold text-primary-50">{word}</h3>
-      </div>
-      <p className="text-primary-300 mb-4">{description}</p>
-      <div>
-        <h4 className="font-semibold text-primary-200 text-sm mb-2">Key Tactics:</h4>
-        <ul className="space-y-1">
-          {keyTactics.map((tactic, index) => (
-            <li key={index} className="text-xs text-primary-400 flex items-center">
-              <div className="w-1 h-1 bg-brand-400 rounded-full mr-2"></div>
-              {tactic}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </CardContent>
-  </Card>
-)
-
-const CaseStudyCard = ({ brand, category, challenge, approach, results, success }: {
-  brand: string
-  category: string
-  challenge: string
-  approach: string
-  results: string
-  success: boolean
-}) => (
-  <Card className="glass-card">
-    <CardContent className="p-6">
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-bold text-primary-50">{brand}</h3>
-          <div className="text-sm text-primary-400">{category}</div>
-        </div>
-        {success ? (
-          <CheckCircle className="h-6 w-6 text-accent-500" />
-        ) : (
-          <XCircle className="h-6 w-6 text-red-400" />
-        )}
-      </div>
-      
-      <div className="space-y-3">
-        <div>
-          <h4 className="font-semibold text-primary-200 text-sm mb-1">Challenge:</h4>
-          <p className="text-primary-300 text-sm">{challenge}</p>
-        </div>
-        
-        <div>
-          <h4 className="font-semibold text-primary-200 text-sm mb-1">Approach:</h4>
-          <p className="text-primary-300 text-sm">{approach}</p>
-        </div>
-        
-        <div>
-          <h4 className="font-semibold text-primary-200 text-sm mb-1">Results:</h4>
-          <p className={`text-sm ${success ? 'text-accent-400' : 'text-red-400'}`}>{results}</p>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-)
 
 export default function ChallengerBrandSuccessReport() {
   return (
@@ -475,39 +378,6 @@ export default function ChallengerBrandSuccessReport() {
               </section>
 
             </div>
-          </div>
-        </div>
-      </div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="bg-brand-500/20 rounded-lg p-6 inline-block">
-                        <h3 className="text-xl font-bold text-primary-50 mb-2">Expected Outcomes:</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-                          <div>
-                            <div className="text-3xl font-bold text-brand-400">73%</div>
-                            <div className="text-sm text-primary-300">Success Probability</div>
-                          </div>
-                          <div>
-                            <div className="text-3xl font-bold text-brand-400">4.7x</div>
-                            <div className="text-sm text-primary-300">Market Penetration</div>
-                          </div>
-                          <div>
-                            <div className="text-3xl font-bold text-brand-400">247%</div>
-                            <div className="text-sm text-primary-300">Revenue Growth</div>
-                          </div>
-                          <div>
-                            <div className="text-3xl font-bold text-brand-400">18 Months</div>
-                            <div className="text-sm text-primary-300">To Market Leader</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </section>
-
-            </article>
           </div>
         </div>
       </div>
