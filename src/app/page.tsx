@@ -38,7 +38,7 @@ const resources = [
   {
     title: "Cultural Trend Prediction: A Creator's Handbook",
     description: "Master the PULSE framework for identifying emerging trends 2-6 weeks before mainstream adoption. Includes case studies, templates, and monetization strategies.",
-    icon: <TrendingUp className="w-6 h-6" />,
+    image: "/images/ctp-res.png",
     href: "/guides/cultural-trends",
     category: "Strategy Guide",
     readTime: "15 min read",
@@ -47,7 +47,7 @@ const resources = [
   {
     title: "Challenger Brand Success Patterns",
     description: "Comprehensive analysis of what makes challenger brands succeed or fail. Features the proven CHALLENGER framework with implementation roadmap.",
-    icon: <Trophy className="w-6 h-6" />,
+    image: "/images/cbs-res.png",
     href: "/reports/challenger-brand-success",
     category: "Research Report",
     readTime: "25 min read",
@@ -56,7 +56,7 @@ const resources = [
   {
     title: "State of Cultural Intelligence 2024",
     description: "Annual report on the cultural intelligence landscape, creator economy insights, and technology adoption trends shaping the industry.",
-    icon: <Brain className="w-6 h-6" />,
+    image: "/images/sci-res.png",
     href: "/reports/cultural-intelligence-2024",
     category: "Industry Report",
     readTime: "30 min read",
@@ -720,46 +720,56 @@ export default function Home() {
                         transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
                       >
                         <Link href={resource.href}>
-                          <div className="glass-card p-6 rounded-2xl group hover:border-accent-500/50 transition-all duration-300 cursor-pointer h-full">
-                            <div className="flex items-start justify-between mb-4">
-                              <div className="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center text-accent-400 group-hover:bg-accent-500/30 transition-colors">
-                                {resource.icon}
-                              </div>
-                              <div className="flex flex-col items-end space-y-2">
-                                <span className="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs font-medium">
+                          <div className="glass-card rounded-2xl overflow-hidden group hover:border-accent-500/50 transition-all duration-300 cursor-pointer h-full flex flex-col">
+                            {/* Image Thumbnail */}
+                            <div className="relative h-48 overflow-hidden">
+                              <Image
+                                src={resource.image}
+                                alt={resource.title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
+                              
+                              {/* Category and Read Time Pills */}
+                              <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                                <span className="px-3 py-1 bg-brand-500/90 backdrop-blur-sm text-brand-100 rounded-full text-xs font-medium">
                                   {resource.category}
                                 </span>
-                                <span className="text-xs text-primary-400">
+                                <span className="px-3 py-1 bg-primary-900/90 backdrop-blur-sm text-primary-300 rounded-full text-xs font-medium">
                                   {resource.readTime}
                                 </span>
                               </div>
                             </div>
                             
-                            <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors">
-                              {resource.title}
-                            </h3>
-                            
-                            <p className="text-primary-300 leading-relaxed mb-4 text-sm">
-                              {resource.description}
-                            </p>
-                            
-                            <div className="space-y-3">
-                              <div>
-                                <h4 className="text-xs font-semibold text-primary-200 mb-2">Key Topics:</h4>
-                                <div className="flex flex-wrap gap-1">
+                            {/* Content */}
+                            <div className="p-6 flex flex-col flex-grow">
+                              <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors leading-tight">
+                                {resource.title}
+                              </h3>
+                              
+                              <p className="text-primary-300 leading-relaxed mb-4 text-sm flex-grow">
+                                {resource.description}
+                              </p>
+                              
+                              {/* Key Topics */}
+                              <div className="mb-6">
+                                <h4 className="text-xs font-semibold text-primary-200 mb-3">Key Topics:</h4>
+                                <div className="flex flex-wrap gap-2">
                                   {resource.keyTopics.map((topic, i) => (
-                                    <span key={i} className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded text-xs">
+                                    <span key={i} className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded-full text-xs">
                                       {topic}
                                     </span>
                                   ))}
                                 </div>
                               </div>
-                            </div>
-                            
-                            <div className="pt-4 border-t border-primary-700/50 mt-4">
-                              <div className="flex items-center text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-colors">
-                                <BookOpen className="w-4 h-4 mr-2" />
-                                Read Full Guide
+                              
+                              {/* CTA Button */}
+                              <div className="mt-auto">
+                                <div className="flex items-center justify-center w-full py-3 px-4 bg-accent-500/20 hover:bg-accent-500/30 rounded-lg text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-all duration-300 border border-accent-500/30 hover:border-accent-500/50">
+                                  <BookOpen className="w-4 h-4 mr-2" />
+                                  Read Full Guide
+                                </div>
                               </div>
                             </div>
                           </div>
