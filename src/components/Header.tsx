@@ -20,13 +20,9 @@ interface HeaderProps {
 export function Header({ showBackButton = false, onBack }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
-  const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 })
-  const [notificationPosition, setNotificationPosition] = useState({ top: 0, left: 0 })
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const notificationRef = useRef<HTMLButtonElement>(null)
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const notificationTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
   const { isSignedIn } = useAuth()
   const { user } = useUser()
@@ -58,20 +54,6 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
     }, 150) // Small delay to allow mouse to move to dropdown
   }
 
-  const handleNotificationMouseEnter = () => {
-    if (notificationTimeoutRef.current) {
-      clearTimeout(notificationTimeoutRef.current)
-      notificationTimeoutRef.current = null
-    }
-    setNotificationsOpen(true)
-  }
-
-  const handleNotificationMouseLeave = () => {
-    notificationTimeoutRef.current = setTimeout(() => {
-      setNotificationsOpen(false)
-    }, 150)
-  }
-
   useEffect(() => {
     const updatePosition = () => {
       if (solutionsOpen && buttonRef.current) {
@@ -81,18 +63,11 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
           left: rect.left
         })
       }
-      if (notificationsOpen && notificationRef.current) {
-        const rect = notificationRef.current.getBoundingClientRect()
-        setNotificationPosition({
-          top: rect.bottom + 8,
-          left: rect.right - 320 // Align dropdown to right edge
-        })
-      }
     }
 
     updatePosition()
 
-    if (solutionsOpen || notificationsOpen) {
+    if (solutionsOpen) {
       window.addEventListener('scroll', updatePosition, { passive: true })
       window.addEventListener('resize', updatePosition, { passive: true })
       
@@ -101,7 +76,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
         window.removeEventListener('resize', updatePosition)
       }
     }
-  }, [solutionsOpen, notificationsOpen])
+  }, [solutionsOpen])
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -109,106 +84,13 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current)
       }
-      if (notificationTimeoutRef.current) {
-        clearTimeout(notificationTimeoutRef.current)
-      }
     }
   }, [])
 
   const isPremiumUser = hasPaidSubscription()
   
-  // State for notifications
-  const [notifications, setNotifications] = useState<any[]>([])
-  const [unreadCount, setUnreadCount] = useState(0)
-  
-  // Fetch notifications for premium users
-  useEffect(() => {
-    if (isPremiumUser && isSignedIn) {
-      fetchNotifications()
-      fetchUnreadCount()
-    }
-  }, [isPremiumUser, isSignedIn])
-
-  const fetchNotifications = async () => {
-    try {
-      const response = await fetch('/api/notifications')
-      if (response.ok) {
-        const data = await response.json()
-        const formattedNotifications = data.map((notification: any) => ({
-          id: notification.id,
-          type: notification.type,
-          title: notification.title,
-          message: notification.message,
-          time: formatRelativeTime(notification.created_at),
-          unread: !notification.is_read,
-          icon: getNotificationIcon(notification.type)
-        }))
-        setNotifications(formattedNotifications)
-      }
-    } catch (error) {
-      console.error('Error fetching notifications:', error)
-    }
-  }
-
-  const fetchUnreadCount = async () => {
-    try {
-      const response = await fetch('/api/notifications/count')
-      if (response.ok) {
-        const data = await response.json()
-        setUnreadCount(data.count)
-      }
-    } catch (error) {
-      console.error('Error fetching unread count:', error)
-    }
-  }
-
-  const getNotificationIcon = (type: string) => {
-    switch (type) {
-      case 'trend':
-        return <TrendingUp className="w-4 h-4" />
-      case 'community':
-        return <Users className="w-4 h-4" />
-      case 'segment':
-        return <Target className="w-4 h-4" />
-      default:
-        return <Zap className="w-4 h-4" />
-    }
-  }
-
-  const formatRelativeTime = (dateString: string) => {
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-    
-    if (diffInHours < 1) return 'Just now'
-    if (diffInHours < 24) return `${diffInHours} hours ago`
-    
-    const diffInDays = Math.floor(diffInHours / 24)
-    if (diffInDays === 1) return '1 day ago'
-    if (diffInDays < 7) return `${diffInDays} days ago`
-    
-    return date.toLocaleDateString()
-  }
-
-  const handleNotificationClick = async (notificationId: number, isUnread: boolean) => {
-    if (isUnread) {
-      try {
-        await fetch('/api/notifications/mark-read', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ notificationId })
-        })
-        
-        // Update local state
-        setNotifications(prev => prev.map(n => 
-          n.id === notificationId ? { ...n, unread: false } : n
-        ))
-        setUnreadCount(prev => Math.max(0, prev - 1))
-      } catch (error) {
-        console.error('Error marking notification as read:', error)
-      }
-    }
-  }
+  // Simple notification count for now
+  const unreadCount = 2
   
   const solutions = [
     {
@@ -386,30 +268,29 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                     )}
                     
                     <UserButton 
-                      appearance={{
-                        elements: {
-                          avatarBox: "w-10 h-10",
-                          userButtonPopoverCard: "bg-primary-800 border-primary-600",
-                          userButtonPopoverActionButton: "text-primary-200 hover:bg-primary-700"
-                        }
-                      }}
-                    >
-                      <UserButton.MenuItems>
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10",
+                        userButtonPopoverCard: "bg-primary-800 border-primary-600",
+                        userButtonPopoverActionButton: "text-primary-200 hover:bg-primary-700"
+                      }
+                    }}
+                  >
+                    <UserButton.MenuItems>
+                      <UserButton.Action 
+                        label={`Plan: ${subscriptionAccess?.displayName || 'Free'}`}
+                        labelIcon={<Crown size={16} />}
+                        onClick={() => {}}
+                      />
+                      {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && (
                         <UserButton.Action 
-                          label={`Plan: ${subscriptionAccess?.displayName || 'Free'}`}
-                          labelIcon={<Crown size={16} />}
-                          onClick={() => {}}
+                          label="Upgrade Account"
+                          labelIcon={<ArrowUpRight size={16} />}
+                          onClick={() => router.push('/pricing')}
                         />
-                        {subscriptionAccess && !subscriptionAccess.hasAdvancedFeatures && (
-                          <UserButton.Action 
-                            label="Upgrade Account"
-                            labelIcon={<ArrowUpRight size={16} />}
-                            onClick={() => router.push('/pricing')}
-                          />
-                        )}
-                      </UserButton.MenuItems>
-                    </UserButton>
-                  </div>
+                      )}
+                    </UserButton.MenuItems>
+                  </UserButton>
                 </div>
               )}
             </motion.div>
@@ -512,94 +393,6 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                 </AnimatePresence>,
                 document.body
               )}
-
-              {/* Notification Dropdown Portal */}
-              {typeof window !== 'undefined' && createPortal(
-                <AnimatePresence>
-                  {notificationsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="fixed w-80 bg-primary-800/95 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-[9999]"
-                      style={{ 
-                        top: notificationPosition.top,
-                        left: notificationPosition.left
-                      }}
-                      onMouseEnter={handleNotificationMouseEnter}
-                      onMouseLeave={handleNotificationMouseLeave}
-                    >
-                      <div className="p-4">
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="font-medium text-primary-100">Notifications</h3>
-                          {unreadCount > 0 && (
-                            <span className="text-xs text-primary-400">
-                              {unreadCount} unread
-                            </span>
-                          )}
-                        </div>
-                        
-                        {notifications.length > 0 ? (
-                          <div className="space-y-3 max-h-96 overflow-y-auto">
-                            {notifications.map((notification) => (
-                              <div 
-                                key={notification.id} 
-                                className={`p-3 rounded-lg border transition-colors hover:bg-white/5 cursor-pointer ${
-                                  notification.unread 
-                                    ? 'bg-accent-500/10 border-accent-500/20' 
-                                    : 'bg-primary-700/50 border-primary-600/50'
-                                }`}
-                                onClick={() => handleNotificationClick(notification.id, notification.unread)}
-                              >
-                                <div className="flex items-start space-x-3">
-                                  <div className={`p-1.5 rounded-full ${
-                                    notification.type === 'trend' ? 'bg-blue-500/20 text-blue-400' :
-                                    notification.type === 'community' ? 'bg-green-500/20 text-green-400' :
-                                    notification.type === 'segment' ? 'bg-purple-500/20 text-purple-400' :
-                                    'bg-orange-500/20 text-orange-400'
-                                  }`}>
-                                    {notification.icon}
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <div className="flex items-center justify-between mb-1">
-                                      <h4 className="font-medium text-primary-100 text-sm truncate">
-                                        {notification.title}
-                                      </h4>
-                                      {notification.unread && (
-                                        <div className="w-2 h-2 bg-brand-500 rounded-full flex-shrink-0 ml-2" />
-                                      )}
-                                    </div>
-                                    <p className="text-sm text-primary-300 leading-relaxed mb-2">
-                                      {notification.message}
-                                    </p>
-                                    <span className="text-xs text-primary-400">
-                                      {notification.time}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-center py-6">
-                            <Bell className="w-8 h-8 text-primary-400 mx-auto mb-2 opacity-50" />
-                            <p className="text-sm text-primary-400">No notifications</p>
-                          </div>
-                        )}
-                        
-                        {notifications.length > 0 && (
-                          <div className="mt-4 pt-3 border-t border-white/10">
-                            <button className="w-full text-center text-sm text-accent-400 hover:text-accent-300 transition-colors">
-                              View All Notifications
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>,
-                document.body
-              )}
               
               {!isPremiumUser && (
                 <>
@@ -611,21 +404,14 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                 <div className="flex items-center space-x-3">
                   {/* Notification Bell for Paid Users */}
                   {isPremiumUser && (
-                    <div className="relative"
-                         onMouseEnter={handleNotificationMouseEnter}
-                         onMouseLeave={handleNotificationMouseLeave}>
-                      <button 
-                        ref={notificationRef}
-                        className="relative p-2 text-primary-300 hover:text-accent-300 transition-colors"
-                      >
-                        <Bell className="w-5 h-5" />
-                        {unreadCount > 0 && (
-                          <span className="absolute -top-1 -right-1 bg-brand-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
-                            {unreadCount}
-                          </span>
-                        )}
-                      </button>
-                    </div>
+                    <button className="relative p-2 text-primary-300 hover:text-accent-300 transition-colors">
+                      <Bell className="w-5 h-5" />
+                      {unreadCount > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-brand-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                          {unreadCount}
+                        </span>
+                      )}
+                    </button>
                   )}
                   
                   <UserButton 
@@ -653,6 +439,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                     )}
                   </UserButton.MenuItems>
                 </UserButton>
+                </div>
               ) : (
                 <div className="flex items-center bg-white/5 rounded-lg border border-white/10 overflow-hidden">
                   <Link href="/sign-in">
