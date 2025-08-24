@@ -117,47 +117,98 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
 
   const isPremiumUser = hasPaidSubscription()
   
-  // Sample notifications data for paid users
-  const notifications = isPremiumUser ? [
-    {
-      id: 1,
-      type: 'trend',
-      title: 'New Emerging Trend Detected',
-      message: '"Sustainable Tech" gaining momentum in micro-communities',
-      time: '2 hours ago',
-      unread: true,
-      icon: <TrendingUp className="w-4 h-4" />
-    },
-    {
-      id: 2,
-      type: 'community',
-      title: 'New Micro-Community Discovered',
-      message: 'EcoTech Entrepreneurs (2.3k members) matches your segments',
-      time: '5 hours ago',
-      unread: true,
-      icon: <Users className="w-4 h-4" />
-    },
-    {
-      id: 3,
-      type: 'segment',
-      title: 'Segment Update Available',
-      message: 'Creative Professionals segment expanded with new data',
-      time: '1 day ago',
-      unread: false,
-      icon: <Target className="w-4 h-4" />
-    },
-    {
-      id: 4,
-      type: 'system',
-      title: 'System Enhancement',
-      message: 'AI persona generation now includes cultural insights',
-      time: '2 days ago',
-      unread: false,
-      icon: <Zap className="w-4 h-4" />
-    }
-  ] : []
+  // State for notifications
+  const [notifications, setNotifications] = useState<any[]>([])
+  const [unreadCount, setUnreadCount] = useState(0)
   
-  const unreadCount = notifications.filter(n => n.unread).length
+  // Fetch notifications for premium users
+  useEffect(() => {
+    if (isPremiumUser && isSignedIn) {
+      fetchNotifications()
+      fetchUnreadCount()
+    }
+  }, [isPremiumUser, isSignedIn])
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch('/api/notifications')
+      if (response.ok) {
+        const data = await response.json()
+        const formattedNotifications = data.map((notification: any) => ({
+          id: notification.id,
+          type: notification.type,
+          title: notification.title,
+          message: notification.message,
+          time: formatRelativeTime(notification.created_at),
+          unread: !notification.is_read,
+          icon: getNotificationIcon(notification.type)
+        }))
+        setNotifications(formattedNotifications)
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error)
+    }
+  }
+
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await fetch('/api/notifications/count')
+      if (response.ok) {
+        const data = await response.json()
+        setUnreadCount(data.count)
+      }
+    } catch (error) {
+      console.error('Error fetching unread count:', error)
+    }
+  }
+
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case 'trend':
+        return <TrendingUp className="w-4 h-4" />
+      case 'community':
+        return <Users className="w-4 h-4" />
+      case 'segment':
+        return <Target className="w-4 h-4" />
+      default:
+        return <Zap className="w-4 h-4" />
+    }
+  }
+
+  const formatRelativeTime = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+    
+    if (diffInHours < 1) return 'Just now'
+    if (diffInHours < 24) return `${diffInHours} hours ago`
+    
+    const diffInDays = Math.floor(diffInHours / 24)
+    if (diffInDays === 1) return '1 day ago'
+    if (diffInDays < 7) return `${diffInDays} days ago`
+    
+    return date.toLocaleDateString()
+  }
+
+  const handleNotificationClick = async (notificationId: number, isUnread: boolean) => {
+    if (isUnread) {
+      try {
+        await fetch('/api/notifications/mark-read', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notificationId })
+        })
+        
+        // Update local state
+        setNotifications(prev => prev.map(n => 
+          n.id === notificationId ? { ...n, unread: false } : n
+        ))
+        setUnreadCount(prev => Math.max(0, prev - 1))
+      } catch (error) {
+        console.error('Error marking notification as read:', error)
+      }
+    }
+  }
   
   const solutions = [
     {
@@ -493,11 +544,12 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                             {notifications.map((notification) => (
                               <div 
                                 key={notification.id} 
-                                className={`p-3 rounded-lg border transition-colors hover:bg-white/5 ${
+                                className={`p-3 rounded-lg border transition-colors hover:bg-white/5 cursor-pointer ${
                                   notification.unread 
                                     ? 'bg-accent-500/10 border-accent-500/20' 
                                     : 'bg-primary-700/50 border-primary-600/50'
                                 }`}
+                                onClick={() => handleNotificationClick(notification.id, notification.unread)}
                               >
                                 <div className="flex items-start space-x-3">
                                   <div className={`p-1.5 rounded-full ${

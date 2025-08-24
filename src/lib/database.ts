@@ -77,6 +77,29 @@ export interface CommunityOverview {
   brand_affinities: number
 }
 
+export interface Notification {
+  id: number
+  title: string
+  message: string
+  type: 'trend' | 'community' | 'segment' | 'system'
+  target_audience: 'all' | 'free' | 'community_explorer' | 'cultural_analyst' | 'enterprise'
+  priority: 'low' | 'medium' | 'high'
+  is_active: boolean
+  created_by: string // Admin user ID
+  created_at: string
+  expires_at?: string
+  metadata?: any // JSON parsed - additional context data
+}
+
+export interface UserNotification {
+  id: number
+  notification_id: number
+  user_id: string
+  is_read: boolean
+  read_at?: string
+  created_at: string
+}
+
 export interface SegmentCommunityMatch {
   segment_name: string
   community_name: string
@@ -354,7 +377,160 @@ class CommunityDatabase {
     `)
   }
 
+  // Notification queries
+  async createNotification(notification: Omit<Notification, 'id' | 'created_at'>): Promise<number> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    const result = await this.db.run(`
+      INSERT INTO notifications 
+      (title, message, type, target_audience, priority, is_active, created_by, expires_at, metadata)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `, [
+      notification.title,
+      notification.message,
+      notification.type,
+      notification.target_audience,
+      notification.priority,
+      notification.is_active,
+      notification.created_by,
+      notification.expires_at,
+      notification.metadata ? JSON.stringify(notification.metadata) : null
+    ])
+
+    return result.lastID!
+  }
+
+  async getNotificationsForUser(userId: string, userTier: string): Promise<(Notification & { is_read: boolean })[]> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    // Map user tiers to target audiences
+    const tierMapping: Record<string, string> = {
+      'Free': 'free',
+      'Community Explorer': 'community_explorer', 
+      'Cultural Analyst': 'cultural_analyst',
+      'Enterprise': 'enterprise'
+    }
+    
+    const targetAudience = tierMapping[userTier] || 'free'
+    
+    const notifications = await this.db.all(`
+      SELECT 
+        n.*,
+        COALESCE(un.is_read, 0) as is_read,
+        un.read_at
+      FROM notifications n
+      LEFT JOIN user_notifications un ON n.id = un.notification_id AND un.user_id = ?
+      WHERE n.is_active = 1 
+        AND (n.target_audience = 'all' OR n.target_audience = ?)
+        AND (n.expires_at IS NULL OR n.expires_at > datetime('now'))
+      ORDER BY n.priority DESC, n.created_at DESC
+    `, [userId, targetAudience])
+
+    return notifications.map(this.parseNotificationJson)
+  }
+
+  async markNotificationAsRead(userId: string, notificationId: number): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    await this.db.run(`
+      INSERT OR REPLACE INTO user_notifications 
+      (notification_id, user_id, is_read, read_at)
+      VALUES (?, ?, 1, datetime('now'))
+    `, [notificationId, userId])
+  }
+
+  async markAllNotificationsAsRead(userId: string): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    await this.db.run(`
+      INSERT OR REPLACE INTO user_notifications 
+      (notification_id, user_id, is_read, read_at)
+      SELECT n.id, ?, 1, datetime('now')
+      FROM notifications n
+      LEFT JOIN user_notifications un ON n.id = un.notification_id AND un.user_id = ?
+      WHERE n.is_active = 1 
+        AND (n.expires_at IS NULL OR n.expires_at > datetime('now'))
+        AND (un.is_read IS NULL OR un.is_read = 0)
+    `, [userId, userId])
+  }
+
+  async getUnreadNotificationCount(userId: string, userTier: string): Promise<number> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    const tierMapping: Record<string, string> = {
+      'Free': 'free',
+      'Community Explorer': 'community_explorer', 
+      'Cultural Analyst': 'cultural_analyst',
+      'Enterprise': 'enterprise'
+    }
+    
+    const targetAudience = tierMapping[userTier] || 'free'
+    
+    const result = await this.db.get(`
+      SELECT COUNT(*) as count
+      FROM notifications n
+      LEFT JOIN user_notifications un ON n.id = un.notification_id AND un.user_id = ?
+      WHERE n.is_active = 1 
+        AND (n.target_audience = 'all' OR n.target_audience = ?)
+        AND (n.expires_at IS NULL OR n.expires_at > datetime('now'))
+        AND (un.is_read IS NULL OR un.is_read = 0)
+    `, [userId, targetAudience])
+
+    return result?.count || 0
+  }
+
+  // Admin notification management
+  async getAllNotifications(): Promise<Notification[]> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    const notifications = await this.db.all(`
+      SELECT * FROM notifications 
+      ORDER BY created_at DESC
+    `)
+
+    return notifications.map(this.parseNotificationJson)
+  }
+
+  async updateNotification(id: number, updates: Partial<Notification>): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    const setClause = Object.keys(updates)
+      .filter(key => key !== 'id' && key !== 'created_at')
+      .map(key => `${key} = ?`)
+      .join(', ')
+    
+    const values = Object.entries(updates)
+      .filter(([key]) => key !== 'id' && key !== 'created_at')
+      .map(([key, value]) => {
+        if (key === 'metadata' && value) {
+          return JSON.stringify(value)
+        }
+        return value
+      })
+    
+    await this.db.run(`
+      UPDATE notifications 
+      SET ${setClause}
+      WHERE id = ?
+    `, [...values, id])
+  }
+
+  async deleteNotification(id: number): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized')
+    
+    await this.db.run('DELETE FROM notifications WHERE id = ?', [id])
+    await this.db.run('DELETE FROM user_notifications WHERE notification_id = ?', [id])
+  }
+
   // Helper methods for JSON parsing
+  private parseNotificationJson(notification: any): Notification & { is_read?: boolean } {
+    return {
+      ...notification,
+      metadata: notification.metadata ? JSON.parse(notification.metadata) : null,
+      is_read: Boolean(notification.is_read)
+    }
+  }
+
   private parseCommunityJson(community: any): Community {
     return {
       ...community,
