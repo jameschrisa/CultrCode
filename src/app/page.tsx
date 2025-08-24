@@ -711,7 +711,7 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 gap-6">
                     {resources.map((resource, index) => (
                       <motion.div
                         key={index}
@@ -720,53 +720,54 @@ export default function Home() {
                         transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
                       >
                         <Link href={resource.href}>
-                          <div className="glass-card rounded-2xl overflow-hidden group hover:border-accent-500/50 transition-all duration-300 cursor-pointer h-full flex flex-col">
-                            {/* Image Thumbnail */}
-                            <div className="relative h-48 overflow-hidden">
-                              <Image
-                                src={resource.image}
-                                alt={resource.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent" />
-                              
-                              {/* Category and Read Time Pills */}
-                              <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                                <span className="px-3 py-1 bg-brand-500/90 backdrop-blur-sm text-brand-100 rounded-full text-xs font-medium">
-                                  {resource.category}
-                                </span>
-                                <span className="px-3 py-1 bg-primary-900/90 backdrop-blur-sm text-primary-300 rounded-full text-xs font-medium">
-                                  {resource.readTime}
-                                </span>
-                              </div>
-                            </div>
-                            
-                            {/* Content */}
-                            <div className="p-6 flex flex-col flex-grow">
-                              <h3 className="text-lg font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors leading-tight">
-                                {resource.title}
-                              </h3>
-                              
-                              <p className="text-primary-300 leading-relaxed mb-4 text-sm flex-grow">
-                                {resource.description}
-                              </p>
-                              
-                              {/* Key Topics */}
-                              <div className="mb-6">
-                                <h4 className="text-xs font-semibold text-primary-200 mb-3">Key Topics:</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {resource.keyTopics.map((topic, i) => (
-                                    <span key={i} className="px-2 py-1 bg-primary-700/50 text-primary-300 rounded-full text-xs">
-                                      {topic}
-                                    </span>
-                                  ))}
+                          <div className="glass-card rounded-xl overflow-hidden group hover:border-accent-500/50 transition-all duration-300 cursor-pointer">
+                            <div className="flex flex-col md:flex-row">
+                              {/* Left side - Image */}
+                              <div className="relative w-full md:w-80 h-48 md:h-auto overflow-hidden flex-shrink-0">
+                                <Image
+                                  src={resource.image}
+                                  alt={resource.title}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                
+                                {/* Category and Read Time Pills on image */}
+                                <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                                  <span className="px-3 py-1 bg-brand-500/90 backdrop-blur-sm text-brand-100 rounded-full text-xs font-medium">
+                                    {resource.category}
+                                  </span>
+                                  <span className="px-3 py-1 bg-primary-900/90 backdrop-blur-sm text-primary-300 rounded-full text-xs font-medium">
+                                    {resource.readTime}
+                                  </span>
                                 </div>
                               </div>
                               
-                              {/* CTA Button */}
-                              <div className="mt-auto">
-                                <div className="flex items-center justify-center w-full py-3 px-4 bg-accent-500/20 hover:bg-accent-500/30 rounded-lg text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-all duration-300 border border-accent-500/30 hover:border-accent-500/50">
+                              {/* Right side - Content */}
+                              <div className="flex-1 p-6 flex flex-col justify-between">
+                                <div>
+                                  <h3 className="text-xl font-bold text-primary-50 mb-3 group-hover:text-accent-300 transition-colors">
+                                    {resource.title}
+                                  </h3>
+                                  
+                                  <p className="text-primary-300 leading-relaxed mb-4 text-sm">
+                                    {resource.description}
+                                  </p>
+                                  
+                                  {/* Key Topics */}
+                                  <div className="mb-6">
+                                    <h4 className="text-xs font-semibold text-primary-200 mb-2">Key Topics:</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                      {resource.keyTopics.map((topic, i) => (
+                                        <span key={i} className="px-3 py-1 bg-primary-700/50 text-primary-300 rounded-full text-xs">
+                                          {topic}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                {/* CTA Button */}
+                                <div className="flex items-center text-accent-400 text-sm font-medium group-hover:text-accent-300 transition-colors">
                                   <BookOpen className="w-4 h-4 mr-2" />
                                   Read Full Guide
                                 </div>
