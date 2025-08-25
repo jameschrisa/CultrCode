@@ -523,7 +523,7 @@ class CommunityDatabase {
   }
 
   // Helper methods for JSON parsing
-  private parseNotificationJson(notification: any): Notification & { is_read?: boolean } {
+  private parseNotificationJson(notification: any): Notification & { is_read: boolean } {
     return {
       ...notification,
       metadata: notification.metadata ? JSON.parse(notification.metadata) : null,
