@@ -193,28 +193,28 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
       name: 'CultrCode Segments',
       description: '48 precision audience segments for creator brands',
       icon: <Target className="w-5 h-5" />,
-      href: isPremiumUser ? '/segments' : '/solutions',
+      href: isPremiumUser ? '/segments' : '/solutions/segmentation',
       badge: isPremiumUser ? 'Active' : 'Free'
     },
     {
       name: 'Micro-Communities',
       description: 'Discover 135+ niche communities across 8 categories',
       icon: <Users className="w-5 h-5" />,
-      href: isPremiumUser ? '/communities' : '/solutions',
+      href: isPremiumUser ? '/communities' : '/solutions/communities',
       badge: isPremiumUser ? 'Active' : 'Premium'
     },
     {
       name: 'Generated Personas',
       description: 'AI-powered psychographic personas from your audience data',
       icon: <Star className="w-5 h-5" />,
-      href: isPremiumUser ? '/personas' : '/solutions',
+      href: isPremiumUser ? '/personas' : '/solutions/personas',
       badge: isPremiumUser ? 'Active' : 'Premium'
     },
     {
       name: 'Emerging Trends Tracker',
       description: 'Real-time cultural movement and trend intelligence',
       icon: <TrendingUp className="w-5 h-5" />,
-      href: isPremiumUser ? '/trends' : '/solutions',
+      href: isPremiumUser ? '/trends' : '/solutions/trends',
       badge: isPremiumUser ? 'Active' : 'Premium'
     }
   ]
@@ -294,12 +294,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               {/* Mobile Discover and Dashboard for Premium Users */}
               {isPremiumUser && (
                 <>
-                  <Link href="/" onClick={(e) => {
-                    e.preventDefault()
-                    sessionStorage.setItem('stay_on_main', 'true')
-                    router.push('/')
-                    setMobileMenuOpen(false)
-                  }}>
+                  <Link href="/solutions" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="ghost" size="sm" className="w-full justify-start">
                       Discover
                     </Button>
@@ -417,11 +412,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               {/* Discover and Dashboard Links for Premium Users */}
               {isPremiumUser && (
                 <>
-                  <Link href="/" onClick={(e) => {
-                    e.preventDefault()
-                    sessionStorage.setItem('stay_on_main', 'true')
-                    router.push('/')
-                  }} className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
+                  <Link href="/solutions" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
                     Discover
                   </Link>
                   <Link href="/dashboard" className="text-primary-300 hover:text-accent-300 transition-colors font-medium">
