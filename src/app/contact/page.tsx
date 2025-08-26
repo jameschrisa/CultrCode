@@ -309,7 +309,7 @@ export default function ContactPage() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-accent-500 hover:bg-accent-600"
+                      className="w-full shadow-xl hover:shadow-accent-500/30"
                       size="lg"
                     >
                       {isSubmitting ? (

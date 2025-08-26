@@ -59,7 +59,7 @@ export default function PaymentCancelled() {
                   
                   <div className="grid gap-3">
                     <Link href="/pricing">
-                      <Button className="w-full bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700">
+                      <Button className="w-full shadow-xl hover:shadow-accent-500/30">
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Try Again
                       </Button>

@@ -261,7 +261,7 @@ export default function InfluencersPage() {
                   </Button>
                 </Link>
               )}
-              <Button variant="outline" size="xl" className="px-8">
+              <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo
               </Button>
@@ -499,20 +499,20 @@ export default function InfluencersPage() {
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   {canAccessPremium() ? (
-                    <Button size="xl" className="px-12">
+                    <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
                       <Star className="w-5 h-5 mr-2" />
                       Explore All Creators
                     </Button>
                   ) : (
                     <Link href="/pricing">
-                      <Button size="xl" className="px-12">
+                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
                         <Star className="w-5 h-5 mr-2" />
                         Upgrade to Premium
                       </Button>
                     </Link>
                   )}
                   <Link href="/how-it-works">
-                    <Button variant="outline" size="xl" className="px-12">
+                    <Button variant="outline" size="xl" className="px-12 border-2 border-white text-white hover:bg-white hover:text-primary-900 transition-all duration-300 rounded-[10px]">
                       Learn More
                     </Button>
                   </Link>

@@ -111,7 +111,7 @@ function PaymentSuccessContent() {
                   </h3>
                   <div className="grid gap-4">
                     <Link href="/dashboard">
-                      <Button className="w-full bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700">
+                      <Button className="w-full shadow-xl hover:shadow-accent-500/30">
                         <ArrowRight className="w-4 h-4 mr-2" />
                         Explore Your Dashboard
                       </Button>

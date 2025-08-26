@@ -63,7 +63,7 @@ export function Footer() {
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 bg-primary-800/50 border border-primary-600 rounded-lg text-primary-200 placeholder-primary-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
               />
-              <Button className="px-6 bg-accent-500 hover:bg-accent-600">
+              <Button className="px-6 shadow-xl hover:shadow-accent-500/30">
                 <span className="hidden sm:inline">Subscribe</span>
                 <ArrowRight className="w-4 h-4 sm:ml-2" />
               </Button>
