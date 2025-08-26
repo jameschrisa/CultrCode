@@ -208,8 +208,8 @@ export default function HowItWorks() {
               <div className="relative">
                 <div className="relative w-full max-w-md mx-auto lg:max-w-lg aspect-[4/3] rounded-2xl shadow-2xl overflow-hidden">
                   <SimpleImage
-                    src="/images/hero.png"
-                    alt="Professional woman working on laptop with confidence"
+                    src="/images/group 7.png"
+                    alt="Team analyzing cultural trends and audience data"
                     className="w-full h-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-brand-500/20 rounded-2xl" />

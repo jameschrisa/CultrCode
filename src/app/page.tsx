@@ -285,8 +285,8 @@ export default function Home() {
                     <div className="relative">
                       <div className="relative w-full max-w-lg mx-auto aspect-[4/3] rounded-2xl shadow-2xl overflow-hidden">
                         <Image
-                          src="/images/hero.png"
-                          alt="Professional woman working on laptop with confidence"
+                          src="/images/group 11.png"
+                          alt="Professional team collaborating on audience intelligence"
                           width={800}
                           height={600}
                           priority
