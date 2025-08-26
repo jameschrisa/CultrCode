@@ -9,9 +9,25 @@ import { Header } from '@/components/Header'
 import { useAuth, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar'
+import { getSubscriptionAccess } from '@/lib/subscription'
+import { TrendHuntersRegistry } from '@/components/TrendHuntersRegistry'
 
 export default function TrendsPage() {
-  const { isSignedIn } = useAuth(); const { user } = useUser(); const canAccessPremium = () => { if (!user) return false; const publicMetadata = user.publicMetadata as any; const subscriptionTier = publicMetadata?.subscriptionTier || 'free'; return subscriptionTier === 'premium' || subscriptionTier === 'enterprise'; }
+  const { isSignedIn } = useAuth()
+  const { user } = useUser()
+  
+  // Get subscription access information
+  const subscriptionAccess = user ? getSubscriptionAccess(user) : null
+  
+  // Check if user can access premium features (curator level or higher)
+  const canAccessPremium = () => {
+    return subscriptionAccess?.hasAdvancedFeatures || false
+  }
+  
+  // Check if user has curator level access for trend hunters
+  const canAccessTrendHunters = () => {
+    return subscriptionAccess?.canAccessTrendAnalysis || false
+  }
 
   const trendCategories = [
     {
@@ -450,6 +466,15 @@ export default function TrendsPage() {
           </div>
         </div>
       </section>
+
+      {/* Trend Hunters Registry Section - Curator Level */}
+      {canAccessTrendHunters() && (
+        <section className="relative z-10 py-20 bg-gradient-to-br from-primary-900/30 to-primary-800/30">
+          <div className="max-w-7xl mx-auto px-4">
+            <TrendHuntersRegistry />
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="relative z-10 py-20">
