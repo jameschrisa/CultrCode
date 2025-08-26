@@ -302,7 +302,7 @@ export function BasicStrategyReport({ segmentMatch, userInputs, onClose }: Basic
                 </p>
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700"
+                  className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 rounded-[10px]"
                 >
                   Upgrade to Premium Report
                   <ArrowRight className="w-5 h-5 ml-2" />

@@ -125,7 +125,7 @@ export function MicrocommunityExploration({ className }: MicrocommunityExplorati
               Explore 225+ microcommunities with detailed insights, growth data, and influencer connections. 
               Available for Premium subscribers.
             </p>
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" className="rounded-[10px]">
               Upgrade to Premium
             </Button>
           </CardContent>

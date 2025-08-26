@@ -179,14 +179,14 @@ export default function TrendsPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {canAccessPremium() ? (
                 <Link href="/explore">
-                  <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
+                  <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30 rounded-[10px]">
                     <TrendingUp className="w-5 h-5 mr-2" />
                     Explore Live Trends
                   </Button>
                 </Link>
               ) : (
                 <Link href="/pricing">
-                  <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
+                  <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30 rounded-[10px]">
                     <Star className="w-5 h-5 mr-2" />
                     Unlock Trend Intelligence
                   </Button>
@@ -473,14 +473,14 @@ export default function TrendsPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   {canAccessPremium() ? (
                     <Link href="/explore">
-                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
+                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30 rounded-[10px]">
                         <TrendingUp className="w-5 h-5 mr-2" />
                         Explore Live Trends
                       </Button>
                     </Link>
                   ) : (
                     <Link href="/pricing">
-                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
+                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30 rounded-[10px]">
                         <Star className="w-5 h-5 mr-2" />
                         Upgrade to Premium
                       </Button>

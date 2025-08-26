@@ -402,7 +402,7 @@ export function SegmentResults({ matches, userInputs, onSegmentSelect }: Segment
               <Button 
                 variant="primary" 
                 size="xl" 
-                className="px-12"
+                className="px-12 rounded-[10px]"
                 onClick={() => window.location.href = '/pricing'}
               >
                 <Zap className="w-5 h-5 mr-2" />

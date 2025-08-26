@@ -505,7 +505,7 @@ export default function InfluencersPage() {
                     </Button>
                   ) : (
                     <Link href="/pricing">
-                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30">
+                      <Button size="xl" className="px-12 shadow-xl hover:shadow-accent-500/30 rounded-[10px]">
                         <Star className="w-5 h-5 mr-2" />
                         Upgrade to Premium
                       </Button>
