@@ -65,11 +65,11 @@ export function TrendHuntersRegistry({ className }: TrendHuntersRegistryProps) {
       {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-primary-50 mb-4">
-          Global Trend Hunters Registry
+          🔍 Global Trend Intelligence Network
         </h2>
         <p className="text-lg text-primary-300 max-w-3xl mx-auto">
-          Connect with verified trend hunters and thought leaders from around the world. 
-          Access exclusive insights from industry experts across fashion, technology, health, and more.
+          Connect with verified cultural analysts, trend forecasters, and thought leaders who track emerging movements. 
+          Access insights from expert trend watchers across fashion, technology, health, and more industries.
         </p>
         
         <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-primary-400">

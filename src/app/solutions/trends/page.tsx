@@ -89,34 +89,34 @@ export default function TrendsPage() {
 
   const successStories = [
     {
-      brand: "Eco Threads Co.",
+      brand: "CulturScope Blog",
       founder: "Lisa Chen",
       trend: "Solarpunk Movement",
       timing: "8 months early",
-      result: "First to market with solarpunk fashion line, captured 60% of early adopters",
-      revenue: "$2.3M in first year",
+      result: "First trend analyst to identify solarpunk aesthetic emerging from climate anxiety, published viral deep-dive",
+      revenue: "2.3M blog views",
       image: "/images/testimonials/elena-wellness.jpg",
-      initials: "EW"
+      initials: "LC"
     },
     {
-      brand: "Mindful Tech",
+      brand: "TechCulture Weekly",
       founder: "Alex Kumar",
       trend: "Digital Minimalism 2.0",
       timing: "5 months early",
-      result: "Launched productivity app targeting trend, became category leader",
-      revenue: "10K+ users in 3 months",
+      result: "Spotted the shift towards intentional technology use, newsletter grew from tracking this trend",
+      revenue: "50K+ subscribers",
       image: "/images/testimonials/david-tech.jpg",
-      initials: "DT"
+      initials: "AK"
     },
     {
-      brand: "Slow Beauty",
+      brand: "Wellness Waves",
       founder: "Maria Rodriguez",
-      trend: "Anti-Hustle Wellness",
+      trend: "Anti-Hustle Culture",
       timing: "6 months early",
-      result: "Positioned as the anti-rush skincare brand, 300% year-over-year growth",
-      revenue: "500% ROI on marketing",
+      result: "Identified burnout backlash in wellness space, became go-to expert for slow living movement",
+      revenue: "1M+ social reach",
       image: "/images/testimonials/priya-research.jpg",
-      initials: "PR"
+      initials: "MR"
     }
   ]
 
@@ -411,7 +411,7 @@ export default function TrendsPage() {
         </div>
       </section>
 
-      {/* Success Stories */}
+      {/* Trend Watchers Spotlight */}
       <section className="relative z-10 py-20">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
@@ -421,10 +421,10 @@ export default function TrendsPage() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-primary-50 mb-6">
-              Brands That Rode the Wave Early
+              Trend Watchers Who Called It First
             </h2>
             <p className="text-xl text-primary-300 max-w-3xl mx-auto">
-              See how getting in early on cultural trends created massive competitive advantages for these creator brands.
+              Meet the cultural analysts and trend hunters who spotted major movements months before they hit mainstream—and the impact they created.
             </p>
           </motion.div>
 
@@ -452,7 +452,7 @@ export default function TrendsPage() {
                     </div>
                     <div className="space-y-3">
                       <div className="p-3 bg-accent-500/10 rounded-lg border border-accent-500/20">
-                        <div className="text-xs text-accent-400 font-medium mb-1">TREND SPOTTED</div>
+                        <div className="text-xs text-accent-400 font-medium mb-1">TREND PREDICTED</div>
                         <div className="text-sm font-medium text-primary-200">{story.trend}</div>
                         <div className="text-xs text-success-400 mt-1">{story.timing}</div>
                       </div>
