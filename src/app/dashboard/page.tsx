@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight, Brain } from 'lucide-react'
+import { BookmarkPlus, Calendar, Crown, Eye, Trash2, Star, Target, Users, TrendingUp, Sparkles, Activity, Bike, Gamepad2, Bot, Sprout, Footprints, Clock, Leaf, FlaskConical, Shirt, MapPin, Home, Pin, ArrowUpRight, Brain, BookOpen } from 'lucide-react'
 import { HiSparkles } from 'react-icons/hi'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/HeroCard'
 import { Button } from '@/components/ui/HeroButton'
@@ -667,7 +667,7 @@ function DashboardContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-12 mb-12"
+          className="mt-12 mb-8"
         >
           <Card className="glass-card hover:border-success-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.01] shadow-lg hover:shadow-success-500/10 border border-success-500/20"
                 onClick={() => window.location.href = '/trends'}>
@@ -762,6 +762,115 @@ function DashboardContent() {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-purple-400 mb-1">89%</div>
                   <div className="text-xs text-primary-400">Avg Growth</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Trend Blogs Directory Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mb-12"
+        >
+          <Card className="glass-card hover:border-purple-500/70 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:scale-[1.01] shadow-lg hover:shadow-purple-500/10 border border-purple-500/20"
+                onClick={() => window.location.href = '/trend-blogs'}>
+            <CardContent className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                    <BookOpen className="w-8 h-8 text-purple-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl lg:text-3xl font-bold text-primary-50 group-hover:text-purple-100 transition-colors duration-300">
+                      Trend Blogs Directory
+                    </h2>
+                    <p className="text-primary-300 text-lg">
+                      Expert insights from global trend hunters
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={(e) => {e.stopPropagation(); window.location.href = '/trend-blogs'}}
+                  className="group-hover:border-purple-400 group-hover:text-purple-300 group-hover:bg-purple-500/10 transition-all duration-300 rounded-xl hover:shadow-lg hover:shadow-purple-500/20"
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Browse Blogs
+                </Button>
+              </div>
+
+              {/* Featured Blogs Preview */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-brand-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-sm">SC</span>
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">CulturScope</h3>
+                  <div className="text-xs text-primary-400 mb-1">Fashion & Culture</div>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-purple-400 font-medium">45K</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">High Engagement</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-accent-500/20 text-accent-400 rounded-full">
+                    Featured
+                  </span>
+                </div>
+                
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-brand-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-sm">MR</span>
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">TechCulture</h3>
+                  <div className="text-xs text-primary-400 mb-1">Technology & Society</div>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-purple-400 font-medium">67K</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">High Engagement</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-accent-500/20 text-accent-400 rounded-full">
+                    Featured
+                  </span>
+                </div>
+                
+                <div className="text-center p-4 bg-primary-800/30 rounded-xl border border-primary-700/30">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-brand-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-white font-bold text-sm">EL</span>
+                  </div>
+                  <h3 className="font-bold text-primary-50 mb-1">Sustainable Futures</h3>
+                  <div className="text-xs text-primary-400 mb-1">Sustainability</div>
+                  <div className="flex items-center justify-center space-x-2 text-sm">
+                    <span className="text-purple-400 font-medium">31K</span>
+                    <span className="text-primary-400">•</span>
+                    <span className="text-success-400">High Engagement</span>
+                  </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-accent-500/20 text-accent-400 rounded-full">
+                    Featured
+                  </span>
+                </div>
+              </div>
+
+              {/* Overall Directory Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-primary-700/30">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-400 mb-1">6</div>
+                  <div className="text-xs text-primary-400">Expert Blogs</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-accent-400 mb-1">6</div>
+                  <div className="text-xs text-primary-400">Categories</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-brand-400 mb-1">300K+</div>
+                  <div className="text-xs text-primary-400">Total Subscribers</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-success-400 mb-1">4</div>
+                  <div className="text-xs text-primary-400">Featured</div>
                 </div>
               </div>
             </CardContent>
